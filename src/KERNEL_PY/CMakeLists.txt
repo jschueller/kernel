@@ -30,7 +30,7 @@ SET(salomepython_PYTHON
     batchmode_salome.py
     kernel_test.py
     salome_test.py
-    salome_kernel.py
+    salome_kernel_utils.py
     salome_study.py
     salome_iapp.py
     salome_ComponentGUI.py

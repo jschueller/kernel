@@ -119,7 +119,7 @@ extend_path(ROOT_PYTHONPACKAGE_NAME)
 # ==========================================================================
 #
 
-from salome_kernel import *
+from salome_kernel_utils import *
 from salome_study import *
 from salome_iapp import *
 import salome_study
@@ -225,7 +225,7 @@ def salome_init_without_session_common(path=None, embedded=False):
     orb=CORBA.ORB_init([''])
     import KernelModuleCatalog
     import SALOME_ModuleCatalog
-    from salome_kernel import list_of_catalogs_regarding_environement
+    from salome_kernel_utils import list_of_catalogs_regarding_environement
     modulcat = KernelModuleCatalog.myModuleCatalog( list_of_catalogs_regarding_environement() )
     #
     poa = orb.resolve_initial_references("RootPOA")

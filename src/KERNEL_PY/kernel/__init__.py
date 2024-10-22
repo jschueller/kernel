@@ -18,7 +18,7 @@
 # See http://www.salome-platform.org/ or email : webmaster.salome@opencascade.com
 #
 
-## \defgroup salome_kernel salome.kernel
+## \defgroup salome_kernel_utils salome.kernel
 #  \{ 
 #  \details Package containing the KERNEL python utilities
 #  \defgroup deprecation
