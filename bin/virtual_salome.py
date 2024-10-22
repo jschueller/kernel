@@ -31,8 +31,12 @@ Typical use::
 install module KERNEL in the current directory
 """
 
-import sys, os, optparse, shutil, glob, fnmatch
-
+import argparse
+import glob
+import os
+from pathlib import Path
+import shutil
+import sys
 
 py_version = 'python%s.%s' % (sys.version_info[0], sys.version_info[1])
 
@@ -90,7 +94,6 @@ __lib__dir__ = None
 def get_lib_dir():
     global __lib__dir__
     if __lib__dir__: return __lib__dir__
-    import platform
     __lib__dir__ = "lib"
     return __lib__dir__
 
@@ -130,15 +133,17 @@ def link_module(options):
       #incompatible python versions
       print("incompatible python versions : application has version %s and module %s has not" % (versio,module_dir))
       return
+    
+    site_path = os.path.join(get_lib_dir(), pyversio, 'site-packages')
 
     module_bin_dir=os.path.join(module_dir,'bin','salome')
     module_test_dir=os.path.join(module_dir,'bin','salome', 'test', options.module_name.lower())
     module_idl_dir=os.path.join(module_dir,'idl','salome')
     module_lib_dir=os.path.join(module_dir,get_lib_dir(),'salome')
     module_pvlib_dir=os.path.join(module_dir,get_lib_dir(),'paraview')
-    module_lib_py_dir=os.path.join(module_dir,get_lib_dir(),pyversio,'site-packages','salome')
-    module_lib_py_shared_dir=os.path.join(module_dir,get_lib_dir(),pyversio,
-                                          'site-packages','salome')
+    module_pth_py_file=os.path.join(module_dir,site_path,'salome_pth.py')
+    module_pth_file=os.path.join(module_dir,site_path,'salome.pth')
+    module_lib_py_dir=os.path.join(module_dir,site_path,'salome')
     module_share_dir=os.path.join(module_dir,'share','salome')
     module_doc_gui_dir=os.path.join(module_dir,'doc','salome','gui')
     module_doc_tui_dir=os.path.join(module_dir,'doc','salome','tui')
@@ -154,9 +159,9 @@ def link_module(options):
     idl_dir=os.path.join(home_dir,'idl','salome')
     lib_dir=os.path.join(home_dir,'lib','salome')
     pvlib_dir=os.path.join(home_dir,'lib','paraview')
-    lib_py_dir=os.path.join(home_dir,'lib',pyversio,'site-packages','salome')
-    lib_py_shared_dir=os.path.join(home_dir,'lib',pyversio,
-                                   'site-packages','salome')
+    pth_py_file=os.path.join(home_dir,site_path,'salome_pth.py')
+    pth_file=os.path.join(home_dir,site_path,'salome.pth')
+    lib_py_dir=os.path.join(home_dir,site_path,'salome')
     share_dir=os.path.join(home_dir,'share','salome')
     doc_gui_dir=os.path.join(home_dir,'doc','salome','gui')
     doc_tui_dir=os.path.join(home_dir,'doc','salome','tui')
@@ -239,6 +244,16 @@ def link_module(options):
             print(module_pvlib_dir, " doesn't exist")
         pass
 
+    # files lib/pyversio/site-packages/salome_pth.py and lib/pyversio/site-packages/salome.pth
+    # Those files allow to have home_dir/lib/pyversio/site-packages/salome directory in PYTHONPATH
+    if os.path.exists(module_pth_py_file) and os.path.exists(module_pth_file):
+        Path(pth_py_file).parent.mkdir(parents=True, exist_ok=True)
+        symlink(module_pth_py_file, pth_py_file)
+        symlink(module_pth_file, pth_file)
+    else:
+        if not Path(pth_py_file).exists() and not Path(pth_file).exists():
+            print(f"One or both of these files does not exist: {module_pth_py_file}, {module_pth_file}")
+
     #directory lib/pyversio/site-packages/salome : create it and link content
     if not os.path.exists(module_lib_py_dir):
         print("Python directory %s does not exist" % module_lib_py_dir)
@@ -247,15 +262,9 @@ def link_module(options):
         module_lib_pypkg_dir=os.path.join(module_lib_py_dir,"salome")
         lib_pypkg_dir=os.path.join(lib_py_dir,"salome")
         mkdir(lib_pypkg_dir)
-        mkdir(lib_py_shared_dir)
         for fn in os.listdir(module_lib_py_dir):
             if fn == "salome": continue
             symlink(os.path.join(module_lib_py_dir, fn), os.path.join(lib_py_dir, fn))
-            pass
-        if os.path.exists(module_lib_py_shared_dir):
-            for fn in os.listdir(module_lib_py_shared_dir):
-                symlink(os.path.join(module_lib_py_shared_dir, fn), os.path.join(lib_py_shared_dir, fn))
-                pass
             pass
         if os.path.exists(module_lib_pypkg_dir):
             for fn in os.listdir(module_lib_pypkg_dir):
@@ -264,7 +273,7 @@ def link_module(options):
             pass
         else:
             if verbose:
-                print(module_lib_py_shared_dir, " doesn't exist")
+                print(module_lib_pypkg_dir, " doesn't exist")
             pass
 
     #directory share/doc/salome (KERNEL doc) : create it and link content
@@ -395,19 +404,18 @@ def main():
 Typical use is:
   python virtual_salome.py -v --prefix="." --module=/local/chris/SALOME2/RELEASES/Install/KERNEL_V3_1_0b1
 """
-    parser = optparse.OptionParser(usage=usage)
+    parser = argparse.ArgumentParser(usage=usage)
 
-    parser.add_option('-v', '--verbose', action='count', dest='verbose',
-                      default=0, help="Increase verbosity")
+    parser.add_argument('-v', '--verbose', action='count', dest='verbose',
+                       default=0, help="Increase verbosity")
 
-    parser.add_option('--prefix', dest="prefix", default='.',
+    parser.add_argument('--prefix', default='.', metavar="<base directory>",
                       help="The base directory to install to (default .)")
 
-    parser.add_option('--module', dest="module",
-                      help="The module directory to install in (mandatory)")
+    parser.add_argument('--module', help="The module directory to install in (mandatory)")
 
-    parser.add_option('--clear', dest='clear', action='store_true',
-        help="Clear out the install and start from scratch")
+    parser.add_argument('--clear', action='store_true',
+                        help="Clear out the install and start from scratch")
 
     options, args = parser.parse_args()
     link_module(options)
