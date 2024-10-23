@@ -17,6 +17,10 @@
 # See http://www.salome-platform.org/ or email : webmaster.salome@opencascade.com
 #
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8.8 FATAL_ERROR)
+
+cmake_policy(SET CMP0078 OLD)
+cmake_policy(SET CMP0086 OLD)
+
 INCLUDE(CMakeDependentOption)
 
 # Project name
