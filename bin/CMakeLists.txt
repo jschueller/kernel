@@ -31,40 +31,44 @@ SALOME_CONFIGURE_FILE(salomeContextUtils.py.in salomeContextUtils.py)
 
 # These files are executable scripts
 SET(SCRIPTS
-  appli_clean.sh
-  runIDLparser
   addToKillList.py
+  appli_clean.sh
   appli_gen.py
   envSalome.py
   killSalome.py
   killSalomeWithPort.py
-  launchConfigureParser.py
-  nameserver.py
   NSparam.py
-  orbmodule.py
-  ORBConfigFile.py
-  parseConfigFile.py
-  PortManager.py
-  runSalomeCommon.py
+  pythonpath_reduction.py
+  runConsole.py
+  runIDLparser
+  runRemote.py
   runSalome.py
+  runSalomeNoServer.py
   runSalomeOld.py
   runSalomeOnDemand.py
-  runSalomeNoServer.py
-  runSession.py
-  runConsole.py
-  runRemote.py
-  runTests.py
-  ${CMAKE_CURRENT_BINARY_DIR}/salomeContextUtils.py
   salomeContext.py
-  salome_utils.py
-  searchFreePort.py
-  server.py
+  ${CMAKE_CURRENT_BINARY_DIR}/salomeContextUtils.py
   setenv.py
   showNS.py
   virtual_salome.py
   waitContainers.py
   waitNS.py
-  pythonpath_reduction.py
   )
 
+SET(PACKAGES
+  launchConfigureParser.py
+  nameserver.py
+  ORBConfigFile.py
+  orbmodule.py
+  parseConfigFile.py
+  PortManager.py
+  runSalomeCommon.py
+  runSession.py
+  runTests.py
+  salome_utils.py
+  searchFreePort.py
+  server.py
+)
+
 SALOME_INSTALL_SCRIPTS("${SCRIPTS}" ${SALOME_INSTALL_SCRIPT_SCRIPTS})
+SALOME_INSTALL_SCRIPTS("${PACKAGES}" ${SALOME_INSTALL_PYTHON} DEF_PERMS)

@@ -45,4 +45,4 @@ LIST(APPEND mypkgpython_PYTHON
     services.py
     ${CMAKE_CURRENT_BINARY_DIR}/logconfig.py
 )
-SALOME_INSTALL_SCRIPTS("${mypkgpython_PYTHON}" ${SALOME_INSTALL_PYTHON}/salome/kernel)
+SALOME_INSTALL_SCRIPTS("${mypkgpython_PYTHON}" ${SALOME_INSTALL_PYTHON}/salome/kernel DEF_PERMS)

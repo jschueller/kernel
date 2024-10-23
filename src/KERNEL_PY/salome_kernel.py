@@ -21,7 +21,7 @@
 # See http://www.salome-platform.org/ or email : webmaster.salome@opencascade.com
 #
 
-#  File   : salome_kernel.py
+#  File   : salome_kernel_utils.py
 #  Author : Paul RASCLE, EDF
 #  Module : SALOME
 #  $Header$
