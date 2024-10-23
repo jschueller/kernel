@@ -132,7 +132,7 @@ def link_module(options):
       return
 
     module_bin_dir=os.path.join(module_dir,'bin','salome')
-    module_test_dir=os.path.join(module_dir,'bin','salome', 'test')
+    module_test_dir=os.path.join(module_dir,'bin','salome', 'test', options.module_name.lower())
     module_idl_dir=os.path.join(module_dir,'idl','salome')
     module_lib_dir=os.path.join(module_dir,get_lib_dir(),'salome')
     module_pvlib_dir=os.path.join(module_dir,get_lib_dir(),'paraview')
