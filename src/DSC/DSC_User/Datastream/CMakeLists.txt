@@ -40,6 +40,12 @@ ADD_DEFINITIONS(${BOOST_DEFINITIONS})
 
 ADD_LIBRARY(SalomeDatastream fake.cc)
 TARGET_LINK_LIBRARIES(SalomeDatastream ${COMMON_LIBS})
+if(RELOCATABLE)
+    set_property(
+        TARGET SalomeDatastream
+        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
+    )
+endif()
 INSTALL(TARGETS SalomeDatastream EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
 
 SET(COMMON_HEADERS_HXX

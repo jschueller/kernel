@@ -57,6 +57,12 @@ ADD_DEFINITIONS(${OMNIORB_DEFINITIONS})
 
 ADD_LIBRARY(SalomeTestComponentEngine ${SalomeTestComponentEngine_SOURCES})
 TARGET_LINK_LIBRARIES(SalomeTestComponentEngine ${COMMON_LIBS})
+if(RELOCATABLE)
+    set_property(
+        TARGET SalomeTestComponentEngine
+        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
+    )
+endif()
 
 INSTALL(TARGETS SalomeTestComponentEngine EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
 
@@ -65,6 +71,12 @@ TARGET_LINK_LIBRARIES(TestLogger SalomeTestComponentEngine SALOMEBasics ${COMMON
 
 ADD_EXECUTABLE(TestContainer TestContainer.cxx)
 TARGET_LINK_LIBRARIES(TestContainer SalomeTestComponentEngine SALOMEBasics ${COMMON_LIBS} ${OMNIORB_LIBRARIES})
+if(RELOCATABLE)
+    set_property(
+        TARGET TestLogger TestContainer
+        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
+    )
+endif()
 
 INSTALL(TARGETS TestLogger TestContainer EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_BINS})
 

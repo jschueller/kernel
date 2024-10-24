@@ -34,6 +34,12 @@ ADD_DEFINITIONS(${OMNIORB_DEFINITIONS} ${PTHREAD_DEFINITIONS})
 ADD_LIBRARY(with_loggerTraceCollector SALOMETraceCollector.cxx TraceCollector_WaitForServerReadiness.cxx)
 
 TARGET_LINK_LIBRARIES(with_loggerTraceCollector SalomeNS ArgvKeeper SALOMELocalTrace SalomeLoggerServer OpUtil SalomeIDLKernel ${OMNIORB_LIBRARIES} ${PTHREAD_LIBRARIES})
+if(RELOCATABLE)
+    set_property(
+        TARGET with_loggerTraceCollector
+        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
+    )
+endif()
 INSTALL(TARGETS with_loggerTraceCollector EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
 
 FILE(GLOB COMMON_HEADERS_HXX "${CMAKE_CURRENT_SOURCE_DIR}/*.hxx")

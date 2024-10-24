@@ -54,6 +54,12 @@ ADD_DEFINITIONS(${OMNIORB_DEFINITIONS} ${MPI_DEFINITIONS})
 
 ADD_LIBRARY(SalomeCommunication ${SalomeCommunication_SOURCES})
 TARGET_LINK_LIBRARIES(SalomeCommunication ${COMMON_LIBS})
+if(RELOCATABLE)
+    set_property(
+        TARGET SalomeCommunication
+        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
+    )
+endif()
 INSTALL(TARGETS SalomeCommunication EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
 
 SET(COMMON_HEADERS_HXX

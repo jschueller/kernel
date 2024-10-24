@@ -64,8 +64,14 @@ ELSE()
   SWIG_ADD_LIBRARY(calcium LANGUAGE python SOURCES calcium.i)
 ENDIF()
 
-SWIG_LINK_LIBRARIES(calcium ${_calcium_LIBS})
-INSTALL(TARGETS _calcium DESTINATION ${SALOME_INSTALL_PYTHON})
+SWIG_LINK_LIBRARIES(calcium ${${SWIG_MODULE_calcium_REAL_NAME}})
+if(RELOCATABLE)
+    set_property(
+        TARGET ${SWIG_MODULE_calcium_REAL_NAME}
+        PROPERTY INSTALL_RPATH "${rpath_install_python}"
+    )
+endif()
+INSTALL(TARGETS ${SWIG_MODULE_calcium_REAL_NAME} DESTINATION ${SALOME_INSTALL_PYTHON})
 
 SET(SCRIPTS
   dsccalcium.py

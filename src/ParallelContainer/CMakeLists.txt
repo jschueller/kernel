@@ -64,6 +64,12 @@ ADD_DEFINITIONS(${OMNIORB_DEFINITIONS} ${MPI_DEFINITIONS})
 
 ADD_LIBRARY(SalomeParallelContainer ${SalomeParallelContainer_SOURCES})
 TARGET_LINK_LIBRARIES(SalomeParallelContainer ${COMMON_LIBS} ${MPI_CXX_LIBRARIES})
+if(RELOCATABLE)
+    set_property(
+        TARGET SalomeParallelContainer
+        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
+    )
+endif()
 INSTALL(TARGETS SalomeParallelContainer EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
 
 IF(SALOME_USE_MPI)
@@ -77,6 +83,13 @@ IF(SALOME_USE_MPI)
 
   ADD_EXECUTABLE(SALOME_ParallelContainerNodeMpi SALOME_ParallelContainerNodeMpi.cxx)
   TARGET_LINK_LIBRARIES(SALOME_ParallelContainerNodeMpi ${SALOME_ParallelContainerProxyMpi_LIBS})
+
+  if(RELOCATABLE)
+      set_property(
+          TARGET SALOME_ParallelContainerProxyMpi SALOME_ParallelContainerNodeMpi
+          PROPERTY INSTALL_RPATH "${rpath_install_libs}"
+      )
+  endif()
 
   INSTALL(TARGETS SALOME_ParallelContainerProxyMpi SALOME_ParallelContainerNodeMpi
         EXPORT ${PROJECT_NAME}TargetGroup 
@@ -93,6 +106,13 @@ TARGET_LINK_LIBRARIES(SALOME_ParallelContainerProxyDummy ${SALOME_ParallelContai
 
 ADD_EXECUTABLE(SALOME_ParallelContainerNodeDummy SALOME_ParallelContainerNodeDummy.cxx)
 TARGET_LINK_LIBRARIES(SALOME_ParallelContainerNodeDummy ${SALOME_ParallelContainerProxyDummy_LIBS})
+
+if(RELOCATABLE)
+    set_property(
+        TARGET SALOME_ParallelContainerNodeDummy SALOME_ParallelContainerProxyDummy
+        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
+    )
+endif()
 
 INSTALL(TARGETS SALOME_ParallelContainerNodeDummy SALOME_ParallelContainerProxyDummy DESTINATION ${SALOME_INSTALL_BINS})
 

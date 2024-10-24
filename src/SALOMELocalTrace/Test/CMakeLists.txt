@@ -30,10 +30,22 @@ SET(LOCAL_TEST_DIR ${KERNEL_TEST_DIR}/SALOMELocalTrace)
 
 ADD_LIBRARY(SALOMELocalTraceTest SALOMELocalTraceTest.cxx)
 TARGET_LINK_LIBRARIES(SALOMELocalTraceTest SALOMELocalTrace ${CPPUNIT_LIBRARIES} ${PTHREAD_LIBRARIES} ${PLATFORM_LIBS})
+if(RELOCATABLE)
+    set_property(
+        TARGET SALOMELocalTraceTest
+        PROPERTY INSTALL_RPATH "${rpath_install_test_libs}"
+    )
+endif()
 INSTALL(TARGETS SALOMELocalTraceTest DESTINATION ${KERNEL_TEST_LIB})
 
 ADD_EXECUTABLE(TestSALOMELocalTrace TestSALOMELocalTrace.cxx)
 TARGET_LINK_LIBRARIES(TestSALOMELocalTrace SALOMELocalTraceTest SALOMELocalTrace SALOMEBasics ${CPPUNIT_LIBRARIES} ${PLATFORM_LIBS})
+if(RELOCATABLE)
+  set_property(
+      TARGET TestSALOMELocalTrace
+      PROPERTY INSTALL_RPATH "${rpath_install_test_bins}"
+  )
+endif()
 INSTALL(TARGETS TestSALOMELocalTrace DESTINATION ${LOCAL_TEST_DIR})
 
 # Executable scripts to be installed

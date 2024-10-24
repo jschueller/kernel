@@ -43,6 +43,12 @@ ADD_DEFINITIONS(${OMNIORB_DEFINITIONS})
 
 ADD_LIBRARY(SalomeNotification ${SalomeNotification_SOURCES}) 
 TARGET_LINK_LIBRARIES(SalomeNotification ${COMMON_LIBS})
+if(RELOCATABLE)
+    set_property(
+        TARGET SalomeNotification
+        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
+    )
+endif()
 INSTALL(TARGETS SalomeNotification EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
 
 FILE(GLOB COMMON_HEADERS_HXX "${CMAKE_CURRENT_SOURCE_DIR}/*.hxx")

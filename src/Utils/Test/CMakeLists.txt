@@ -45,10 +45,22 @@ SET(LOCAL_TEST_DIR ${KERNEL_TEST_DIR}/Utils)
 
 ADD_LIBRARY(UtilsTest UtilsTest.cxx)
 TARGET_LINK_LIBRARIES(UtilsTest ${COMMON_LIBS} )
+if(RELOCATABLE)
+    set_property(
+        TARGET UtilsTest
+        PROPERTY INSTALL_RPATH "${rpath_install_test_libs}"
+    )
+endif()
 INSTALL(TARGETS UtilsTest DESTINATION ${KERNEL_TEST_LIB})
 
 ADD_EXECUTABLE(TestUtils TestUtils.cxx)
 TARGET_LINK_LIBRARIES(TestUtils ${COMMON_LIBS} UtilsTest ${OMNIORB_LIBRARIES})
+if(RELOCATABLE)
+    set_property(
+        TARGET TestUtils
+        PROPERTY INSTALL_RPATH "${rpath_install_test_bins}"
+    )
+endif()
 INSTALL(TARGETS TestUtils DESTINATION ${LOCAL_TEST_DIR})
 
 INSTALL(FILES TestUtils.py DESTINATION ${LOCAL_TEST_DIR})

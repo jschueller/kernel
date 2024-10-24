@@ -40,6 +40,12 @@ SET(SalomeDSCSupervBasic_SOURCES
 ADD_DEFINITIONS(${OMNIORB_DEFINITIONS})
 ADD_LIBRARY(SalomeDSCSupervBasic ${SalomeDSCSupervBasic_SOURCES})
 TARGET_LINK_LIBRARIES(SalomeDSCSupervBasic SalomeDSCSuperv)
+if(RELOCATABLE)
+    set_property(
+        TARGET SalomeDSCSupervBasic
+        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
+    )
+endif()
 INSTALL(TARGETS SalomeDSCSupervBasic EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
 
 FILE(GLOB COMMON_HEADERS_HXX "${CMAKE_CURRENT_SOURCE_DIR}/*.hxx")

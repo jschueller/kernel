@@ -57,6 +57,7 @@ SET(LONG_OR_INT int)
 
 # User options
 # ============
+option(RELOCATABLE "Make installed targets relocatable (disable by default)" OFF)
 OPTION(SALOME_BUILD_DOC "Generate SALOME KERNEL documentation" ON)
 OPTION(SALOME_BUILD_TESTS "Build SALOME tests" ON)
 
@@ -167,11 +168,41 @@ SET(SALOME_INSTALL_DOC share/doc/salome CACHE PATH "Install path: SALOME documen
 SET(SALOME_KERNEL_INSTALL_RES_DATA "${SALOME_INSTALL_RES}/kernel" CACHE PATH "Install path: SALOME KERNEL specific data")
 SET(SALOME_KERNEL_INSTALL_RES_SCRIPTS "${SALOME_INSTALL_RES}/kernel" CACHE PATH "Install path: SALOME KERNEL specific scripts")
 
+################
+# Runtime path #
+################
+
+# Define the rpath
+macro(complete_rpath rpath root_dir)
+    if(NOT "${${root_dir}}" STREQUAL "${CMAKE_INSTALL_PREFIX}")
+        # the RPATH to be used when installing, but only if it's not a system directory
+        list(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${${root_dir}}/lib" isSystemDir)
+        if("${isSystemDir}" STREQUAL "-1")
+            message(STATUS "==> add to rpath ${${root_dir}}/lib")
+            set(${rpath}
+                "${${rpath}}"
+                "${${root_dir}}/lib")
+        endif("${isSystemDir}" STREQUAL "-1")
+        unset(isSystemDir)
+    endif(NOT "${${root_dir}}" STREQUAL "${CMAKE_INSTALL_PREFIX}")
+endmacro()
+
+# Set the run-time search path if the installation isn't relocatable
+if(RELOCATABLE)
+    set(rpath_install_libs "$ORIGIN/../../${SALOME_INSTALL_LIBS}")
+    set(rpath_install_python "$ORIGIN/../../../../${SALOME_INSTALL_PYTHON}:$ORIGIN/../../../../${SALOME_INSTALL_LIBS}")
+    message(STATUS "==> rpath_install_libs is set to ${rpath_install_libs}")
+    message(STATUS "==> rpath_install_python is set to ${rpath_install_python}")
+endif(RELOCATABLE)
+
 MARK_AS_ADVANCED(SALOME_INSTALL_BINS SALOME_INSTALL_LIBS SALOME_INSTALL_IDLS SALOME_INSTALL_HEADERS)
 MARK_AS_ADVANCED(SALOME_INSTALL_SCRIPT_SCRIPTS SALOME_INSTALL_SCRIPT_DATA SALOME_INSTALL_SCRIPT_PYTHON)
 MARK_AS_ADVANCED(SALOME_INSTALL_APPLISKEL_SCRIPTS  SALOME_INSTALL_APPLISKEL_PYTHON SALOME_INSTALL_CMAKE SALOME_INSTALL_CMAKE_LOCAL SALOME_INSTALL_RES)
 MARK_AS_ADVANCED(SALOME_INSTALL_PYTHON SALOME_INSTALL_PYTHON_SHARED SALOME_KERNEL_INSTALL_RES_DATA SALOME_KERNEL_INSTALL_RES_SCRIPTS SALOME_INSTALL_DOC)
 MARK_AS_ADVANCED(SALOME_INSTALL_AMCONFIG SALOME_INSTALL_AMCONFIG_LOCAL)
+if(RELOCATABLE)
+    MARK_AS_ADVANCED(rpath_install_libs rpath_install_libs rpath_install_python)
+endif(RELOCATABLE)
 
 # Accumulate environment variables for KERNEL module
 SALOME_ACCUMULATE_ENVIRONMENT(PYTHONPATH NOCHECK ${CMAKE_INSTALL_PREFIX}/${SALOME_INSTALL_BINS}
@@ -187,6 +218,14 @@ INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/CTestTestfileInstall.cmake
         DESTINATION ${KERNEL_TEST_DIR}
         RENAME CTestTestfile.cmake)
 
+if(RELOCATABLE)
+    # rpath_install_test_bins should be used with by concataing it with the bin test directory
+    set(rpath_install_test_libs "$ORIGIN/../../../../../${KERNEL_TEST_LIB}:$ORIGIN/../../../../../${SALOME_INSTALL_LIBS}")
+    set(rpath_install_test_bins "${rpath_install_test_libs}:$ORIGIN/../../../../../${SALOME_INSTALL_LIBS}")
+    message(STATUS "==> rpath_install_test_bins is set to ${rpath_install_test_bins}")
+    message(STATUS "==> rpath_install_test_libs is set to ${rpath_install_test_libs}")
+    MARK_AS_ADVANCED(rpath_install_test_bins rpath_install_test_libs)
+endif(RELOCATABLE)
 
 IF(SALOME_LIGHT_ONLY)
   ADD_DEFINITIONS(-DSALOME_LIGHT)

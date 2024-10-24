@@ -55,6 +55,12 @@ ADD_DEFINITIONS(${MPI_DEFINITIONS} ${OMNIORB_DEFINITIONS})
 
 ADD_LIBRARY(SalomeMPIContainer MPIObject_i.cxx MPIContainer_i.cxx)
 TARGET_LINK_LIBRARIES(SalomeMPIContainer ${COMMON_LIBS})
+if(RELOCATABLE)
+    set_property(
+        TARGET SalomeMPIContainer
+        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
+    )
+endif()
 INSTALL(TARGETS SalomeMPIContainer EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
 
 ADD_EXECUTABLE(SALOME_MPIContainer SALOME_MPIContainer.cxx)
@@ -65,6 +71,13 @@ TARGET_LINK_LIBRARIES(testMPI2 ${MPI_CXX_LIBRARIES})
 
 ADD_EXECUTABLE(getMPIImplementation getMPIImplementation.cxx)
 TARGET_LINK_LIBRARIES(getMPIImplementation ${MPI_CXX_LIBRARIES})
+
+if(RELOCATABLE)
+    set_property(
+        TARGET SALOME_MPIContainer testMPI2 getMPIImplementation
+        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
+    )
+endif()
 
 INSTALL(TARGETS SALOME_MPIContainer EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_BINS})
 INSTALL(TARGETS testMPI2 DESTINATION ${SALOME_INSTALL_BINS}) 

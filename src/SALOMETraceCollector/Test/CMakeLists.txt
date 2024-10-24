@@ -41,10 +41,22 @@ SET(LOCAL_TEST_DIR ${KERNEL_TEST_DIR}/SALOMETraceCollector)
 
 ADD_LIBRARY(SALOMETraceCollectorTest SALOMETraceCollectorTest.cxx)
 TARGET_LINK_LIBRARIES(SALOMETraceCollectorTest ${COMMON_LIBS})
+if(RELOCATABLE)
+    set_property(
+        TARGET SALOMETraceCollectorTest
+        PROPERTY INSTALL_RPATH "${rpath_install_test_libs}"
+    )
+endif()
 INSTALL(TARGETS SALOMETraceCollectorTest DESTINATION ${KERNEL_TEST_LIB})
 
 ADD_EXECUTABLE(TestSALOMETraceCollector TestSALOMETraceCollector.cxx)
 TARGET_LINK_LIBRARIES(TestSALOMETraceCollector SALOMETraceCollectorTest ${COMMON_LIBS})
+if(RELOCATABLE)
+    set_property(
+        TARGET TestSALOMETraceCollector
+        PROPERTY INSTALL_RPATH "${rpath_install_test_bins}"
+    )
+endif()
 INSTALL(TARGETS TestSALOMETraceCollector DESTINATION ${LOCAL_TEST_DIR})
 
 # Executable scripts to be installed

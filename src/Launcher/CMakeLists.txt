@@ -87,6 +87,14 @@ SET(Launcher_SOURCES
 
 ADD_LIBRARY(Launcher ${Launcher_SOURCES})
 TARGET_LINK_LIBRARIES(Launcher ResourcesManager ${LIBBATCH_LIBRARIES} ${LIBXML2_LIBS} ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSTEM_LIBRARY})
+if(RELOCATABLE)
+    set(rpath "${rpath_install_libs}")
+    complete_rpath(rpath LIBBATCH_ROOT_DIR)
+    set_property(
+        TARGET Launcher
+        PROPERTY INSTALL_RPATH "${rpath}"
+    )
+endif()
 INSTALL(TARGETS Launcher EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
 
 SET(TestLauncher_LIBS
@@ -101,10 +109,26 @@ SET(TestLauncher_LIBS
 # TestLauncher needs only (and must need only) libxml, libbatch, ResourceManager and Launcher libraries!
 ADD_EXECUTABLE(TestLauncher TestLauncher.cxx)
 TARGET_LINK_LIBRARIES(TestLauncher ${TestLauncher_LIBS})
+if(RELOCATABLE)
+    set(rpath "${rpath_install_libs}")
+    complete_rpath(rpath LIBBATCH_ROOT_DIR)
+    set_property(
+        TARGET TestLauncher
+        PROPERTY INSTALL_RPATH "${rpath}"
+    )
+endif()
 INSTALL(TARGETS TestLauncher DESTINATION ${SALOME_INSTALL_BINS})
 
 ADD_LIBRARY(SalomeLauncher BatchTest.cxx SALOME_Launcher.cxx SALOME_ExternalServerLauncher.cxx SALOME_LauncherException.cxx SALOME_ExternalServerHandler.cxx SALOME_LogManager.cxx)
 TARGET_LINK_LIBRARIES(SalomeLauncher Launcher ${COMMON_LIBS})
+if(RELOCATABLE)
+    set(rpath "${rpath_install_libs}")
+    complete_rpath(rpath LIBBATCH_ROOT_DIR)
+    set_property(
+        TARGET SalomeLauncher
+        PROPERTY INSTALL_RPATH "${rpath}"
+    )
+endif()
 INSTALL(TARGETS SalomeLauncher EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
   
 SET(SALOME_LauncherServer_LIBS
@@ -121,6 +145,14 @@ SET(SALOME_LauncherServer_LIBS
 
 ADD_EXECUTABLE(SALOME_LauncherServer SALOME_LauncherServer.cxx)
 TARGET_LINK_LIBRARIES(SALOME_LauncherServer ${SALOME_LauncherServer_LIBS})
+if(RELOCATABLE)
+    set(rpath "${rpath_install_libs}")
+    complete_rpath(rpath LIBBATCH_ROOT_DIR)
+    set_property(
+        TARGET SALOME_LauncherServer
+        PROPERTY INSTALL_RPATH "${rpath}"
+    )
+endif()
 INSTALL(TARGETS SALOME_LauncherServer EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_BINS})
 
 SET(COMMON_HEADERS_HXX
@@ -159,10 +191,16 @@ ELSE()
   SWIG_ADD_LIBRARY(KernelLauncher LANGUAGE python SOURCES ${KernelLauncher_SOURCES})
 ENDIF()
 IF(${MACHINE} STREQUAL WINDOWS)
-  SET_TARGET_PROPERTIES(_KernelLauncher PROPERTIES DEBUG_OUTPUT_NAME _KernelLauncher_d)
+  SET_TARGET_PROPERTIES(${SWIG_MODULE_KernelLauncher_REAL_NAME} PROPERTIES DEBUG_OUTPUT_NAME _KernelLauncher_d)
 ENDIF(${MACHINE} STREQUAL WINDOWS)
 SWIG_LINK_LIBRARIES(KernelLauncher ${PYTHON_LIBRARIES} ${PLATFORM_LIBS} SalomeDS SalomeKernelHelpers)
-install(TARGETS _KernelLauncher DESTINATION ${SALOME_INSTALL_PYTHON})
+if(RELOCATABLE)
+    set_property(
+        TARGET ${SWIG_MODULE_KernelLauncher_REAL_NAME}
+        PROPERTY INSTALL_RPATH "${rpath_install_python}"
+    )
+endif()
+install(TARGETS ${SWIG_MODULE_KernelLauncher_REAL_NAME} DESTINATION ${SALOME_INSTALL_PYTHON})
 install(FILES ${KernelLauncher_HEADERS} DESTINATION ${SALOME_INSTALL_HEADERS})
 
 INSTALL(FILES ${COMMON_HEADERS_HXX} DESTINATION ${SALOME_INSTALL_HEADERS})
