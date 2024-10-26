@@ -20,6 +20,7 @@ dynamic = ["version"]
 scipy = ["scipy"]
 
 [tool.scikit-build.cmake.define]
+RELOCATABLE = "ON"
 SALOME_BUILD_TESTS = "ON"
 SALOME_USE_LIBBATCH = "ON"
 SALOME_USE_64BIT_IDS = "ON"
