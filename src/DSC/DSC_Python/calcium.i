@@ -702,28 +702,52 @@ CORBAPTR(PortableServer::POA)
    catch(Engines::DSC::PortNotDefined& _e) {
       Py_BLOCK_THREADS
       PyObject* excc = PyObject_GetAttrString(dsc, "PortNotDefined");
+#if (PY_VERSION_HEX >= 0x03070000) // Python 3.7 or later
+      PyObject* emptyTuple = Py_BuildValue("()");
+      PyObject* exci = PyObject_CallObject(excc, emptyTuple);
+#else // Python 3.0 - 3.6
       PyObject* exci = PyEval_CallObject(excc, (PyObject *)NULL);
+#endif
       PyErr_SetObject(excc, exci);
       Py_XDECREF(excc);
       Py_XDECREF(exci);
+#if (PY_VERSION_HEX >= 0x03070000) // Python 3.7 or later
+      Py_DECREF(emptyTuple);
+#endif
       return NULL;
    }
    catch(Engines::DSC::PortNotConnected& _e) {
       Py_BLOCK_THREADS
       PyObject* excc = PyObject_GetAttrString(dsc, "PortNotConnected");
+#if (PY_VERSION_HEX >= 0x03070000) // Python 3.7 or later
+      PyObject* emptyTuple = Py_BuildValue("()");
+      PyObject* exci = PyObject_CallObject(excc, emptyTuple);
+#else // Python 3.0 - 3.6
       PyObject* exci = PyEval_CallObject(excc, (PyObject *)NULL);
+#endif
       PyErr_SetObject(excc, exci);
       Py_XDECREF(excc);
       Py_XDECREF(exci);
+#if (PY_VERSION_HEX >= 0x03070000) // Python 3.7 or later
+      Py_DECREF(emptyTuple);
+#endif
       return NULL;
    }
    catch(Engines::DSC::BadPortType& _e) {
       Py_BLOCK_THREADS
       PyObject* excc = PyObject_GetAttrString(dsc, "BadPortType");
+#if (PY_VERSION_HEX >= 0x03070000) // Python 3.7 or later
+      PyObject* emptyTuple = Py_BuildValue("()");
+      PyObject* exci = PyObject_CallObject(excc, emptyTuple);
+#else // Python 3.0 - 3.6
       PyObject* exci = PyEval_CallObject(excc, (PyObject *)NULL);
+#endif
       PyErr_SetObject(excc, exci);
       Py_XDECREF(excc);
       Py_XDECREF(exci);
+#if (PY_VERSION_HEX >= 0x03070000) // Python 3.7 or later
+      Py_DECREF(emptyTuple);
+#endif
       return NULL;
    }
    catch (SALOME_Exception &e) {
