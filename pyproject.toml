@@ -1,5 +1,10 @@
 [build-system]
-requires = ["scikit-build-core"]
+requires = [
+  "scikit-build-core",
+  "omniorb",
+  "libbatch",
+  "salome_conf",
+]
 build-backend = "scikit_build_core.build"
 
 [project]
@@ -9,8 +14,8 @@ readme = {file = "README", content-type = "text/markdown"}
 requires-python = ">= 3.7"
 license = {file = "COPYING"}
 dependencies = [
-  # Uncomment when omniorbpy wheel is published
-  # "omniorbpy",
+  "omniorb",
+  "libbatch",
   "psutil",
   "numpy",
 ]
@@ -20,15 +25,16 @@ dynamic = ["version"]
 scipy = ["scipy"]
 
 [tool.scikit-build.cmake.define]
+# SALOME_CMAKE_DEBUG = "ON"
 RELOCATABLE = "ON"
 SALOME_BUILD_TESTS = "ON"
 SALOME_USE_LIBBATCH = "ON"
 SALOME_USE_64BIT_IDS = "ON"
 SALOME_BUILD_DOC = "OFF"
 
-OMNIORBPY_ROOT_DIR = {env="OMNIORBPY_DIR", default="EMPTY"}
-LIBBATCH_ROOT_DIR = {env="LIBBATCH_ROOT_DIR", default="EMPTY"}
-CMAKE_MODULE_PATH = {env="CONFIGURATION_CMAKE_DIR", default="EMPTY"}
+OMNIORBPY_ROOT_DIR = {env="VIRTUAL_ENV", default="EMPTY"}
+LIBBATCH_ROOT_DIR = {env="VIRTUAL_ENV", default="EMPTY"}
+CONFIGURATION_ROOT_DIR = {env="VIRTUAL_ENV", default="EMPTY"}
 
 [tool.scikit-build]
 cmake.version = ">=3.15"
