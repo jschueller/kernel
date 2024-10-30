@@ -1,8 +1,8 @@
 [build-system]
 requires = [
   "scikit-build-core",
-  "omniorb",
-  "libbatch",
+  "omniorb>=4.2.2",
+  "libbatch>=2.5.1; platform_system!= 'Windows'",
   "salome_conf",
 ]
 build-backend = "scikit_build_core.build"
@@ -14,8 +14,8 @@ readme = {file = "README", content-type = "text/markdown"}
 requires-python = ">= 3.7"
 license = {file = "COPYING"}
 dependencies = [
-  "omniorb",
-  "libbatch",
+  "omniorb>=4.2.2",
+  "libbatch>=2.5.1; platform_system!= 'Windows'",
   "psutil",
   "numpy",
 ]
@@ -28,13 +28,18 @@ scipy = ["scipy"]
 # SALOME_CMAKE_DEBUG = "ON"
 RELOCATABLE = "ON"
 SALOME_BUILD_TESTS = "ON"
-SALOME_USE_LIBBATCH = "ON"
 SALOME_USE_64BIT_IDS = "ON"
 SALOME_BUILD_DOC = "OFF"
 
 OMNIORBPY_ROOT_DIR = {env="VIRTUAL_ENV", default="EMPTY"}
 LIBBATCH_ROOT_DIR = {env="VIRTUAL_ENV", default="EMPTY"}
 CONFIGURATION_ROOT_DIR = {env="VIRTUAL_ENV", default="EMPTY"}
+
+# Activate Libbatch on Linux
+[[tool.scikit-build.overrides]]
+if.platform-system = "linux"
+inherit.cmake.define = "append"
+cmake.define.SALOME_USE_LIBBATCH = "ON"
 
 [tool.scikit-build]
 cmake.version = ">=3.15"

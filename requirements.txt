@@ -4,4 +4,4 @@ setuptools_scm
 build
 omniorb
 salome_conf
-libbatch
+libbatch; platform_system!= 'Windows'
