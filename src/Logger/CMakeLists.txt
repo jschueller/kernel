@@ -38,12 +38,6 @@ ADD_DEFINITIONS(${OMNIORB_DEFINITIONS})
 
 ADD_LIBRARY(SalomeLoggerServer SALOME_Trace.cxx SALOME_Logger_Server.cxx)
 TARGET_LINK_LIBRARIES(SalomeLoggerServer SalomeKernelHelpers  SalomeIDLKernel ${OMNIORB_LIBRARIES} ${PLATFORM_LIBS})
-if(RELOCATABLE)
-    set_property(
-        TARGET SalomeLoggerServer
-        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
-    )
-endif()
 INSTALL(TARGETS SalomeLoggerServer EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
 
 SET(SALOME_Logger_Server_SOURCES
@@ -62,12 +56,6 @@ SET(SALOME_Logger_Server_LIBS
 
 ADD_EXECUTABLE(SALOME_Logger_Server ${SALOME_Logger_Server_SOURCES})
 TARGET_LINK_LIBRARIES(SALOME_Logger_Server ${SALOME_Logger_Server_LIBS})
-if(RELOCATABLE)
-    set_property(
-        TARGET SALOME_Logger_Server
-        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
-    )
-endif()
 INSTALL(TARGETS SALOME_Logger_Server EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_BINS})
 
 SET(KernelLogger_HEADERS KernelLogger.hxx KernelLogger.i)
@@ -82,16 +70,10 @@ ELSE()
   SWIG_ADD_LIBRARY(KernelLogger LANGUAGE python SOURCES ${KernelLogger_SOURCES})
 ENDIF()
 IF(${MACHINE} STREQUAL WINDOWS)
-  SET_TARGET_PROPERTIES(${SWIG_MODULE_KernelLogger_REAL_NAME} PROPERTIES DEBUG_OUTPUT_NAME _KernelLogger_d)
+  SET_TARGET_PROPERTIES(_KernelLogger PROPERTIES DEBUG_OUTPUT_NAME _KernelLogger_d)
 ENDIF(${MACHINE} STREQUAL WINDOWS)
 SWIG_LINK_LIBRARIES(KernelLogger ${PYTHON_LIBRARIES} ${PLATFORM_LIBS} SalomeLoggerServer)
-if(RELOCATABLE)
-    set_property(
-        TARGET ${SWIG_MODULE_KernelLogger_REAL_NAME}
-        PROPERTY INSTALL_RPATH "${rpath_install_python}"
-    )
-endif()
-install(TARGETS ${SWIG_MODULE_KernelLogger_REAL_NAME} DESTINATION ${SALOME_INSTALL_PYTHON})
+install(TARGETS _KernelLogger DESTINATION ${SALOME_INSTALL_PYTHON})
 install(FILES ${KernelLogger_HEADERS} DESTINATION ${SALOME_INSTALL_HEADERS})
 install(FILES ${_swig_SCRIPTS} SALOME_Trace.py DESTINATION ${SALOME_INSTALL_PYTHON})
 

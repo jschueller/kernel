@@ -43,12 +43,6 @@ SET(SalomeORB_SOURCES
 
 ADD_LIBRARY(SalomeORB ${SalomeORB_SOURCES})
 TARGET_LINK_LIBRARIES(SalomeORB OpUtil ${OMNIORB_LIBRARIES})
-if(RELOCATABLE)
-    set_property(
-        TARGET SalomeORB
-        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
-    )
-endif()
 INSTALL(TARGETS SalomeORB EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
 
 SET(SalomeKernelHelpers_LIBS
@@ -74,22 +68,10 @@ ADD_DEFINITIONS(${OMNIORB_DEFINITIONS})
 
 ADD_LIBRARY(SalomeKernelHelpers ${SalomeKernelHelpers_SOURCES})
 TARGET_LINK_LIBRARIES(SalomeKernelHelpers ${SalomeKernelHelpers_LIBS})
-if(RELOCATABLE)
-    set_property(
-        TARGET SalomeKernelHelpers
-        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
-    )
-endif()
 INSTALL(TARGETS SalomeKernelHelpers EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
 
 ADD_EXECUTABLE(KernelHelpersUseCases KernelHelpersUseCases.cxx)
 TARGET_LINK_LIBRARIES(KernelHelpersUseCases SalomeKernelHelpers ${SalomeKernelHelpers_LIBS})
-if(RELOCATABLE)
-    set_property(
-        TARGET KernelHelpersUseCases
-        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
-    )
-endif()
 INSTALL(TARGETS KernelHelpersUseCases DESTINATION ${SALOME_INSTALL_BINS})
 
 #
@@ -106,16 +88,10 @@ ELSE()
   SWIG_ADD_LIBRARY(KernelServices LANGUAGE python SOURCES ${KernelServices_SOURCES})
 ENDIF()
 IF(${MACHINE} STREQUAL WINDOWS)
-  SET_TARGET_PROPERTIES(${SWIG_MODULE_KernelServices_REAL_NAME} PROPERTIES DEBUG_OUTPUT_NAME _KernelServices_d)
+  SET_TARGET_PROPERTIES(_KernelServices PROPERTIES DEBUG_OUTPUT_NAME _KernelServices_d)
 ENDIF(${MACHINE} STREQUAL WINDOWS)
 SWIG_LINK_LIBRARIES(KernelServices ${PYTHON_LIBRARIES} ${PLATFORM_LIBS} SalomeKernelHelpers)
-if(RELOCATABLE)
-    set_property(
-        TARGET ${SWIG_MODULE_KernelServices_REAL_NAME}
-        PROPERTY INSTALL_RPATH "${rpath_install_python}"
-    )
-endif()
-install(TARGETS ${SWIG_MODULE_KernelServices_REAL_NAME} DESTINATION ${SALOME_INSTALL_PYTHON})
+install(TARGETS _KernelServices DESTINATION ${SALOME_INSTALL_PYTHON})
 install(FILES ${KernelServices_HEADERS} DESTINATION ${SALOME_INSTALL_HEADERS})
 install(FILES ${_swig_SCRIPTS} DESTINATION ${SALOME_INSTALL_PYTHON})
 

@@ -56,23 +56,11 @@ SET(LOCAL_TEST_DIR ${KERNEL_TEST_DIR}/KernelHelpers)
 
 ADD_LIBRARY(SalomeKernelHelpersTest KernelHelpersUnitTests.cxx)
 TARGET_LINK_LIBRARIES(SalomeKernelHelpersTest ${SalomeKernelHelpersTest_LIBS})
-if(RELOCATABLE)
-    set_property(
-        TARGET SalomeKernelHelpersTest
-        PROPERTY INSTALL_RPATH "${rpath_install_test_libs}"
-    )
-endif()
 INSTALL(TARGETS SalomeKernelHelpersTest DESTINATION ${KERNEL_TEST_LIB})
 
 ADD_EXECUTABLE(TestKernelHelpers TestKernelHelpers.cxx)
 TARGET_LINK_LIBRARIES(TestKernelHelpers SalomeKernelHelpersTest ${SalomeKernelHelpersTest_LIBS})
 #ADD_TEST(TestKernelHelpers TestKernelHelpers)
-if(RELOCATABLE)
-    set_property(
-        TARGET TestKernelHelpers
-        PROPERTY INSTALL_RPATH "${rpath_install_test_bins}"
-    )
-endif()
 INSTALL(TARGETS TestKernelHelpers DESTINATION ${LOCAL_TEST_DIR})
 
 # Executable scripts to be installed

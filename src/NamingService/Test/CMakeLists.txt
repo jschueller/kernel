@@ -48,12 +48,6 @@ SET(LOCAL_TEST_DIR ${KERNEL_TEST_DIR}/NamingService)
 
 ADD_LIBRARY(NamingServiceTest NamingServiceTest.cxx)
 TARGET_LINK_LIBRARIES(NamingServiceTest ${COMMON_LIBS})
-if(RELOCATABLE)
-    set_property(
-        TARGET NamingServiceTest
-        PROPERTY INSTALL_RPATH "${rpath_install_test_libs}"
-    )
-endif()
 INSTALL(TARGETS NamingServiceTest DESTINATION ${KERNEL_TEST_LIB})
 
 SET(TestNamingService_LIBS
@@ -71,12 +65,6 @@ SET(TestNamingService_LIBS
 
 ADD_EXECUTABLE(TestNamingService TestNamingService.cxx)
 TARGET_LINK_LIBRARIES(TestNamingService ${TestNamingService_LIBS})
-if(RELOCATABLE)
-    set_property(
-        TARGET TestNamingService
-        PROPERTY INSTALL_RPATH "${rpath_install_test_bins}"
-    )
-endif()
 INSTALL(TARGETS TestNamingService DESTINATION ${LOCAL_TEST_DIR})
 
 # Executable scripts to be installed

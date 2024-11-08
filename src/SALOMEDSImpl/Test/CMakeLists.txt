@@ -64,22 +64,10 @@ SET(LOCAL_TEST_DIR ${KERNEL_TEST_DIR}/SALOMEDSImpl)
 
 ADD_LIBRARY(SALOMEDSImplTest SALOMEDSImplTest.cxx)
 TARGET_LINK_LIBRARIES(SALOMEDSImplTest ${COMMON_LIBS})
-if(RELOCATABLE)
-    set_property(
-        TARGET SALOMEDSImplTest
-        PROPERTY INSTALL_RPATH "${rpath_install_test_libs}"
-    )
-endif()
 INSTALL(TARGETS SALOMEDSImplTest DESTINATION ${KERNEL_TEST_LIB})
 
 ADD_EXECUTABLE(TestSALOMEDSImpl TestSALOMEDSImpl.cxx)
 TARGET_LINK_LIBRARIES(TestSALOMEDSImpl SALOMEDSImplTest SalomeDSImpl NamingServiceTest ${COMMON_LIBS})
-if(RELOCATABLE)
-    set_property(
-        TARGET TestSALOMEDSImpl
-        PROPERTY INSTALL_RPATH "${rpath_install_test_bins}"
-    )
-endif()
 INSTALL(TARGETS TestSALOMEDSImpl DESTINATION ${LOCAL_TEST_DIR})
 
 # Executable scripts to be installed

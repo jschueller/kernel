@@ -29,12 +29,6 @@ ADD_DEFINITIONS(${CPPUNIT_DEFINITIONS})
 
 ADD_EXECUTABLE(TestArgvKeeper ArgvKeeperTest.cxx TestArgvKeeper.cxx)
 TARGET_LINK_LIBRARIES(TestArgvKeeper ArgvKeeper ${CPPUNIT_LIBRARIES})
-if(RELOCATABLE)
-    set_property(
-        TARGET TestArgvKeeper
-        PROPERTY INSTALL_RPATH "${rpath_install_test_bins}"
-    )
-endif()
 
 INSTALL(TARGETS TestArgvKeeper DESTINATION ${LOCAL_TEST_DIR})
 INSTALL(FILES test_ArgvKeeper.py DESTINATION ${LOCAL_TEST_DIR})

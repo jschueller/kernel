@@ -42,12 +42,6 @@ ADD_DEFINITIONS(${OMNIORB_DEFINITIONS})
 
 ADD_LIBRARY(SalomeDSCContainer ${SalomeDSCContainer_SOURCES})
 TARGET_LINK_LIBRARIES(SalomeDSCContainer SalomeContainer ${OMNIORB_LIBRARIES})
-if(RELOCATABLE)
-    set_property(
-        TARGET SalomeDSCContainer
-        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
-    )
-endif()
 INSTALL(TARGETS SalomeDSCContainer EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
 
 SET(SALOME_ConnectionManagerServer_SOURCES
@@ -66,12 +60,6 @@ SET(SALOME_ConnectionManagerServer_LIBS
 
 ADD_EXECUTABLE(SALOME_ConnectionManagerServer ${SALOME_ConnectionManagerServer_SOURCES})
 TARGET_LINK_LIBRARIES(SALOME_ConnectionManagerServer ${SALOME_ConnectionManagerServer_LIBS})
-if(RELOCATABLE)
-    set_property(
-        TARGET SALOME_ConnectionManagerServer
-        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
-    )
-endif()
 INSTALL(TARGETS SALOME_ConnectionManagerServer EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_BINS})
 
 FILE(GLOB COMMON_HEADERS_HXX "${CMAKE_CURRENT_SOURCE_DIR}/*.hxx")

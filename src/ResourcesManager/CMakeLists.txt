@@ -50,12 +50,6 @@ ADD_DEFINITIONS(${OMNIORB_DEFINITIONS} ${LIBXML2_DEFINITIONS})
 
 ADD_LIBRARY(ResourcesManager ${ResourcesManager_SOURCES})
 TARGET_LINK_LIBRARIES(ResourcesManager SALOMEBasics SALOMELocalTrace ${LIBXML2_LIBRARIES})
-if(RELOCATABLE)
-    set_property(
-        TARGET ResourcesManager
-        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
-    )
-endif()
 INSTALL(TARGETS ResourcesManager EXPORT ${PROJECT_NAME}TargetGroup 
     DESTINATION ${SALOME_INSTALL_LIBS})
 
@@ -66,12 +60,6 @@ SET(SalomeResourcesManager_SOURCES
 )
 ADD_LIBRARY(SalomeResourcesManager ${SalomeResourcesManager_SOURCES})
 TARGET_LINK_LIBRARIES(SalomeResourcesManager ResourcesManager ${COMMON_LIBS})
-if(RELOCATABLE)
-    set_property(
-        TARGET SalomeResourcesManager
-        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
-    )
-endif()
 INSTALL(TARGETS SalomeResourcesManager EXPORT ${PROJECT_NAME}TargetGroup
         DESTINATION ${SALOME_INSTALL_LIBS})
 

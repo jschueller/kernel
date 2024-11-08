@@ -55,22 +55,10 @@ SET(COMMON_LIBS
 
 ADD_LIBRARY(SalomeTestMPIComponentEngine TestMPIComponentEngine.cxx)
 TARGET_LINK_LIBRARIES(SalomeTestMPIComponentEngine ${COMMON_LIBS})
-if(RELOCATABLE)
-    set_property(
-        TARGET SalomeTestMPIComponentEngine
-        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
-    )
-endif()
 INSTALL(TARGETS SalomeTestMPIComponentEngine DESTINATION ${SALOME_INSTALL_LIBS})
 
 ADD_EXECUTABLE(TestMPIContainer TestMPIContainer.cxx)
 TARGET_LINK_LIBRARIES(TestMPIContainer SalomeTestMPIComponentEngine ${COMMON_LIBS} ${MPI_CXX_LIBRARIES})
-if(RELOCATABLE)
-    set_property(
-        TARGET TestMPIContainer
-        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
-    )
-endif()
 INSTALL(TARGETS TestMPIContainer DESTINATION ${SALOME_INSTALL_BINS})
 
 FILE(GLOB COMMON_HEADERS_HXX "${CMAKE_CURRENT_SOURCE_DIR}/*.hxx")

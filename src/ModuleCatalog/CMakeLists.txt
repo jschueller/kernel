@@ -59,12 +59,6 @@ ADD_DEFINITIONS(${LIBXML2_DEFINITIONS} ${OMNIORB_DEFINITIONS})
 
 ADD_LIBRARY(SalomeCatalog ${SalomeCatalog_SOURCES})
 TARGET_LINK_LIBRARIES(SalomeCatalog ${COMMON_LIBS})
-if(RELOCATABLE)
-    set_property(
-        TARGET SalomeCatalog
-        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
-    )
-endif()
 INSTALL(TARGETS SalomeCatalog EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
 
 ADD_EXECUTABLE(SALOME_ModuleCatalog_Server SALOME_ModuleCatalog_Server.cxx)
@@ -73,12 +67,6 @@ TARGET_LINK_LIBRARIES(SALOME_ModuleCatalog_Server SalomeCatalog ${COMMON_LIBS} $
 ADD_EXECUTABLE(SALOME_ModuleCatalog_Client SALOME_ModuleCatalog_Client.cxx)
 TARGET_LINK_LIBRARIES(SALOME_ModuleCatalog_Client SalomeCatalog ${COMMON_LIBS} ${OMNIORB_LIBRARIES})
 
-if(RELOCATABLE)
-    set_property(
-        TARGET SALOME_ModuleCatalog_Client SALOME_ModuleCatalog_Server
-        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
-    )
-endif()
 #
 
 SET(KernelModuleCatalog_HEADERS KernelModuleCatalog.hxx KernelModuleCatalog.i)
@@ -93,16 +81,10 @@ ELSE()
   SWIG_ADD_LIBRARY(KernelModuleCatalog LANGUAGE python SOURCES ${KernelModuleCatalog_SOURCES})
 ENDIF()
 IF(${MACHINE} STREQUAL WINDOWS)
-  SET_TARGET_PROPERTIES(${SWIG_MODULE_KernelModuleCatalog_REAL_NAME} PROPERTIES DEBUG_OUTPUT_NAME _KernelModuleCatalog_d)
+  SET_TARGET_PROPERTIES(_KernelModuleCatalog PROPERTIES DEBUG_OUTPUT_NAME _KernelModuleCatalog_d)
 ENDIF(${MACHINE} STREQUAL WINDOWS)
 SWIG_LINK_LIBRARIES(KernelModuleCatalog ${PYTHON_LIBRARIES} ${PLATFORM_LIBS} SalomeCatalog SalomeKernelHelpers)
-if(RELOCATABLE)
-    set_property(
-        TARGET ${SWIG_MODULE_KernelModuleCatalog_REAL_NAME}
-        PROPERTY INSTALL_RPATH "${rpath_install_python}"
-    )
-endif()
-install(TARGETS ${SWIG_MODULE_KernelModuleCatalog_REAL_NAME} DESTINATION ${SALOME_INSTALL_PYTHON})
+install(TARGETS _KernelModuleCatalog DESTINATION ${SALOME_INSTALL_PYTHON})
 install(FILES ${KernelModuleCatalog_HEADERS} DESTINATION ${SALOME_INSTALL_HEADERS})
 install(FILES ${_swig_SCRIPTS} DESTINATION ${SALOME_INSTALL_PYTHON})
 

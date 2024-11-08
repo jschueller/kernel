@@ -94,12 +94,6 @@ ENDIF()
 
 ADD_EXECUTABLE(UnitTests UnitTests.cxx)
 TARGET_LINK_LIBRARIES(UnitTests ${COMMON_LIBS})
-if(RELOCATABLE)
-    set_property(
-        TARGET UnitTests
-        PROPERTY INSTALL_RPATH "${rpath_install_test_bins}"
-    )
-endif()
 INSTALL(TARGETS UnitTests DESTINATION ${LOCAL_TEST_DIR})
 
 INSTALL(FILES CTestTestfileInstall.cmake

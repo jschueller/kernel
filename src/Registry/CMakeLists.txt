@@ -32,12 +32,6 @@ INCLUDE_DIRECTORIES(
 ADD_LIBRARY(Registry RegistryConnexion.cxx RegistryService.cxx)
 ADD_DEFINITIONS(${OMNIORB_DEFINITIONS})
 TARGET_LINK_LIBRARIES(Registry SalomeNS OpUtil SALOMELocalTrace SalomeIDLKernel ${PLATFORM_LIBS})
-if(RELOCATABLE)
-    set_property(
-        TARGET Registry
-        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
-    )
-endif()
 INSTALL(TARGETS Registry EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
 
 SET(SALOME_Registry_Server_LIBS
@@ -54,12 +48,6 @@ SET(SALOME_Registry_Server_LIBS
 
 ADD_EXECUTABLE(SALOME_Registry_Server SALOME_Registry_Server.cxx)
 TARGET_LINK_LIBRARIES(SALOME_Registry_Server ${SALOME_Registry_Server_LIBS})
-if(RELOCATABLE)
-    set_property(
-        TARGET SALOME_Registry_Server
-        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
-    )
-endif()
 INSTALL(TARGETS SALOME_Registry_Server EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_BINS})
 
 FILE(GLOB COMMON_HEADERS_HXX "${CMAKE_CURRENT_SOURCE_DIR}/*.hxx")

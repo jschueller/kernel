@@ -99,12 +99,6 @@ SET(SalomeContainer_SOURCES
 
 ADD_LIBRARY(SalomeContainer ${SalomeContainer_SOURCES})
 TARGET_LINK_LIBRARIES(SalomeContainer ${COMMON_LIBS} ${PTHREAD_LIBRARIES})
-if(RELOCATABLE)
-    set_property(
-        TARGET SalomeContainer
-        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
-    )
-endif()
 INSTALL(TARGETS SalomeContainer EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
 
 SET(SALOME_Container_LIBS
@@ -117,12 +111,6 @@ SET(SALOME_Container_LIBS
 
 ADD_LIBRARY(SalomeContainerServer SALOME_Container_SignalsHandler.cxx)
 TARGET_LINK_LIBRARIES(SalomeContainerServer ${SALOME_Container_LIBS})
-if(RELOCATABLE)
-    set_property(
-        TARGET SalomeContainerServer
-        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
-    )
-endif()
 INSTALL(TARGETS SalomeContainerServer EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
 
 ADD_EXECUTABLE(SALOME_Container SALOME_Container.cxx)
@@ -147,12 +135,6 @@ IF(SALOME_BUILD_TESTS)
   ADD_EXECUTABLE(TestSalome_file TestSalome_file.cxx)
   TARGET_LINK_LIBRARIES(TestSalome_file SALOMETraceCollectorTest ${SALOME_Container_LIBS})
 ENDIF()
-if(RELOCATABLE)
-    set_property(
-        TARGET SALOME_Container SALOME_Container_No_NS_Serv SALOME_Container_No_NS_Serv_OutProcess SALOME_Container_No_NS_Serv_OutProcess_Replay SALOME_Container_No_NS_Serv_OutProcess_FT SALOME_Container_No_NS_Serv_OutProcess_Replay_FT
-        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
-    )
-endif()
 INSTALL(TARGETS SALOME_Container SALOME_Container_No_NS_Serv SALOME_Container_No_NS_Serv_OutProcess SALOME_Container_No_NS_Serv_OutProcess_Replay SALOME_Container_No_NS_Serv_OutProcess_FT SALOME_Container_No_NS_Serv_OutProcess_Replay_FT DESTINATION ${SALOME_INSTALL_BINS})
 
 # Executable scripts to be installed
@@ -176,16 +158,10 @@ ELSE()
   SWIG_ADD_LIBRARY(KernelContainer LANGUAGE python SOURCES ${KernelContainer_SOURCES})
 ENDIF()
 IF(${MACHINE} STREQUAL WINDOWS)
-  SET_TARGET_PROPERTIES(${SWIG_MODULE_KernelContainer_REAL_NAME} PROPERTIES DEBUG_OUTPUT_NAME _KernelContainer_d)
+  SET_TARGET_PROPERTIES(_KernelContainer PROPERTIES DEBUG_OUTPUT_NAME _KernelContainer_d)
 ENDIF(${MACHINE} STREQUAL WINDOWS)
 SWIG_LINK_LIBRARIES(KernelContainer ${PYTHON_LIBRARIES} ${PLATFORM_LIBS} SalomeContainer SalomeKernelHelpers)
-if(RELOCATABLE)
-    set_property(
-        TARGET ${SWIG_MODULE_KernelContainer_REAL_NAME}
-        PROPERTY INSTALL_RPATH "${rpath_install_python}"
-    )
-endif()
-install(TARGETS ${SWIG_MODULE_KernelContainer_REAL_NAME} DESTINATION ${SALOME_INSTALL_PYTHON})
+install(TARGETS _KernelContainer DESTINATION ${SALOME_INSTALL_PYTHON})
 install(FILES ${KernelContainer_HEADERS} DESTINATION ${SALOME_INSTALL_HEADERS})
 # /!\ Order of next 2 lines is important
 # because SALOME_INSTALL_SCRIPTS macro will compute the pyc/pyo files

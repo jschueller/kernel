@@ -37,12 +37,6 @@ ADD_DEFINITIONS(${OMNIORB_DEFINITIONS})
 
 ADD_LIBRARY(SalomePalm palm_port_factory.cxx)
 TARGET_LINK_LIBRARIES(SalomePalm SalomeDSCSuperv ${OMNIORB_LIBRARIES})
-if(RELOCATABLE)
-    set_property(
-        TARGET SalomePalm
-        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
-    )
-endif()
 
 INSTALL(TARGETS SalomePalm EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
 

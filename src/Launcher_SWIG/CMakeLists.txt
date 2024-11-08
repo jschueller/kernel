@@ -42,12 +42,6 @@ INCLUDE_DIRECTORIES(
 
 ADD_LIBRARY(LauncherWrapHelper LauncherResourceDefinition.cxx)
 TARGET_LINK_LIBRARIES(LauncherWrapHelper Launcher)
-if(RELOCATABLE)
-    set_property(
-        TARGET LauncherWrapHelper
-        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
-    )
-endif()
 INSTALL(TARGETS LauncherWrapHelper EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
 IF(WIN32)
   ADD_LIBRARY(LauncherWrapHelper_static STATIC  LauncherResourceDefinition.cxx)
@@ -68,12 +62,6 @@ ELSE(WIN32)
 ENDIF(WIN32)
 
 SWIG_CHECK_GENERATION(${Launcher_target_name})
-if(RELOCATABLE)
-    set_property(
-        TARGET ${SWIG_MODULE_${Launcher_target_name}_REAL_NAME}
-        PROPERTY INSTALL_RPATH "${rpath_install_python}"
-    )
-endif()
 
 INSTALL(TARGETS ${SWIG_MODULE_${Launcher_target_name}_REAL_NAME} DESTINATION ${SALOME_INSTALL_PYTHON})
 

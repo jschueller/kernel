@@ -56,12 +56,6 @@ ADD_DEFINITIONS(${BOOST_DEFINITIONS} ${OMNIORB_DEFINITIONS})
 
 ADD_LIBRARY(SalomeCalcium ${SalomeCalcium_SOURCES})
 TARGET_LINK_LIBRARIES(SalomeCalcium SalomeDSCSuperv SalomeContainer ${OMNIORB_LIBRARIES} ${PLATFORM_LIBS})
-if(RELOCATABLE)
-    set_property(
-        TARGET SalomeCalcium
-        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
-    )
-endif()
 
 INSTALL(TARGETS SalomeCalcium EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
 
@@ -72,12 +66,6 @@ SET(CalciumC_SOURCES
 )
 ADD_LIBRARY(CalciumC ${CalciumC_SOURCES})
 TARGET_LINK_LIBRARIES(CalciumC SalomeDSCSuperv SalomeCalcium)
-if(RELOCATABLE)
-    set_property(
-        TARGET CalciumC
-        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
-    )
-endif()
 
 INSTALL(TARGETS CalciumC EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
 

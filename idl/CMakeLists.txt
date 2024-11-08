@@ -87,13 +87,6 @@ OMNIORB_ADD_MODULE(SalomeIDLKernel "${SalomeIDLKernel_IDLSOURCES}" "${IDL_INCLUD
 ADD_DEFINITIONS(${COMMON_FLAGS})
 TARGET_LINK_LIBRARIES(SalomeIDLKernel ${OMNIORB_LIBRARIES})
 
-if(RELOCATABLE)
-    set_property(
-        TARGET SalomeIDLKernel
-        PROPERTY INSTALL_RPATH "${rpath_install_libs}"
-    )
-endif()
-
 INSTALL(TARGETS SalomeIDLKernel EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
 
 IF(SALOME_PACO_PARALLEL)
@@ -205,12 +198,6 @@ IF(SALOME_PACO_PARALLEL)
     ${SalomeParallelIDLKernel_GEN_PACO_SOURCES}
   )
   ADD_DEPENDENCIES(SalomeParallelIDLKernel BUILD_PAR_INCLUDES)
-  if(RELOCATABLE)
-      set_property(
-          TARGET SalomeParallelIDLKernel
-          PROPERTY INSTALL_RPATH "${rpath_install_libs}"
-      )
-  endif()
 
   INSTALL(TARGETS SalomeParallelIDLKernel EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
 ENDIF()
