@@ -44,7 +44,3 @@ SET(salomepython_PYTHON
 
 SALOME_INSTALL_SCRIPTS("${salomepython_PYTHON}" ${SALOME_INSTALL_PYTHON} DEF_PERMS)
 SALOME_INSTALL_SCRIPTS(__init__.py ${SALOME_INSTALL_PYTHON}/salome DEF_PERMS)
-# /!\ Order of next 2 lines is important
-# because salome.pth file needs salome_pth.py
-SALOME_INSTALL_SCRIPTS(salome_pth.py ${_pydir} DEF_PERMS)
-install(FILES salome.pth DESTINATION ${_pydir})
