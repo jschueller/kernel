@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
-# -*- coding:utf-8 -*-
-# Copyright (C) 2022-2024  CEA, EDF, OPEN CASCADE
+#  -*- coding: iso-8859-1 -*-
+# Copyright (C) 2007-2024  CEA, EDF, OPEN CASCADE
+#
+# Copyright (C) 2003-2007  OPEN CASCADE, EADS/CCR, LIP6, CEA/DEN,
+# CEDRAT, EDF R&D, LEG, PRINCIPIA R&D, BUREAU VERITAS
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -16,26 +19,18 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 #
-# See https://www.salome-platform.org/ or email : webmaster.salome@opencascade.com
+# See http://www.salome-platform.org/ or email : webmaster.salome@opencascade.com
 #
 
-#  File   : runSalomeOnDemand.py
-#  Author : Konstantin Leontev, Open Cascade
-#
-## @package runSalomeOnDemand
-# \brief Module that provides services to launch SALOME with custom set of modules
+import os
 #
 
-"""Run SALOME app in the context of adding modules as extensions.
-"""
 
-import sys
-from runSalomeOnDemand_impl import set_ext_env, logger
+def get_appli_path(filePath=None):
+    if filePath is None:
+        filePath = os.path.realpath(os.path.dirname(__file__))
 
-if __name__ == "__main__":
-    if len(sys.argv) == 3:
-        arg_1, arg_2 = sys.argv[1:]
-        set_ext_env(arg_1, arg_2)
-    else:
-        logger.error('You must provide all the arguments!')
-        logger.info(set_ext_env.__doc__)
+    homePath = os.path.realpath(os.path.expanduser("~"))
+    applipath = os.path.relpath(filePath, homePath)
+    return applipath
+#

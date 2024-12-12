@@ -38,6 +38,7 @@ SET(SCRIPTS
   killSalome.py
   killSalomeWithPort.py
   NSparam.py
+  ORBConfigFile.py
   pythonpath_reduction.py
   runConsole.py
   runIDLparser
@@ -58,16 +59,20 @@ SET(SCRIPTS
 SET(PACKAGES
   launchConfigureParser.py
   nameserver.py
-  ORBConfigFile.py
+  ORBConfigFile_impl.py
   orbmodule.py
   parseConfigFile.py
   PortManager.py
+  runSalome_impl.py
   runSalomeCommon.py
+  runSalomeOld_impl.py
+  runSalomeOnDemand_impl.py
   runSession.py
   runTests.py
   salome_utils.py
   searchFreePort.py
   server.py
+  setenv_impl.py
 )
 
 SALOME_INSTALL_SCRIPTS("${SCRIPTS}" ${SALOME_INSTALL_SCRIPT_SCRIPTS})

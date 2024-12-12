@@ -40,6 +40,7 @@ SET(SCRIPTS
 )
 
 SET(PACKAGES
+  getAppliPath_impl.py
   salome_common.py
   salome_starter.py
 )
