@@ -373,7 +373,7 @@ class CommonSessionServer(Server):
 class SessionServer(CommonSessionServer):
     def __init__(self,args,modules_list,modules_root_dir):
         super().__init__(args,modules_list,modules_root_dir)
-        import KernelBasis
+        from . import KernelBasis
         KernelBasis.setSSLMode(False)
     
     def getSessionServerExe(self):

@@ -22,9 +22,9 @@
 # \brief Module that provides the base class for DSC components implemented in python
 #
 
-import calcium
-import SALOME_ComponentPy
-import SALOME_DriverPy
+from . import calcium
+from . import SALOME_ComponentPy
+from . import SALOME_DriverPy
 import Engines
 
 ## The SALOME base class for all DSC components implemented in python (interface Engines::Superv_Component).

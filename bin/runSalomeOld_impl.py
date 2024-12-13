@@ -27,7 +27,7 @@
 #
 
 import sys, os, string, glob, time, pickle, re
-import orbmodule
+from . import orbmodule
 import setenv
 from launchConfigureParser import verbose
 from server import process_id, Server

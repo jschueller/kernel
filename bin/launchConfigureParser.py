@@ -909,7 +909,7 @@ def get_env(appname=salomeappname, cfgname=salomecfgname, exeName=None, keepEnvi
         print("port:%s"%(os.environ['NSPORT']))
 
         try:
-            import PortManager
+            from . import PortManager
             PortManager.releasePort(os.environ['NSPORT'])
         except ImportError:
             pass

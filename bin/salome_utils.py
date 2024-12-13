@@ -455,7 +455,7 @@ def verbose():
 
     :return current verbosity level
     """
-    import KernelBasis
+    from . import KernelBasis
     return KernelBasis.VerbosityActivated()
 
 # --
@@ -467,7 +467,7 @@ def setVerbose(status):
     :param status : verbosity status
     :type status: bool
     """
-    import KernelBasis
+    from . import KernelBasis
     return KernelBasis.SetVerbosityActivated( status )
 
 # --
@@ -489,7 +489,7 @@ def verboseLevel():
 
     :return current verbosity level
     """
-    import KernelBasis
+    from . import KernelBasis
     return KernelLogLevelToLogging[ KernelBasis.VerbosityLevel() ]
 
 def setVerboseLevel(level):
@@ -498,7 +498,7 @@ def setVerboseLevel(level):
     The function `verboseLevel()` can be used to get current verbosity level.
     :param level : verbosity level
     """
-    import KernelBasis
+    from . import KernelBasis
     KernelBasis.SetVerbosityLevel(LoggingToKernelLogLevel[ level ])
 
 # --

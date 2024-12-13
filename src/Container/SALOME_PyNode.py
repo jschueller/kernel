@@ -33,7 +33,7 @@ import traceback
 from pathlib import Path
 
 import Engines__POA
-import KernelBasis
+from . import KernelBasis
 import SALOME
 import SALOME__POA
 import Engines
@@ -583,7 +583,7 @@ def FileSystemMonitoring(intervalInMs, dirNameToInspect, outFileName = None):
     import os
     dirNameToInspect2 = os.path.abspath( os.path.expanduser(dirNameToInspect) )
     import tempfile
-    import KernelBasis
+    from . import KernelBasis
     # outFileNameSave stores the content of outFileName during phase of dumping
     with tempfile.NamedTemporaryFile(prefix="fs_monitor_",suffix=".txt") as f:
       outFileNameSave = f.name
@@ -641,7 +641,7 @@ def CPUMemoryMonitoring( intervalInMs, outFileName = None ):
 
   See also FileSystemMonitoring
   """
-  import KernelBasis
+  from . import KernelBasis
   def BuildPythonFileForCPUPercent( intervalInMs, outFileName):
     import os
     import tempfile
@@ -690,7 +690,7 @@ class GenericPythonMonitoringLauncherCtxMgr:
         """
         self._monitoring_params = monitoringParams
     def __enter__(self):
-        import KernelBasis
+        from . import KernelBasis
         pid = KernelBasis.LaunchMonitoring(self._monitoring_params.pyFileName.filename)
         self._monitoring_params.pid = pid
         return self._monitoring_params
@@ -709,7 +709,7 @@ def StopMonitoring( monitoringInfo ):
   ----
       monitoringInfo (MonitoringInfo): info returned by LaunchMonitoring
   """
-  import KernelBasis
+  from . import KernelBasis
   KernelBasis.StopMonitoring(monitoringInfo.pid)
 
 class CPUMemInfo:
@@ -1169,7 +1169,7 @@ def ExecCrashProofGeneric( code, context, outargsname, containerRef, instanceOfL
 
   #
   def InternalExecResistant( exchangeMode, keepFilesToReplay, code, context, outargsname):
-    import KernelBasis
+    from . import KernelBasis
     import salome
     salome.salome_init()
     orb = salome.orb

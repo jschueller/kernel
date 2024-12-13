@@ -21,7 +21,7 @@
 
 import SALOME
 import pickle
-import SALOMEWrappedStdType
+from . import SALOMEWrappedStdType
 
 class InvokatorStyle:
     def __init__(self,varPtr):

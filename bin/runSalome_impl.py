@@ -30,7 +30,7 @@ import json
 import subprocess
 from salomeContextUtils import ScriptAndArgsObjectEncoder
 import runSalomeNoServer
-import runSalomeCommon
+from . import runSalomeCommon
 import platform
 from launchConfigureParser import verbosity_nam, on_demand_nam
 import logging

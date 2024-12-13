@@ -26,9 +26,9 @@
 #  Module : SALOME
 #  $Header$
 #
-import salome_kernel_utils
+from . import salome_kernel_utils
 import SALOMEDS
-import salome_iapp
+from . import salome_iapp
 from launchConfigureParser import verbose
 
 myStudy = None
@@ -293,7 +293,7 @@ def salome_study_init_without_session(theStudyPath=None):
         orb = CORBA.ORB_init([''])
 
         # get Study reference
-        import KernelDS
+        from . import KernelDS
         myStudy = KernelDS.myStudy()
         pass
 

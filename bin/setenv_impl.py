@@ -81,7 +81,7 @@ def get_config(silent=False, exeName=None, keepEnvironment=True):
     # read args from launch configure xml file and command line options
 
 
-    import launchConfigureParser
+    from . import launchConfigureParser
     args = launchConfigureParser.get_env(exeName=exeName, keepEnvironment=keepEnvironment)
 
 

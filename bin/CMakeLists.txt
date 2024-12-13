@@ -57,19 +57,26 @@ SET(SCRIPTS
   )
 
 SET(PACKAGES
+  addToKillList_impl.py
+  killSalome_impl.py
+  killSalomeWithPort_impl.py
   launchConfigureParser.py
   nameserver.py
+  NSparam_impl.py
   ORBConfigFile_impl.py
   orbmodule.py
   parseConfigFile.py
   PortManager.py
+  runConsole_impl.py
   runSalome_impl.py
   runSalomeCommon.py
   runSalomeOld_impl.py
   runSalomeOnDemand_impl.py
+  runSalomeNoServer_impl.py
   runSession.py
   runTests.py
   salome_utils.py
+  salomeContext_impl.py
   searchFreePort.py
   server.py
   setenv_impl.py
