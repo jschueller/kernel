@@ -37,8 +37,8 @@ import time
 import string
 import signal
 from omniORB import CORBA, PortableServer, any
-import Engines, Engines__POA
-import Registry
+from . import Engines, Engines__POA
+from . import Registry
 from .Utils_Identity import *
 from .SALOME_NamingServicePy import *
 from .SALOME_Embedded_NamingService_ClientPy import SALOME_Embedded_NamingService_ClientPy

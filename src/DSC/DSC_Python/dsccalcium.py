@@ -25,7 +25,7 @@
 from . import calcium
 from . import SALOME_ComponentPy
 from . import SALOME_DriverPy
-import Engines
+from . import Engines
 
 ## The SALOME base class for all DSC components implemented in python (interface Engines::Superv_Component).
 #

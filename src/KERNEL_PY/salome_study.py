@@ -27,7 +27,7 @@
 #  $Header$
 #
 from . import salome_kernel_utils
-import SALOMEDS
+from . import SALOMEDS
 from . import salome_iapp
 from .launchConfigureParser import verbose
 

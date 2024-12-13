@@ -32,12 +32,12 @@ import sys
 import traceback
 from pathlib import Path
 
-import Engines__POA
+from . import Engines__POA
 from . import KernelBasis
-import SALOME
-import SALOME__POA
-import Engines
-import Engines__POA
+from . import SALOME
+from . import SALOME__POA
+from . import Engines
+from . import Engines__POA
 from .SALOME_ContainerHelper import ScriptExecInfo
 
 MY_CONTAINER_ENTRY_IN_GLBS = "my_container"
@@ -860,7 +860,7 @@ from .SALOME_PyNode import LogOfCurrentExecutionSession,MY_PERFORMANCE_LOG_ENTRY
 from .SALOME_PyNode import ExchangeModeServerSideFactory
 from .KernelBasis import VerbosityActivated,SetVerbosityLevel,SetVerbosityActivated
 from .salome_utils import positionVerbosityOfLoggerRegardingState
-import Engines
+from . import Engines
 import salome
 import os
 import sys

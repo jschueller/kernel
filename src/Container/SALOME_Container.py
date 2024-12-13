@@ -37,8 +37,8 @@ import sys
 import traceback
 import importlib
 from omniORB import CORBA, PortableServer
-import SALOMEDS
-import Engines, Engines__POA
+from . import SALOMEDS
+from . import Engines, Engines__POA
 from .SALOME_NamingServicePy import *
 from .SALOME_ComponentPy import *
 from . import SALOME_PyNode

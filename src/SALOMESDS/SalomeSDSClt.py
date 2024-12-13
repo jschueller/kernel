@@ -19,7 +19,7 @@
 #
 # Author : Anthony Geay
 
-import SALOME
+from . import SALOME
 import pickle
 from . import SALOMEWrappedStdType
 

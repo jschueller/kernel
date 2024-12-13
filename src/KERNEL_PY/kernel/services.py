@@ -108,7 +108,7 @@ def getComponent(componentName = "SalomeTestComponent",
 # Note that an alternative (and maybe better) method to get a component
 # is to use the module catalog. Here, we just use the catalog to get
 # the list of components defined in the current session.
-import SALOME_ModuleCatalog
+from . import SALOME_ModuleCatalog
 
 ## Get the list of names of all %SALOME componenents register in
 #  the catalog.
@@ -124,7 +124,7 @@ def getComponentList():
         raise RuntimeError("Can't access module catalog")
     return catalog.GetComponentList()
 
-import SALOMEDS
+from . import SALOMEDS
 ## Get a study to create SALOME study. 
 #  \warning you should use instead the variable salome.myStudy. 
 #  This function is given for illustration of usage of the naming service

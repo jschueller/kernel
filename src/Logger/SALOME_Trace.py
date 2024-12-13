@@ -28,7 +28,7 @@
 import sys
 import CosNaming
 from omniORB import CORBA
-import SALOME_Logger
+from . import SALOME_Logger
 import time
 import os
 

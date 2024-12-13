@@ -30,7 +30,7 @@ import sys
 from omniORB import CORBA
 from .LifeCycleCORBA import *
 from libSALOME_Swig import *
-import SALOMEDS
+from . import SALOMEDS
 from .SALOME_NamingServicePy import *
 
     #--------------------------------------------------------------------------

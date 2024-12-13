@@ -84,11 +84,11 @@ def kill_salome(args):
 
 def startGUI(clt):
     """Salome Session Graphic User Interface activation"""
-    import Engines
-    import SALOME
-    import SALOMEDS
-    import SALOME_ModuleCatalog
-    import SALOME_Session_idl
+    from . import Engines
+    from . import SALOME
+    from . import SALOMEDS
+    from . import SALOME_ModuleCatalog
+    from . import SALOME_Session_idl
     session=clt.waitNS("/Kernel/Session",SALOME.Session)
     session.GetInterface()
 
@@ -137,11 +137,11 @@ def startSalome(args, modules_list, modules_root_dir):
     # Wake up session option
     #
     if args['wake_up_session']:
-        import Engines
-        import SALOME
-        import SALOMEDS
-        import SALOME_ModuleCatalog
-        import SALOME_Session_idl
+        from . import Engines
+        from . import SALOME
+        from . import SALOMEDS
+        from . import SALOME_ModuleCatalog
+        from . import SALOME_Session_idl
         session = clt.waitNS("/Kernel/Session",SALOME.Session)
         status = session.GetStatSession()
         if status.activeGUI:
@@ -205,7 +205,7 @@ def startSalome(args, modules_list, modules_root_dir):
         cataServer=CatalogServer(args)
         cataServer.setpath(modules_list,modules_root_dir)
         cataServer.run()
-        import SALOME_ModuleCatalog
+        from . import SALOME_ModuleCatalog
         if sys.platform == "win32":
           clt.waitNS("/Kernel/ModulCatalog",SALOME_ModuleCatalog.ModuleCatalog)
         else:
@@ -279,11 +279,11 @@ def startSalome(args, modules_list, modules_root_dir):
 
     if args["gui"] and not args['launcher_only']:
 ##----------------
-        import Engines
-        import SALOME
-        import SALOMEDS
-        import SALOME_ModuleCatalog
-        import SALOME_Session_idl
+        from . import Engines
+        from . import SALOME
+        from . import SALOMEDS
+        from . import SALOME_ModuleCatalog
+        from . import SALOME_Session_idl
         if sys.platform == "win32":
           session=clt.waitNS("/Kernel/Session",SALOME.Session)
         else:
