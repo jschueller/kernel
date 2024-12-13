@@ -38,7 +38,7 @@ import SALOME
 import SALOME__POA
 import Engines
 import Engines__POA
-from SALOME_ContainerHelper import ScriptExecInfo
+from .SALOME_ContainerHelper import ScriptExecInfo
 
 MY_CONTAINER_ENTRY_IN_GLBS = "my_container"
 
@@ -486,7 +486,7 @@ def SpoolPickleObject( obj, visitor = None ):
       pickleProxy = pickle.dumps( proxyObj , pickle.HIGHEST_PROTOCOL )
       return pickleProxy
 
-from SALOME_ContainerHelper import InOutputObjVisitorCM, InOutputObjVisitor
+from .SALOME_ContainerHelper import InOutputObjVisitorCM, InOutputObjVisitor
 
 def UnProxyObjectSimple( obj, visitor = None ):
   """
@@ -856,10 +856,10 @@ class SeqByteReceiver:
       return data_for_split_case
   
 FinalCode = """import pickle
-from SALOME_PyNode import LogOfCurrentExecutionSession,MY_PERFORMANCE_LOG_ENTRY_IN_GLBS
-from SALOME_PyNode import ExchangeModeServerSideFactory
-from KernelBasis import VerbosityActivated,SetVerbosityLevel,SetVerbosityActivated
-from salome_utils import positionVerbosityOfLoggerRegardingState
+from .SALOME_PyNode import LogOfCurrentExecutionSession,MY_PERFORMANCE_LOG_ENTRY_IN_GLBS
+from .SALOME_PyNode import ExchangeModeServerSideFactory
+from .KernelBasis import VerbosityActivated,SetVerbosityLevel,SetVerbosityActivated
+from .salome_utils import positionVerbosityOfLoggerRegardingState
 import Engines
 import salome
 import os

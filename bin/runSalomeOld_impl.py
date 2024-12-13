@@ -29,13 +29,13 @@
 import sys, os, string, glob, time, pickle, re
 from . import orbmodule
 import setenv
-from launchConfigureParser import verbose
-from server import process_id, Server
+from .launchConfigureParser import verbose
+from .server import process_id, Server
 import json
 import subprocess
 from salomeContextUtils import ScriptAndArgsObjectEncoder
 import platform
-from runSalomeCommon import setVerbose, InterpServer, CatalogServer, SalomeDSServer, ConnectionManagerServer, RegistryServer, ContainerCPPServer, LoggerServer, CommonSessionServer, SessionServer, LauncherServer
+from .runSalomeCommon import setVerbose, InterpServer, CatalogServer, SalomeDSServer, ConnectionManagerServer, RegistryServer, ContainerCPPServer, LoggerServer, CommonSessionServer, SessionServer, LauncherServer
 # -----------------------------------------------------------------------------
 
 from killSalome import killAllPorts
@@ -111,7 +111,7 @@ def startSalome(args, modules_list, modules_root_dir):
     #
     if args['wake_up_session']:
         if "OMNIORB_CONFIG" not in os.environ:
-            from salome_utils import generateFileName
+            from .salome_utils import generateFileName
             omniorbUserPath = os.getenv("OMNIORB_USER_PATH")
             kwargs={}
             if omniorbUserPath is not None:
@@ -145,7 +145,7 @@ def startSalome(args, modules_list, modules_root_dir):
         session = clt.waitNS("/Kernel/Session",SALOME.Session)
         status = session.GetStatSession()
         if status.activeGUI:
-            from salome_utils import getPortNumber
+            from .salome_utils import getPortNumber
             port = getPortNumber()
             msg  = "Warning :"
             msg += "\n"
@@ -246,7 +246,7 @@ def startSalome(args, modules_list, modules_root_dir):
       myConnectionServer = ConnectionManagerServer(args)
       myConnectionServer.run()
 
-    from Utils_Identity import getShortHostName
+    from .Utils_Identity import getShortHostName
 
     if os.getenv("HOSTNAME") == None:
         if os.getenv("HOST") == None:
@@ -438,9 +438,9 @@ def registerEnv(args, modules_list, modules_root_dir):
     Register args, modules_list, modules_root_dir in a file
     for further use, when SALOME is launched embedded in an other application.
     """
-    from salome_utils import getTmpDir
+    from .salome_utils import getTmpDir
     fileEnv = getTmpDir()
-    from salome_utils import getUserName
+    from .salome_utils import getUserName
     fileEnv += getUserName() + "_" + str(args['port']) \
             + '_' + args['appname'].upper() + '_env'
     fenv=open(fileEnv,'w')
@@ -457,7 +457,7 @@ def no_main():
     args, modules_list, modules_root_dir = pickle.load(fenv)
     fenv.close()
     kill_salome(args)
-    from searchFreePort import searchFreePort
+    from .searchFreePort import searchFreePort
     searchFreePort(args, 0)
     clt = useSalome(args, modules_list, modules_root_dir)
     return clt
@@ -483,7 +483,7 @@ def main(exeName=None):
         print(e)
         sys.exit(1)
 
-    from salome_utils import getHostName
+    from .salome_utils import getHostName
     keep_env = not os.getenv('SALOME_PLEASE_SETUP_ENVIRONMENT_AS_BEFORE')
     args, modules_list, modules_root_dir = setenv.get_config(exeName=exeName, keepEnvironment=keep_env)
     print("runSalome running on %s" % getHostName())
@@ -498,7 +498,7 @@ def main(exeName=None):
         test = False
         pass
     if test and not 'launcher' in args:
-        from searchFreePort import searchFreePort
+        from .searchFreePort import searchFreePort
         searchFreePort(args, save_config, args.get('useport'))
         pass
     # --
@@ -542,7 +542,7 @@ def foreGround(clt, args):
     if not gui_detected:
         return
     # --
-    from salome_utils import getPortNumber
+    from .salome_utils import getPortNumber
     port = getPortNumber()
     # --
     server = Server({})

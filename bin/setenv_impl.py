@@ -23,7 +23,7 @@
 #
 
 import sys, os, string, glob, time, pickle
-from launchConfigureParser import verbose
+from .launchConfigureParser import verbose
 
 # this file is extraction of set_env from runSalome.py
 # for reusage in automated tests
@@ -136,7 +136,7 @@ def set_env(args, modules_list, modules_root_dir, silent=False, keepEnvironment=
     """Add to the PATH-variables modules specific paths"""
 
     import os
-    from salome_utils import getLogDir, generateFileName, makeTmpDir, getPortNumber
+    from .salome_utils import getLogDir, generateFileName, makeTmpDir, getPortNumber
 
     if 'launcher' in args:
       pos = args['launcher'].find(":")

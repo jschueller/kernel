@@ -39,15 +39,15 @@ import importlib
 from omniORB import CORBA, PortableServer
 import SALOMEDS
 import Engines, Engines__POA
-from SALOME_NamingServicePy import *
-from SALOME_ComponentPy import *
+from .SALOME_NamingServicePy import *
+from .SALOME_ComponentPy import *
 from . import SALOME_PyNode
 import logging
 
-from SALOME_utilities import *
-from Utils_Identity import getShortHostName
-from salome_utils import verbose
-from KernelBasis import VerbosityActivated,getSSLMode
+from .SALOME_utilities import *
+from .Utils_Identity import getShortHostName
+from .salome_utils import verbose
+from .KernelBasis import VerbosityActivated,getSSLMode
 
 #=============================================================================
 

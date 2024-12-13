@@ -63,7 +63,7 @@ from time import sleep
 
 import psutil
 
-from salome_utils import (generateFileName, getHostName, getLogDir, getShortHostName,
+from .salome_utils import (generateFileName, getHostName, getLogDir, getShortHostName,
                           getUserName, killOmniNames, killPid, verbose)
 import logging
 logger = logging.getLogger()
@@ -179,7 +179,7 @@ def shutdownMyPort(port, cleanup=True):
     # release port
     with suppress(ImportError):
         # DO NOT REMOVE NEXT LINE: it tests PortManager availability!
-        from PortManager import releasePort
+        from .PortManager import releasePort
         releasePort(port)
 
     # set OMNIORB_CONFIG variable to the proper file (if not set yet)
@@ -202,7 +202,7 @@ def shutdownMyPort(port, cleanup=True):
     # give the chance to the servers to shutdown properly
     with suppress(Exception):
         from omniORB import CORBA
-        from LifeCycleCORBA import LifeCycleCORBA
+        from .LifeCycleCORBA import LifeCycleCORBA
         orb = CORBA.ORB_init([''], CORBA.ORB_ID)
         lcc = LifeCycleCORBA(orb) # see (1) below
         # shutdown all
@@ -216,7 +216,7 @@ def shutdownMyPort(port, cleanup=True):
             killOmniNames(port)
             __killMyPort(port, getPiDict(port))
             # DO NOT REMOVE NEXT LINE: it tests PortManager availability!
-            from PortManager import releasePort
+            from .PortManager import releasePort
             releasePort(port)
             sleep(1)
     sys.exit(0) # see (1) below
@@ -350,7 +350,7 @@ def killMyPort(*ports):
 
         with suppress(Exception):
             # DO NOT REMOVE NEXT LINE: it tests PortManager availability!
-            from PortManager import releasePort
+            from .PortManager import releasePort
             # get pidict file
             filedict = getPiDict(port)
             if not osp.isfile(filedict): # removed by previous call, see (1) above

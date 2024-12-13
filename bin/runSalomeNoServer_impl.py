@@ -31,7 +31,7 @@ class NoSessionServer(runSalomeCommon.CommonSessionServer):
     def getSessionServerExe(self):
         return "SALOME_Session_Server_No_Server"
 
-from server import process_id
+from .server import process_id
 from addToKillList import addToKillList,killList
 
 def main():

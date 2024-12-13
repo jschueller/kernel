@@ -28,7 +28,7 @@
 #  $Header$
 #
 import Engines
-from libSALOME_LifeCycleCORBA import *
+from .libSALOME_LifeCycleCORBA import *
 
 class LifeCycleCORBA(SALOME_LifeCycleCORBA):
 

@@ -29,7 +29,7 @@
 from . import salome_kernel_utils
 import SALOMEDS
 from . import salome_iapp
-from launchConfigureParser import verbose
+from .launchConfigureParser import verbose
 
 myStudy = None
 myStudyName = None

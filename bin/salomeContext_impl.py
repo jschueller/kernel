@@ -26,7 +26,7 @@ if sys.version_info[:2] >= (3,12):
   from configparser import ConfigParser as SafeConfigParser
 else:
   from configparser import SafeConfigParser
-from parseConfigFile import parseConfigFile
+from .parseConfigFile import parseConfigFile
 
 import tempfile
 import pickle

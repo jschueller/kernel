@@ -31,7 +31,7 @@ import sys
 from omniORB import CORBA, PortableServer
 import CosNaming
 import Engines, Engines__POA
-from SALOME_ComponentPy import *
+from .SALOME_ComponentPy import *
 
 class SALOME_TestComponentPy( Engines__POA.TestComponent, SALOME_ComponentPy_i):
 

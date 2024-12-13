@@ -25,14 +25,14 @@
 
 import sys, os, string, glob, time, pickle, re
 import setenv
-from server import process_id, Server
+from .server import process_id, Server
 import json
 import subprocess
 from salomeContextUtils import ScriptAndArgsObjectEncoder
 import runSalomeNoServer
 from . import runSalomeCommon
 import platform
-from launchConfigureParser import verbosity_nam, on_demand_nam
+from .launchConfigureParser import verbosity_nam, on_demand_nam
 import logging
 logger = logging.getLogger()
 
@@ -285,7 +285,7 @@ def foreGround(args, ior_fakens_filename):
         logger.debug("Couldn't find active GUI in the current session. Return.")
         return
     # --
-    from salome_utils import getPortNumber
+    from .salome_utils import getPortNumber
     port = getPortNumber()
     # --
     dt = 1.0

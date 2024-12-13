@@ -28,7 +28,7 @@ import re
 import sys
 import xml.sax
 
-from salome_utils import verbose, getPortNumber, getHomeDir
+from .salome_utils import verbose, getPortNumber, getHomeDir
 
 
 # names of tags in XML configuration file
@@ -904,7 +904,7 @@ def get_env(appname=salomeappname, cfgname=salomecfgname, exeName=None, keepEnvi
 
     # Process --print-port option
     if cmd_opts.print_port:
-        from searchFreePort import searchFreePort
+        from .searchFreePort import searchFreePort
         searchFreePort({})
         print("port:%s"%(os.environ['NSPORT']))
 

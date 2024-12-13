@@ -25,10 +25,10 @@
 #  Module : SALOME
 
 from omniORB import CORBA
-from LifeCycleCORBA import *
+from .LifeCycleCORBA import *
 import SALOME
 import SALOMEDS
-from SALOME_NamingServicePy import *
+from .SALOME_NamingServicePy import *
 
 #--------------------------------------------------------------------------
 

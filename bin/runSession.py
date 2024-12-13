@@ -29,7 +29,7 @@ import socket
 import subprocess
 import re
 from salomeContextUtils import getScriptsAndArgs, formatScriptsAndArgs, getShortAndExtraArgs
-from salome_utils import getUserName, getShortHostName
+from .salome_utils import getUserName, getShortHostName
 
 # Use to display newlines (\n) in epilog
 class MyParser(OptionParser):

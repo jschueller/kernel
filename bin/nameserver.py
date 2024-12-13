@@ -23,9 +23,9 @@
 
 import os, sys, re, socket
 #import commands
-from server import Server
-from salome_utils import getHostName, makeDir
-from launchConfigureParser import verbose
+from .server import Server
+from .salome_utils import getHostName, makeDir
+from .launchConfigureParser import verbose
 
 # -----------------------------------------------------------------------------
 
@@ -38,7 +38,7 @@ class NamingServer(Server):
     #LOGDIR = "/tmp/logs/" + USER
 
     def initNSArgs(self):
-        from salome_utils import getLogDir
+        from .salome_utils import getLogDir
         upath = getLogDir()
         makeDir(upath)
 
