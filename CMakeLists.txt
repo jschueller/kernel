@@ -22,6 +22,7 @@ cmake_policy(SET CMP0078 OLD)
 cmake_policy(SET CMP0086 OLD)
 
 INCLUDE(CMakeDependentOption)
+INCLUDE(ConfigureRPath.cmake)
 
 # Project name
 # ============
@@ -191,23 +192,9 @@ CONFIGURE_FILE(CTestTestfileInstall.cmake.in CTestTestfileInstall.cmake @ONLY)
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/CTestTestfileInstall.cmake
         DESTINATION ${KERNEL_TEST_DIR}
         RENAME CTestTestfile.cmake)
-        
-# RPATH settings:
-# use, i.e. don't skip the full RPATH for the build tree
-set ( CMAKE_SKIP_BUILD_RPATH  FALSE )
-# when building, don't use the install RPATH already
-# (but later on when installing)
-set ( CMAKE_BUILD_WITH_INSTALL_RPATH FALSE )
-# add the automatically determined parts of the RPATH
-# which point to directories outside the build tree to the install RPATH
-set ( CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE )
-# the RPATH to be used when installing, but only if it's not a system directory
-list ( FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/lib" isSystemDir )
-if ( "${isSystemDir}" STREQUAL "-1" )
-  # $ORIGIN/../../../../../lib/salome
-  set ( CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib/salome" )
-endif()
 
+# configure_rpath_bytarget()
+# configure_rpath()
 
 IF(SALOME_LIGHT_ONLY)
   ADD_DEFINITIONS(-DSALOME_LIGHT)
@@ -225,6 +212,11 @@ ADD_SUBDIRECTORY(salome_adm)
 IF(SALOME_BUILD_DOC)
   ADD_SUBDIRECTORY(doc)
 ENDIF()
+
+# Uncomment following line to run on post-install step
+# CODE defined in postinstall/CMakeLists.txt file.
+# It's important that this ADD_SUBDIRECTORY is the last one in this file.
+# ADD_SUBDIRECTORY(postinstall)
 
 # Header configuration
 # ====================
@@ -345,3 +337,61 @@ INSTALL(FILES
 # Install the export set for use with the install-tree
 INSTALL(EXPORT ${PROJECT_NAME}TargetGroup DESTINATION "${SALOME_INSTALL_CMAKE}"
         FILE ${PROJECT_NAME}Targets.cmake)
+
+configure_rpath_bytarget()
+# configure_rpath()
+
+##########################################################
+# Other attempts to run RPATH configuration on different stages.
+# All of them failed because they can't get property from targets.
+
+# configure_rpath_bytarget()
+# Define a custom target for post-configuration
+# add_custom_target(post_config ALL
+#     COMMAND ${CMAKE_COMMAND} -E echo "Running post-configuration steps"
+#     COMMAND ${CMAKE_COMMAND} -P ${CMAKE_SOURCE_DIR}/ConfigureRPathPostEx.cmake
+#     COMMENT "Running post-configuration steps to set RPATHs"
+# )
+
+# add_custom_target(post_config ALL
+#     COMMAND ${CMAKE_COMMAND} -E echo "Running post-configuration steps"
+#     COMMAND ${CMAKE_COMMAND} -P - <<EOF
+# include(ConfigureRPath.cmake)
+# configure_rpath_bytarget()
+# EOF
+#     COMMENT "Running post-configuration steps to set RPATHs"
+# )
+
+# Ensure the custom target depends on all other targets
+# add_dependencies(post_config ${_${PROJECT_NAME}_exposed_targets})
+
+# Define a global cache variable for the list of targets
+# set(GLOBAL_TARGET_LIST "" CACHE STRING "Global list of targets")
+# Collect all targets in the project
+
+# get_all_targets(all_targets)
+# message(STATUS "All targets: ${all_targets}")
+
+# set(GLOBAL_TARGET_LIST ${all_targets} CACHE STRING "Global list of targets")
+# set_property(CACHE GLOBAL_TARGET_LIST PROPERTY STRINGS ${GLOBAL_TARGET_LIST})
+# message(STATUS "Global target list: ${GLOBAL_TARGET_LIST}")
+# ADD_SUBDIRECTORY(postinstall)
+
+# Define a custom target for post-configuration
+# add_custom_target(post_build ALL
+#     COMMAND ${CMAKE_COMMAND} -E echo "Running post-configuration steps"
+#     COMMAND ${CMAKE_COMMAND} -Dall_targets="${all_targets}" -P ${CMAKE_SOURCE_DIR}/ConfigureRPathPostEx.cmake
+#     COMMENT "Running post-configuration steps to set RPATHs"
+# )
+
+# Ensure the custom target depends on all other targets
+# add_dependencies(post_build ${all_targets})
+
+# Define a custom command to run the post-configuration steps
+# add_custom_command(
+#     TARGET ${all_targets}
+#     POST_BUILD
+#     COMMAND ${CMAKE_COMMAND} -E echo "Running post-configuration steps"
+#     COMMAND ${CMAKE_COMMAND} -Dall_targets="${all_targets}" -P ${CMAKE_SOURCE_DIR}/ConfigureRPathPostEx.cmake
+#     COMMENT "Running post-configuration steps to set RPATHs"
+# )
