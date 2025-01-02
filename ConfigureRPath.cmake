@@ -287,21 +287,21 @@ macro(configure_rpath)
     set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
     # Initialize the BUILD_RPATH_USE_ORIGIN target property for all targets
-    set(CMAKE_BUILD_RPATH_USE_ORIGIN TRUE)
+    # set(CMAKE_BUILD_RPATH_USE_ORIGIN TRUE)
 
     # the RPATH to be used when installing, but only if it's not a system directory
-    list(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/lib" isSystemDir)
-    if("${isSystemDir}" STREQUAL "-1")
-        # $ORIGIN/../../../../../lib/salome
-        set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib/salome")
-    endif()
+    # list(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/lib" isSystemDir)
+    # if("${isSystemDir}" STREQUAL "-1")
+    #     # $ORIGIN/../../../../../lib/salome
+    #     set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib/salome")
+    # endif()
 
-    message(STATUS "Updated CMAKE_INSTALL_RPATH: ${CMAKE_INSTALL_RPATH}")
+    # message(STATUS "Updated CMAKE_INSTALL_RPATH: ${CMAKE_INSTALL_RPATH}")
 
-    # Check the total length of the RPATH
-    string(LENGTH "${CMAKE_INSTALL_RPATH}" RPATH_LENGTH)
-    message(STATUS "Total length of the RPATH: ${RPATH_LENGTH} bytes")
-    if(RPATH_LENGTH GREATER ${MAX_RPATH_LENGTH})
-        message(FATAL_ERROR "The total length of the RPATH exceeds ${MAX_RPATH_LENGTH} bytes: ${RPATH_LENGTH} bytes")
-    endif()
+    # # Check the total length of the RPATH
+    # string(LENGTH "${CMAKE_INSTALL_RPATH}" RPATH_LENGTH)
+    # message(STATUS "Total length of the RPATH: ${RPATH_LENGTH} bytes")
+    # if(RPATH_LENGTH GREATER ${MAX_RPATH_LENGTH})
+    #     message(FATAL_ERROR "The total length of the RPATH exceeds ${MAX_RPATH_LENGTH} bytes: ${RPATH_LENGTH} bytes")
+    # endif()
 endmacro()

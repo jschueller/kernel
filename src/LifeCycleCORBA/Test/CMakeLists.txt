@@ -75,3 +75,10 @@ INSTALL(FILES ${COMMON_HEADERS_HXX} DESTINATION ${LOCAL_TEST_DIR})
 INSTALL(FILES CTestTestfileInstall.cmake
         DESTINATION ${LOCAL_TEST_DIR}
         RENAME CTestTestfile.cmake)
+
+install(CODE "
+    message(\"KERNEL_TEST_LIB: ${KERNEL_TEST_LIB}\")
+    set(TARGET_FILE \"${KERNEL_TEST_LIB}/libLifeCycleCORBATest.so\")
+    set(MAX_RPATH_LENGTH 2000)
+    include(\"${CMAKE_SOURCE_DIR}/ConfigureRPathPostEx.cmake\")
+")

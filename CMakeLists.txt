@@ -194,7 +194,7 @@ INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/CTestTestfileInstall.cmake
         RENAME CTestTestfile.cmake)
 
 # configure_rpath_bytarget()
-# configure_rpath()
+configure_rpath()
 
 IF(SALOME_LIGHT_ONLY)
   ADD_DEFINITIONS(-DSALOME_LIGHT)
@@ -338,7 +338,7 @@ INSTALL(FILES
 INSTALL(EXPORT ${PROJECT_NAME}TargetGroup DESTINATION "${SALOME_INSTALL_CMAKE}"
         FILE ${PROJECT_NAME}Targets.cmake)
 
-configure_rpath_bytarget()
+# configure_rpath_bytarget()
 # configure_rpath()
 
 ##########################################################
