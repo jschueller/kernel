@@ -175,6 +175,6 @@ INSTALL(FILES salome_process_launcher salome_process_attach PERMISSIONS OWNER_EX
 install(CODE "
     message(\"SALOME_INSTALL_LIBS: ${SALOME_INSTALL_LIBS}\")
     set(TARGET_FILE \"${SALOME_INSTALL_LIBS}/libSalomeContainer.so\")
-    set(MAX_RPATH_LENGTH 2000)
+    set(MAX_RPATH_LENGTH ${MAX_RPATH_LENGTH})
     include(\"${CMAKE_SOURCE_DIR}/ConfigureRPathPostEx.cmake\")
 ")

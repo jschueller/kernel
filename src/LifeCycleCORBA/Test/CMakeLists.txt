@@ -79,6 +79,6 @@ INSTALL(FILES CTestTestfileInstall.cmake
 install(CODE "
     message(\"KERNEL_TEST_LIB: ${KERNEL_TEST_LIB}\")
     set(TARGET_FILE \"${KERNEL_TEST_LIB}/libLifeCycleCORBATest.so\")
-    set(MAX_RPATH_LENGTH 2000)
+    set(MAX_RPATH_LENGTH ${MAX_RPATH_LENGTH})
     include(\"${CMAKE_SOURCE_DIR}/ConfigureRPathPostEx.cmake\")
 ")

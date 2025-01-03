@@ -22,6 +22,7 @@ cmake_policy(SET CMP0078 OLD)
 cmake_policy(SET CMP0086 OLD)
 
 INCLUDE(CMakeDependentOption)
+set(MAX_RPATH_LENGTH 2000 CACHE STRING "Maximum allowed length for RPATH")
 INCLUDE(ConfigureRPath.cmake)
 
 # Project name

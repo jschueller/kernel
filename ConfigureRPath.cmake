@@ -30,8 +30,11 @@
 
 
 # Define the maximum RPATH length variable with a default value
-set(MAX_RPATH_LENGTH 2000 CACHE STRING "Maximum allowed length for RPATH")
 
+set(DFT_INSTALL_RPATH "")
+foreach(i RANGE ${MAX_RPATH_LENGTH})
+    set(DFT_INSTALL_RPATH "${DFT_INSTALL_RPATH}:")
+endforeach()
 
 ###########################################################
 # Collect all targets in the project
@@ -285,6 +288,8 @@ macro(configure_rpath)
     # add the automatically determined parts of the RPATH
     # which point to directories outside the build tree to the install RPATH
     set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+    
+    set(CMAKE_INSTALL_RPATH ${DFT_INSTALL_RPATH})
 
     # Initialize the BUILD_RPATH_USE_ORIGIN target property for all targets
     # set(CMAKE_BUILD_RPATH_USE_ORIGIN TRUE)

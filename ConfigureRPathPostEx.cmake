@@ -39,10 +39,6 @@ endif()
 
 cmake_print_variables(TARGET_FILE)
 
-if(NOT DEFINED MAX_RPATH_LENGTH)
-    set(MAX_RPATH_LENGTH 2000 CACHE STRING "Maximum allowed length for RPATH")
-endif()
-
 get_filename_component(TARGET_FILE_ABS "${CMAKE_INSTALL_PREFIX}/${TARGET_FILE}" ABSOLUTE)
 cmake_print_variables(TARGET_FILE_ABS)
 
@@ -83,19 +79,23 @@ foreach(path IN LISTS old_rpath_list)
     # TODO: make sure that this check covers all system paths
     list(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${path}" isSystemDir)
     if(NOT "${isSystemDir}" STREQUAL "-1" OR "${path}" MATCHES "^/usr/lib")
-        message(STATUS "Using system path as is: ${path}")
+        #message(STATUS "Using system path as is: ${path}")
         list(APPEND new_rpath "${path}")
         continue()
     endif()
     
-    # Ensure path is an absolute path
-    get_filename_component(PATH_ABS ${path} ABSOLUTE)
-    cmake_print_variables(PATH_ABS)
+    string(LENGTH "${path}" cur_path_length)
     
-    # Compute the relative path using $ORIGIN
-    file(RELATIVE_PATH relative_path ${TARGET_FILE_ABS} ${PATH_ABS})
-    cmake_print_variables(relative_path)
-    list(APPEND new_rpath "\$ORIGIN/${relative_path}")
+    if(cur_path_length GREATER 0)
+        # Ensure path is an absolute path
+        get_filename_component(PATH_ABS ${path} ABSOLUTE)
+        cmake_print_variables(PATH_ABS)
+        
+        # Compute the relative path using $ORIGIN
+        file(RELATIVE_PATH relative_path ${TARGET_FILE_ABS} ${PATH_ABS})
+        cmake_print_variables(relative_path)
+        list(APPEND new_rpath "\$ORIGIN/${relative_path}")
+    endif()
 endforeach()
 
 # Join the new RPATH list into a single string
