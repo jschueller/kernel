@@ -22,8 +22,6 @@ cmake_policy(SET CMP0078 OLD)
 cmake_policy(SET CMP0086 OLD)
 
 INCLUDE(CMakeDependentOption)
-set(MAX_RPATH_LENGTH 2000 CACHE STRING "Maximum allowed length for RPATH")
-INCLUDE(ConfigureRPath.cmake)
 
 # Project name
 # ============
@@ -45,6 +43,9 @@ endif(${SKBUILD})
 ELSE()
   MESSAGE(FATAL_ERROR "We absolutely need the Salome CMake configuration files, please define CONFIGURATION_ROOT_DIR !")
 ENDIF()
+
+# This file sets global RPATH rules for all the targets and must be include before they are defined.
+INCLUDE(${CONFIGURATION_ROOT_DIR}/cmake/ConfigureRPath.cmake)
 
 # Versioning
 # ===========
@@ -194,8 +195,6 @@ INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/CTestTestfileInstall.cmake
         DESTINATION ${KERNEL_TEST_DIR}
         RENAME CTestTestfile.cmake)
 
-# configure_rpath_bytarget()
-configure_rpath()
 
 IF(SALOME_LIGHT_ONLY)
   ADD_DEFINITIONS(-DSALOME_LIGHT)
@@ -213,11 +212,6 @@ ADD_SUBDIRECTORY(salome_adm)
 IF(SALOME_BUILD_DOC)
   ADD_SUBDIRECTORY(doc)
 ENDIF()
-
-# Uncomment following line to run on post-install step
-# CODE defined in postinstall/CMakeLists.txt file.
-# It's important that this ADD_SUBDIRECTORY is the last one in this file.
-# ADD_SUBDIRECTORY(postinstall)
 
 # Header configuration
 # ====================
@@ -339,60 +333,8 @@ INSTALL(FILES
 INSTALL(EXPORT ${PROJECT_NAME}TargetGroup DESTINATION "${SALOME_INSTALL_CMAKE}"
         FILE ${PROJECT_NAME}Targets.cmake)
 
-# configure_rpath_bytarget()
-# configure_rpath()
-
-##########################################################
-# Other attempts to run RPATH configuration on different stages.
-# All of them failed because they can't get property from targets.
-
-# configure_rpath_bytarget()
-# Define a custom target for post-configuration
-# add_custom_target(post_config ALL
-#     COMMAND ${CMAKE_COMMAND} -E echo "Running post-configuration steps"
-#     COMMAND ${CMAKE_COMMAND} -P ${CMAKE_SOURCE_DIR}/ConfigureRPathPostEx.cmake
-#     COMMENT "Running post-configuration steps to set RPATHs"
-# )
-
-# add_custom_target(post_config ALL
-#     COMMAND ${CMAKE_COMMAND} -E echo "Running post-configuration steps"
-#     COMMAND ${CMAKE_COMMAND} -P - <<EOF
-# include(ConfigureRPath.cmake)
-# configure_rpath_bytarget()
-# EOF
-#     COMMENT "Running post-configuration steps to set RPATHs"
-# )
-
-# Ensure the custom target depends on all other targets
-# add_dependencies(post_config ${_${PROJECT_NAME}_exposed_targets})
-
-# Define a global cache variable for the list of targets
-# set(GLOBAL_TARGET_LIST "" CACHE STRING "Global list of targets")
-# Collect all targets in the project
-
-# get_all_targets(all_targets)
-# message(STATUS "All targets: ${all_targets}")
-
-# set(GLOBAL_TARGET_LIST ${all_targets} CACHE STRING "Global list of targets")
-# set_property(CACHE GLOBAL_TARGET_LIST PROPERTY STRINGS ${GLOBAL_TARGET_LIST})
-# message(STATUS "Global target list: ${GLOBAL_TARGET_LIST}")
-# ADD_SUBDIRECTORY(postinstall)
-
-# Define a custom target for post-configuration
-# add_custom_target(post_build ALL
-#     COMMAND ${CMAKE_COMMAND} -E echo "Running post-configuration steps"
-#     COMMAND ${CMAKE_COMMAND} -Dall_targets="${all_targets}" -P ${CMAKE_SOURCE_DIR}/ConfigureRPathPostEx.cmake
-#     COMMENT "Running post-configuration steps to set RPATHs"
-# )
-
-# Ensure the custom target depends on all other targets
-# add_dependencies(post_build ${all_targets})
-
-# Define a custom command to run the post-configuration steps
-# add_custom_command(
-#     TARGET ${all_targets}
-#     POST_BUILD
-#     COMMAND ${CMAKE_COMMAND} -E echo "Running post-configuration steps"
-#     COMMAND ${CMAKE_COMMAND} -Dall_targets="${all_targets}" -P ${CMAKE_SOURCE_DIR}/ConfigureRPathPostEx.cmake
-#     COMMENT "Running post-configuration steps to set RPATHs"
-# )
+# Process post install step to set RPATH, when all the targets are already installed.
+# We can't just put install(CODE) call at the end of the top level cmake file, because 
+# it will be processed before installs from subdirectories, and leads to errors like directory
+# <project_path>/INSTALL/KERNEL/lib does not exist, when we try to set RPATH for the libraries.
+add_subdirectory(postinstall)

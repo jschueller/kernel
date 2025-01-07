@@ -22,7 +22,9 @@
 # all the targets are already installed and all the paths are set correctly.
 # NOTE: Now this script fails because it can't get property from targets.
 
-install(CODE "
-include(${CMAKE_SOURCE_DIR}/ConfigureRPath.cmake)
-configure_rpath_bytarget(${GLOBAL_TARGET_LIST})
-")
+# The only goal of this file is to run RPATH configuration on post install step.
+
+include(${CONFIGURATION_ROOT_DIR}/cmake/ConfigureRPathPostEx.cmake)
+
+# Pass the parent of SALOME_INSTALL_LIBS to process both lib/salome and lib/pythonx.x/site-packages
+configure_rpath_post_install("${SALOME_INSTALL_BINS};${SALOME_INSTALL_LIBS}/..")
