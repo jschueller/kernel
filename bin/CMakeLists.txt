@@ -17,7 +17,7 @@
 # See http://www.salome-platform.org/ or email : webmaster.salome@opencascade.com
 #
 
-ADD_SUBDIRECTORY(appliskel)
+ADD_SUBDIRECTORY(appli)
 
 SALOME_CONFIGURE_FILE(VERSION.in VERSION INSTALL ${SALOME_INSTALL_BINS})
 SALOME_CONFIGURE_FILE(salomeContextUtils.py.in salomeContextUtils.py)
