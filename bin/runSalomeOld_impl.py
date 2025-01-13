@@ -27,15 +27,15 @@
 #
 
 import sys, os, string, glob, time, pickle, re
-from . import orbmodule
+import orbmodule
 import setenv
-from .launchConfigureParser import verbose
-from .server import process_id, Server
+from launchConfigureParser import verbose
+from server import process_id, Server
 import json
 import subprocess
 from salomeContextUtils import ScriptAndArgsObjectEncoder
 import platform
-from .runSalomeCommon import setVerbose, InterpServer, CatalogServer, SalomeDSServer, ConnectionManagerServer, RegistryServer, ContainerCPPServer, LoggerServer, CommonSessionServer, SessionServer, LauncherServer
+from runSalomeCommon import setVerbose, InterpServer, CatalogServer, SalomeDSServer, ConnectionManagerServer, RegistryServer, ContainerCPPServer, LoggerServer, CommonSessionServer, SessionServer, LauncherServer
 # -----------------------------------------------------------------------------
 
 from killSalome import killAllPorts
@@ -483,7 +483,7 @@ def main(exeName=None):
         print(e)
         sys.exit(1)
 
-    from .salome_utils import getHostName
+    from salome_utils import getHostName
     keep_env = not os.getenv('SALOME_PLEASE_SETUP_ENVIRONMENT_AS_BEFORE')
     args, modules_list, modules_root_dir = setenv.get_config(exeName=exeName, keepEnvironment=keep_env)
     print("runSalome running on %s" % getHostName())
@@ -498,7 +498,7 @@ def main(exeName=None):
         test = False
         pass
     if test and not 'launcher' in args:
-        from .searchFreePort import searchFreePort
+        from searchFreePort import searchFreePort
         searchFreePort(args, save_config, args.get('useport'))
         pass
     # --

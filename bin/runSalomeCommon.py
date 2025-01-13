@@ -28,13 +28,13 @@
 
 import sys, os, string, glob, time, pickle, re
 import setenv
-from .server import process_id, Server
+from server import process_id, Server
 import json
 import subprocess
 from salomeContextUtils import ScriptAndArgsObjectEncoder
 import platform
 import logging
-from .salome_utils import positionVerbosityOfLogger
+from salome_utils import positionVerbosityOfLogger
 
 logger = logging.getLogger()
 
@@ -206,7 +206,7 @@ class LoggerServer(Server):
     def __init__(self,args):
         self.args=args
         self.initArgs()
-        from .salome_utils import generateFileName, getLogDir
+        from salome_utils import generateFileName, getLogDir
         logfile = generateFileName( getLogDir(),
                                     prefix="logger",
                                     extension="log",

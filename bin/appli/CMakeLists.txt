@@ -21,9 +21,12 @@
 # Define the destination directory
 set(INSTALL_APPLI_DIR ${SALOME_INSTALL_SCRIPT_DATA}/appli)
 
+ADD_SUBDIRECTORY(salome_tester)
+
 # This variable will go into environment script
 set(APPLI ${INSTALL_APPLI_DIR}/salome)
-get_filename_component(PYTHON_SITE_PACKAGES_PATH_ABS "${CMAKE_INSTALL_PREFIX}/${_pydir}" ABSOLUTE)
+# get_filename_component(PYTHON_SITE_PACKAGES_PATH_ABS "${CMAKE_INSTALL_PREFIX}/${_pydir}" ABSOLUTE)
+get_filename_component(SALOME_INSTALL_PYTHON_ABS "${CMAKE_INSTALL_PREFIX}/${SALOME_INSTALL_PYTHON}" ABSOLUTE)
 get_filename_component(SALOME_INSTALL_BINS_ABS "${CMAKE_INSTALL_PREFIX}/${SALOME_INSTALL_BINS}" ABSOLUTE)
 get_filename_component(APPLI_ABS "${CMAKE_INSTALL_PREFIX}/${APPLI}" ABSOLUTE)
 

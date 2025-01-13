@@ -26,7 +26,7 @@ if sys.version_info[:2] >= (3,12):
   from configparser import ConfigParser as SafeConfigParser
 else:
   from configparser import SafeConfigParser
-from .parseConfigFile import parseConfigFile
+from parseConfigFile import parseConfigFile
 
 import tempfile
 import pickle
@@ -308,7 +308,7 @@ class SalomeContext:
       absoluteAppliPath = os.getenv('ABSOLUTE_APPLI_PATH')
       path = os.path.realpath(os.path.join(absoluteAppliPath, "bin", "salome"))
       add_path(path, "PYTHONPATH")
-      path = os.path.realpath(os.path.join(absoluteAppliPath, "bin", "salome", "appliskel"))
+      path = os.path.realpath(os.path.join(absoluteAppliPath, "bin", "salome", "appli"))
       add_path(path, "PYTHONPATH")
 
     except Exception:
@@ -540,7 +540,7 @@ class SalomeContext:
     import setenv
     setenv.main(True)
 
-    from . import runTests
+    import runTests
     return runTests.runTests(args, exe="salome test")
   #
 

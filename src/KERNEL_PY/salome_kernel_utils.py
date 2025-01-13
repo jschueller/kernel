@@ -27,12 +27,12 @@
 #  $Header$
 #
 from omniORB import CORBA
-from .LifeCycleCORBA import *
-from .SALOME_NamingServicePy import *
-from .SALOME_utilities import *
-from . import Engines
-from . import SALOME
-from . import SALOME_ModuleCatalog
+from LifeCycleCORBA import *
+from SALOME_NamingServicePy import *
+from SALOME_utilities import *
+import Engines
+import SALOME
+import SALOME_ModuleCatalog
 
 orb = None
 lcc = None

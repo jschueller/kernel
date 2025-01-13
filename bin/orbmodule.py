@@ -27,9 +27,9 @@
 
 import sys,os,time
 import string
-from .nameserver import NamingServer
+from nameserver import NamingServer
 from omniORB import CORBA
-from .launchConfigureParser import verbose
+from launchConfigureParser import verbose
 
 # Import the stubs for the Naming service
 import CosNaming

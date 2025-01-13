@@ -1,5 +1,5 @@
-#! /usr/bin/env python3
-# Copyright (C) 2013-2024  CEA, EDF, OPEN CASCADE
+#!/usr/bin/env python3
+# Copyright (C) 2015-2024  CEA, EDF, OPEN CASCADE
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -18,19 +18,14 @@
 # See http://www.salome-platform.org/ or email : webmaster.salome@opencascade.com
 #
 
-
-import sys
-import pickle
-
-from salomeContext_impl import SalomeContext, SalomeContextException, usage
+from salome_instance_impl import SalomeInstance
 
 if __name__ == "__main__":
-  if len(sys.argv) == 3:
-    context = pickle.loads(sys.argv[1].encode('latin1'))
-    args = pickle.loads(sys.argv[2].encode('latin1'))
+  print("##### Start instance...")
+  salome_instance = SalomeInstance.start()
+  port = salome_instance.get_port()
+  print("#####    ...instance started on port %s"%port)
 
-    status = context._startSalome(args)
-    sys.exit(status)
-  else:
-    usage()
+  print("##### Terminate instance running on port %s"%port)
+  salome_instance.stop()
 #

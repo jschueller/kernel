@@ -28,7 +28,7 @@
 ## @package salome_iapp
 # Module salome gives access to Salome GUI resources (if GUI has been launched).
 #
-from . import salome_ComponentGUI
+import salome_ComponentGUI
 
     #--------------------------------------------------------------------------
 

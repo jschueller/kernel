@@ -1,5 +1,4 @@
-#! /usr/bin/env python3
-# Copyright (C) 2013-2024  CEA, EDF, OPEN CASCADE
+# Copyright (C) 2015-2024  CEA, EDF, OPEN CASCADE
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -18,19 +17,9 @@
 # See http://www.salome-platform.org/ or email : webmaster.salome@opencascade.com
 #
 
+SALOME_INSTALL_SCRIPTS(salome_instance.py ${INSTALL_APPLI_DIR})
+SALOME_INSTALL_SCRIPTS(salome_instance_impl.py ${SALOME_INSTALL_PYTHON} DEF_PERMS)
 
-import sys
-import pickle
-
-from salomeContext_impl import SalomeContext, SalomeContextException, usage
-
-if __name__ == "__main__":
-  if len(sys.argv) == 3:
-    context = pickle.loads(sys.argv[1].encode('latin1'))
-    args = pickle.loads(sys.argv[2].encode('latin1'))
-
-    status = context._startSalome(args)
-    sys.exit(status)
-  else:
-    usage()
-#
+SALOME_INSTALL_SCRIPTS(salome_test_driver.py ${INSTALL_APPLI_DIR})
+SALOME_INSTALL_SCRIPTS(python_test_driver.py ${INSTALL_APPLI_DIR})
+SALOME_INSTALL_SCRIPTS(salome_test_driver_gui.py ${INSTALL_APPLI_DIR})

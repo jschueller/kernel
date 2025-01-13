@@ -32,13 +32,13 @@ import sys
 import traceback
 from pathlib import Path
 
-from . import Engines__POA
-from . import KernelBasis
-from . import SALOME
-from . import SALOME__POA
-from . import Engines
-from . import Engines__POA
-from .SALOME_ContainerHelper import ScriptExecInfo
+import Engines__POA
+import KernelBasis
+import SALOME
+import SALOME__POA
+import Engines
+import Engines__POA
+from SALOME_ContainerHelper import ScriptExecInfo
 
 MY_CONTAINER_ENTRY_IN_GLBS = "my_container"
 
@@ -486,7 +486,7 @@ def SpoolPickleObject( obj, visitor = None ):
       pickleProxy = pickle.dumps( proxyObj , pickle.HIGHEST_PROTOCOL )
       return pickleProxy
 
-from .SALOME_ContainerHelper import InOutputObjVisitorCM, InOutputObjVisitor
+from SALOME_ContainerHelper import InOutputObjVisitorCM, InOutputObjVisitor
 
 def UnProxyObjectSimple( obj, visitor = None ):
   """

@@ -13,8 +13,11 @@ out_dir_Path=os.path.dirname(os.path.realpath(__file__))
 def __initialize():
 
   # relative to __file__ supposed to be located on bin/salome/appli/salome (see CdC §2.1)
-  sys.path[:0] = [ out_dir_Path + r'/../../../lib/python3.9/site-packages' ]
-  
+  sys.path[:0] = [
+    os.path.abspath(os.path.join(out_dir_Path, r'../../../lib/python3.9/site-packages/salome/kernel')),
+    os.path.dirname(out_dir_Path) # parent directory of the current directory
+]
+
   # define folder to store omniorb config (initially in virtual application folder)
   try:
     from salomeContextUtils import setOmniOrbUserPath
@@ -88,6 +91,13 @@ def main(args):
     reinitialise_paths=True
 
     context.setVariable(r"PRODUCT_ROOT_DIR", out_dir_Path + r"", overwrite=True)
+
+    # Set the absolute path to the KERNEL root directory
+    appli_path = os.path.abspath(os.path.join(out_dir_Path, r'../../../'))
+    print(f'appli_path: {appli_path}')
+    context.setVariable(r"ABSOLUTE_APPLI_PATH", appli_path, overwrite=True)
+    context.setVariable(r"KERNEL_ROOT_DIR", appli_path, overwrite=True)
+
     # PRODUCT environment
     context.setVariable(r"SALOME_trace", r"local", overwrite=True)
     context.setVariable(r"SALOME_MODULES", r"SHAPER,SHAPERSTUDY,GEOM,SMESH,PARAVIS,YACS,JOBMANAGER", overwrite=True)
