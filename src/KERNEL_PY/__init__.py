@@ -100,7 +100,7 @@ ROOT_PYTHONPACKAGE_NAME="salome"
 # be the pieces to be aggregated as a single virtual python package.
 #
 import os, sys
-from salome_utils import verbose
+from ..salome_utils import verbose
 
 MATCH_ENDING_PATTERN="site-packages" + os.path.sep + "salome"
 
@@ -119,10 +119,10 @@ extend_path(ROOT_PYTHONPACKAGE_NAME)
 # ==========================================================================
 #
 
-from salome_kernel_utils import *
-from salome_study import *
-from salome_iapp import *
-import salome_study
+#from salome_kernel_utils import *
+#from salome_study import *
+#from salome_iapp import *
+#import salome_study
 
 #
 # The next block is workaround for the problem of shared symbols loading for the extension modules (e.g. SWIG-generated)

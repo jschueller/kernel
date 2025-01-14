@@ -24,11 +24,11 @@
 import os
 import sys
 from optparse import OptionParser
-from NSparam import getNSparams
+from .NSparam_impl import getNSparams
 import socket
 import subprocess
 import re
-from salomeContextUtils import getScriptsAndArgs, formatScriptsAndArgs, getShortAndExtraArgs
+from .salomeContextUtils import getScriptsAndArgs, formatScriptsAndArgs, getShortAndExtraArgs
 from .salome_utils import getUserName, getShortHostName
 
 # Use to display newlines (\n) in epilog

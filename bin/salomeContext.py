@@ -22,7 +22,7 @@
 import sys
 import pickle
 
-from salomeContext_impl import SalomeContext, SalomeContextException, usage
+from salome.kernel.salomeContext_impl import SalomeContext, SalomeContextException, usage
 
 if __name__ == "__main__":
   if len(sys.argv) == 3:

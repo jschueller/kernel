@@ -28,7 +28,7 @@ Templated script to provide set of environment variables for SALOME:
 def init(context, root_dir):
     # To launch the tests
     # context.setVariable(r"PYTHONPATH", r"@PYTHON_SITE_PACKAGES_PATH_ABS@")
-    context.setVariable(r"PYTHONPATH", r"@SALOME_INSTALL_PYTHON_ABS@")
+    context.setVariable(r"PYTHONPATH", r"@SALOME_INSTALL_PYTHON_ABS@/../../")
     context.addToPath(r"@SALOME_INSTALL_BINS_ABS@")
     context.setVariable(r"APPLI", r"@APPLI_ABS@")
     context.unsetVariable(r"LD_LIBRARY_PATH")

@@ -14,13 +14,13 @@ def __initialize():
 
   # relative to __file__ supposed to be located on bin/salome/appli/salome (see CdC §2.1)
   sys.path[:0] = [
-    os.path.abspath(os.path.join(out_dir_Path, r'../../../lib/python3.9/site-packages/salome/kernel')),
+    os.path.abspath(os.path.join(out_dir_Path, r'../../../lib/python3.9/site-packages')),
     os.path.dirname(out_dir_Path) # parent directory of the current directory
 ]
 
   # define folder to store omniorb config (initially in virtual application folder)
   try:
-    from salomeContextUtils import setOmniOrbUserPath
+    from salome.kernel.salomeContextUtils import setOmniOrbUserPath
     setOmniOrbUserPath()
   except Exception as e:
     print(e)
@@ -62,7 +62,7 @@ def main(args):
 
   # Create a SalomeContext which parses configFileNames to initialize environment
   try:
-    from salomeContext import SalomeContext, SalomeContextException
+    from salome.kernel.salomeContext_impl import SalomeContext, SalomeContextException
     if 'appendVariable' not in dir(SalomeContext):
       # check whether the appendVariable method is implemented
       def appendVariable(self, name, value, separator=os.pathsep):

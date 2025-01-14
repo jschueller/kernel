@@ -26,7 +26,7 @@ if sys.version_info[:2] >= (3,12):
   from configparser import ConfigParser as SafeConfigParser
 else:
   from configparser import SafeConfigParser
-from parseConfigFile import parseConfigFile
+from .parseConfigFile import parseConfigFile
 
 import tempfile
 import pickle
@@ -34,7 +34,7 @@ import subprocess
 import sys
 import platform
 
-from salomeContextUtils import SalomeContextException
+from .salomeContextUtils import SalomeContextException
 
 def usage(appended_cmd_doc = "", appended_opt_doc = ""):
   add_in_help = {"appended_cmd_doc":appended_cmd_doc,"appended_opt_doc":appended_opt_doc}

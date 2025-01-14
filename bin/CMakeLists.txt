@@ -48,15 +48,15 @@ SET(SCRIPTS
   runSalomeOld.py
   runSalomeOnDemand.py
   salomeContext.py
-  ${CMAKE_CURRENT_BINARY_DIR}/salomeContextUtils.py
   setenv.py
   showNS.py
   virtual_salome.py
   waitContainers.py
   waitNS.py
   )
-
-SET(PACKAGES
+  
+  SET(PACKAGES
+  ${CMAKE_CURRENT_BINARY_DIR}/salomeContextUtils.py
   addToKillList_impl.py
   killSalome_impl.py
   killSalomeWithPort_impl.py
