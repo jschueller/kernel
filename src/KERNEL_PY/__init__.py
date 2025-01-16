@@ -119,10 +119,9 @@ extend_path(ROOT_PYTHONPACKAGE_NAME)
 # ==========================================================================
 #
 
-#from salome_kernel_utils import *
-#from salome_study import *
+from ..salome_kernel_utils import *
+from ..salome_study import *
 from ..salome_iapp import *
-#import salome_study
 
 #
 # The next block is workaround for the problem of shared symbols loading for the extension modules (e.g. SWIG-generated)
