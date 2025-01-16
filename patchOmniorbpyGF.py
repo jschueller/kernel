@@ -63,6 +63,19 @@ def locateStub2( fname ):
         newLine = "from . import {}\n".format( pat.match(elt).group(1) )
         writeNeeded = True
         lines[i] = newLine
+    pat2 = re.compile( "^([^\s]+)[\s]*=[\s]*omniORB.openModule[\s]*\(([^\)]+)\)$" )
+    zeMatch = [ (i,elt) for i,elt in enumerate(lines) if pat2.match(elt) ]
+    for i,elt in zeMatch:
+        m = pat2.match( elt )
+        st = m.group(2)
+        st = st.strip()
+        params = re.split(",[\s]+",st)
+        if len(params) == 1:
+            newLine = "{} = omniORB.openModule(\"salome.kernel.{}\")\n".format( m.group(1) , eval( params[0] ) )
+        else:
+            newLine = "{} = omniORB.openModule(\"salome.kernel.{}\" , {})\n".format( m.group(1) , eval( params[0] ), params[1] )
+        writeNeeded = True
+        lines[i] = newLine
     if writeNeeded:
         print( f"Updating {fname}" )
         with open( fname, "w" ) as f:

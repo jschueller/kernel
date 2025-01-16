@@ -223,7 +223,7 @@ Abstract_Engines_Container_i::Abstract_Engines_Container_i (const std::string& p
       PyRun_SimpleString("import sys\n");
       PyRun_SimpleString("sys.path = sys.path[1:]\n");
 #endif
-      PyRun_SimpleString("import SALOME_Container\n");
+      PyRun_SimpleString("from salome.kernel import SALOME_Container\n");
       PyRun_SimpleString((char*)myCommand.str().c_str());
       PyObject *mainmod = PyImport_AddModule("__main__");
       PyObject *globals = PyModule_GetDict(mainmod);

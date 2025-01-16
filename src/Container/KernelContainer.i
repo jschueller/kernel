@@ -32,7 +32,7 @@
 
 %pythoncode %{
 def myContainer():
-  import Engines
+  from . import Engines
   import CORBA
   orb=CORBA.ORB_init([''])
   return orb.string_to_object(GetContainerInstance())
