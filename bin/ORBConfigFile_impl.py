@@ -54,7 +54,7 @@ def getPrefix():
   return prefix
   
 def writeORBConfigFileSSL(path, kwargs={}):
-  from salome_utils import generateFileName
+  from .salome_utils import generateFileName
   omniorb_config = generateFileName(path, prefix="omniORB",
                                     extension="cfg",
                                     hidden=True,
