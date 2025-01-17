@@ -35,11 +35,7 @@ from pathlib import Path
 import omniORB
 from omniORB import newModule, promotePartialModule,_partialModules
 from . import Engines
-#import pdb
-#pdb.set_trace()
 Engines__POA = sys.modules["salome.kernel.Engines__POA"]
-#newModule("salome.kernel.Engines__POA")
-#Engines__POA = _partialModules["salome.kernel.Engines__POA"]
 from . import KernelBasis
 from . import SALOME
 #newModule("salome.kernel.SALOME__POA")
