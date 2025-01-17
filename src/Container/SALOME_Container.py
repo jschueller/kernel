@@ -37,17 +37,17 @@ import sys
 import traceback
 import importlib
 from omniORB import CORBA, PortableServer
-import SALOMEDS
-import Engines, Engines__POA
-from SALOME_NamingServicePy import *
-from SALOME_ComponentPy import *
-import SALOME_PyNode
+from . import SALOMEDS
+from . import Engines, Engines__POA
+from .SALOME_NamingServicePy import *
+from .SALOME_ComponentPy import *
+from . import SALOME_PyNode
 import logging
 
-from SALOME_utilities import *
-from Utils_Identity import getShortHostName
-from salome_utils import verbose
-from KernelBasis import VerbosityActivated,getSSLMode
+from .SALOME_utilities import *
+from .Utils_Identity import getShortHostName
+from .salome_utils import verbose
+from .KernelBasis import VerbosityActivated,getSSLMode
 
 #=============================================================================
 
@@ -88,7 +88,7 @@ class SALOME_Container_Abstract_i(abc.ABC):
     @property
     def logm(self):
         logging.debug("Logm PID = {}".format(os.getpid()))
-        import salome
+        from salome.kernel import salome
         if self._logm is None:
            salome.salome_init()
            self._logm = salome.logm
