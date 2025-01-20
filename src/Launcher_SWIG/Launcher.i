@@ -302,7 +302,7 @@ def BuildCatalogFromScratch(protocol,appliPath):
       rmcpp.AddResourceInCatalogNoQuestion(contRes)
 
 def GetRequestForGiveContainer(hostname, contName):
-  import Engines
+  from salome.kernel import Engines
   import os
   rp=Engines.ResourceParameters(name=hostname,
                                 hostname=hostname,
@@ -338,7 +338,7 @@ def FromEngineResourceDefinitionToCPP( corbaInstance ):
   return ret
 
 def ToEngineResourceDefinitionFromCPP( cppInstance ):
-  import Engines
+  from salome.kernel import Engines
   return Engines.ResourceDefinition(**{k:getattr(cppInstance,k) for k in ListOfAttrCommon})
 
 ResourceDefinition_cpp.repr = ResourceDefinition_cpp_repr
