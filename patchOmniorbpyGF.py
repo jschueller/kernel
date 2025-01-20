@@ -44,7 +44,15 @@ def locateStub( fname ):
             writeNeeded = True
             newLine = "from .. import {}\n".format( m.group(1) )
             lines[i] = newLine
-            print(newLine)
+    #
+    pat3 = re.compile( "^omniORB.updateModule[\s]*\(([^\)]+)\)$" )
+    loc3 = [ i for i,elt in enumerate(lines) if pat3.match(elt) ]
+    assert len(loc3) == 1
+    i = loc3[0]
+    m = pat3.match( lines[i] )
+    modName = eval( m.group(1) )
+    lines[i] = "omniORB.updateModule(\"salome.kernel.{}\")\n".format( modName )
+    lines.append( lines[i] )
     print( f"End treating {fname}" )
     if writeNeeded:
         print( f"Updating {fname}" )

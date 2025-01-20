@@ -36,10 +36,10 @@ import sys
 import time
 import string
 import signal
-from omniORB import CORBA, PortableServer, any, newModule, updateModule
+from omniORB import CORBA, any
 from . import Engines
-Engines__POA = newModule("salome.kernel.Engines__POA") # from . import Engines__POA
-updateModule( "salome.kernel.Engines__POA" )
+from . import Engines__POA
+#Engines__POA = sys.modules["salome.kernel.Engines__POA"]
 
 from . import Registry
 from .Utils_Identity import *

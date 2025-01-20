@@ -489,8 +489,8 @@ def verboseLevel():
 
     :return current verbosity level
     """
-    from .KernelBasis import KernelLogLevelToLogging
-    return KernelLogLevelToLogging[ KernelBasis.VerbosityLevel() ]
+    from .KernelBasis import VerbosityLevel
+    return KernelLogLevelToLogging[ VerbosityLevel() ]
 
 def setVerboseLevel(level):
     """

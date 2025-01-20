@@ -33,13 +33,12 @@ import traceback
 from pathlib import Path
 
 import omniORB
-from omniORB import newModule, promotePartialModule,_partialModules
 from . import Engines
-Engines__POA = sys.modules["salome.kernel.Engines__POA"]
+from . import Engines__POA
 from . import KernelBasis
 from . import SALOME
-#newModule("salome.kernel.SALOME__POA")
-SALOME__POA = _partialModules["salome.kernel.SALOME__POA"]
+from . import SALOME__POA
+Engines__POA = sys.modules["salome.kernel.Engines__POA"]
 
 from .SALOME_ContainerHelper import ScriptExecInfo
 
