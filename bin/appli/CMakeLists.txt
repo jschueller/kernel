@@ -32,6 +32,7 @@ get_filename_component(APPLI_ABS "${CMAKE_INSTALL_PREFIX}/${APPLI}" ABSOLUTE)
 
 # Install the salome file with execution permissions
 SALOME_INSTALL_SCRIPTS(${CMAKE_CURRENT_SOURCE_DIR}/salome ${INSTALL_APPLI_DIR})
+SALOME_INSTALL_SCRIPTS(${CMAKE_CURRENT_SOURCE_DIR}/.bashrc ${INSTALL_APPLI_DIR})
 
 # Create the extra.env.d directory in the build directory
 set(EXTRA_ENV_DIR ${CMAKE_CURRENT_BINARY_DIR}/extra.env.d)
