@@ -65,6 +65,7 @@ ELSE()
 ENDIF()
 
 SWIG_LINK_LIBRARIES(calcium ${_calcium_LIBS})
+set_target_properties(_calcium PROPERTIES INSTALL_RPATH "$ORIGIN/../../../../salome")
 INSTALL(TARGETS _calcium DESTINATION ${SALOME_INSTALL_PYTHON})
 
 SET(SCRIPTS

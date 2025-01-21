@@ -87,6 +87,7 @@ SET(Launcher_SOURCES
 
 ADD_LIBRARY(Launcher ${Launcher_SOURCES})
 TARGET_LINK_LIBRARIES(Launcher ResourcesManager ${LIBBATCH_LIBRARIES} ${LIBXML2_LIBS} ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSTEM_LIBRARY})
+set_target_properties(Launcher PROPERTIES INSTALL_RPATH "$ORIGIN")
 INSTALL(TARGETS Launcher EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
 
 SET(TestLauncher_LIBS
@@ -101,10 +102,12 @@ SET(TestLauncher_LIBS
 # TestLauncher needs only (and must need only) libxml, libbatch, ResourceManager and Launcher libraries!
 ADD_EXECUTABLE(TestLauncher TestLauncher.cxx)
 TARGET_LINK_LIBRARIES(TestLauncher ${TestLauncher_LIBS})
+set_target_properties(TestLauncher PROPERTIES INSTALL_RPATH "$ORIGIN/../../lib/salome")
 INSTALL(TARGETS TestLauncher DESTINATION ${SALOME_INSTALL_BINS})
 
 ADD_LIBRARY(SalomeLauncher BatchTest.cxx SALOME_Launcher.cxx SALOME_ExternalServerLauncher.cxx SALOME_LauncherException.cxx SALOME_ExternalServerHandler.cxx SALOME_LogManager.cxx)
 TARGET_LINK_LIBRARIES(SalomeLauncher Launcher ${COMMON_LIBS})
+set_target_properties(SalomeLauncher PROPERTIES INSTALL_RPATH "$ORIGIN")
 INSTALL(TARGETS SalomeLauncher EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
   
 SET(SALOME_LauncherServer_LIBS
@@ -121,6 +124,7 @@ SET(SALOME_LauncherServer_LIBS
 
 ADD_EXECUTABLE(SALOME_LauncherServer SALOME_LauncherServer.cxx)
 TARGET_LINK_LIBRARIES(SALOME_LauncherServer ${SALOME_LauncherServer_LIBS})
+set_target_properties(SALOME_LauncherServer PROPERTIES INSTALL_RPATH "$ORIGIN/../../lib/salome")
 INSTALL(TARGETS SALOME_LauncherServer EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_BINS})
 
 SET(COMMON_HEADERS_HXX
@@ -162,6 +166,7 @@ IF(${MACHINE} STREQUAL WINDOWS)
   SET_TARGET_PROPERTIES(_KernelLauncher PROPERTIES DEBUG_OUTPUT_NAME _KernelLauncher_d)
 ENDIF(${MACHINE} STREQUAL WINDOWS)
 SWIG_LINK_LIBRARIES(KernelLauncher ${PYTHON_LIBRARIES} ${PLATFORM_LIBS} SalomeDS SalomeKernelHelpers)
+set_target_properties(_KernelLauncher PROPERTIES INSTALL_RPATH "$ORIGIN/../../../../salome")
 install(TARGETS _KernelLauncher DESTINATION ${SALOME_INSTALL_PYTHON})
 install(FILES ${KernelLauncher_HEADERS} DESTINATION ${SALOME_INSTALL_HEADERS})
 

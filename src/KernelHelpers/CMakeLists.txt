@@ -43,6 +43,7 @@ SET(SalomeORB_SOURCES
 
 ADD_LIBRARY(SalomeORB ${SalomeORB_SOURCES})
 TARGET_LINK_LIBRARIES(SalomeORB OpUtil ${OMNIORB_LIBRARIES})
+set_target_properties(SalomeORB PROPERTIES INSTALL_RPATH "$ORIGIN")
 INSTALL(TARGETS SalomeORB EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
 
 SET(SalomeKernelHelpers_LIBS
@@ -68,10 +69,12 @@ ADD_DEFINITIONS(${OMNIORB_DEFINITIONS})
 
 ADD_LIBRARY(SalomeKernelHelpers ${SalomeKernelHelpers_SOURCES})
 TARGET_LINK_LIBRARIES(SalomeKernelHelpers ${SalomeKernelHelpers_LIBS})
+set_target_properties(SalomeKernelHelpers PROPERTIES INSTALL_RPATH "$ORIGIN")
 INSTALL(TARGETS SalomeKernelHelpers EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
 
 ADD_EXECUTABLE(KernelHelpersUseCases KernelHelpersUseCases.cxx)
 TARGET_LINK_LIBRARIES(KernelHelpersUseCases SalomeKernelHelpers ${SalomeKernelHelpers_LIBS})
+set_target_properties(KernelHelpersUseCases PROPERTIES INSTALL_RPATH "$ORIGIN/../../lib/salome")
 INSTALL(TARGETS KernelHelpersUseCases DESTINATION ${SALOME_INSTALL_BINS})
 
 #
@@ -91,6 +94,7 @@ IF(${MACHINE} STREQUAL WINDOWS)
   SET_TARGET_PROPERTIES(_KernelServices PROPERTIES DEBUG_OUTPUT_NAME _KernelServices_d)
 ENDIF(${MACHINE} STREQUAL WINDOWS)
 SWIG_LINK_LIBRARIES(KernelServices ${PYTHON_LIBRARIES} ${PLATFORM_LIBS} SalomeKernelHelpers)
+set_target_properties(_KernelServices PROPERTIES INSTALL_RPATH "$ORIGIN/../../../../salome")
 install(TARGETS _KernelServices DESTINATION ${SALOME_INSTALL_PYTHON})
 install(FILES ${KernelServices_HEADERS} DESTINATION ${SALOME_INSTALL_HEADERS})
 install(FILES ${_swig_SCRIPTS} DESTINATION ${SALOME_INSTALL_PYTHON})

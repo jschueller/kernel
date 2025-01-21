@@ -59,12 +59,14 @@ ADD_DEFINITIONS(${LIBXML2_DEFINITIONS} ${OMNIORB_DEFINITIONS})
 
 ADD_LIBRARY(SalomeCatalog ${SalomeCatalog_SOURCES})
 TARGET_LINK_LIBRARIES(SalomeCatalog ${COMMON_LIBS})
+
 INSTALL(TARGETS SalomeCatalog EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
 
 ADD_EXECUTABLE(SALOME_ModuleCatalog_Server SALOME_ModuleCatalog_Server.cxx)
 TARGET_LINK_LIBRARIES(SALOME_ModuleCatalog_Server SalomeCatalog ${COMMON_LIBS} ${OMNIORB_LIBRARIES})
-
+set_target_properties(SALOME_ModuleCatalog_Server PROPERTIES INSTALL_RPATH "$ORIGIN/../../lib/salome")
 ADD_EXECUTABLE(SALOME_ModuleCatalog_Client SALOME_ModuleCatalog_Client.cxx)
+set_target_properties(SALOME_ModuleCatalog_Client PROPERTIES INSTALL_RPATH "$ORIGIN/../../lib/salome")
 TARGET_LINK_LIBRARIES(SALOME_ModuleCatalog_Client SalomeCatalog ${COMMON_LIBS} ${OMNIORB_LIBRARIES})
 
 #
@@ -84,6 +86,7 @@ IF(${MACHINE} STREQUAL WINDOWS)
   SET_TARGET_PROPERTIES(_KernelModuleCatalog PROPERTIES DEBUG_OUTPUT_NAME _KernelModuleCatalog_d)
 ENDIF(${MACHINE} STREQUAL WINDOWS)
 SWIG_LINK_LIBRARIES(KernelModuleCatalog ${PYTHON_LIBRARIES} ${PLATFORM_LIBS} SalomeCatalog SalomeKernelHelpers)
+set_target_properties(_KernelModuleCatalog PROPERTIES INSTALL_RPATH "$ORIGIN/../../../../salome")
 install(TARGETS _KernelModuleCatalog DESTINATION ${SALOME_INSTALL_PYTHON})
 install(FILES ${KernelModuleCatalog_HEADERS} DESTINATION ${SALOME_INSTALL_HEADERS})
 install(FILES ${_swig_SCRIPTS} DESTINATION ${SALOME_INSTALL_PYTHON})

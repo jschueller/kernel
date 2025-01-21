@@ -60,10 +60,12 @@ SET(LOCAL_TEST_DIR ${KERNEL_TEST_DIR}/LifeCycleCORBA)
 
 ADD_LIBRARY(LifeCycleCORBATest LifeCycleCORBATest.cxx)
 TARGET_LINK_LIBRARIES(LifeCycleCORBATest ${COMMON_LIBS})
+set_target_properties(LifeCycleCORBATest PROPERTIES INSTALL_RPATH "$ORIGIN:$ORIGIN/../../../../../lib/salome")
 INSTALL(TARGETS LifeCycleCORBATest DESTINATION ${KERNEL_TEST_LIB})
 
 ADD_EXECUTABLE(TestLifeCycleCORBA TestLifeCycleCORBA.cxx)
 TARGET_LINK_LIBRARIES(TestLifeCycleCORBA LifeCycleCORBATest NamingServiceTest SalomeLifeCycleCORBA ${COMMON_LIBS})
+set_target_properties(TestLifeCycleCORBA PROPERTIES INSTALL_RPATH "$ORIGIN/../lib:$ORIGIN/../../../../../lib/salome")
 INSTALL(TARGETS TestLifeCycleCORBA DESTINATION ${LOCAL_TEST_DIR})
 
 # Executable scripts to be installed
