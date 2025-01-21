@@ -23,7 +23,7 @@
 #
 
 import sys
-from addToKillList_impl import addToKillList, killList, verbose
+from salome.kernel.addToKillList_impl import addToKillList, killList, verbose
 
 ########## adds to the kill list of SALOME one more process ##########
 

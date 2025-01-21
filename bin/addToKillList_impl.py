@@ -23,7 +23,7 @@
 #
 
 import os, pickle, signal
-from launchConfigureParser import verbose
+from salome.kernel.launchConfigureParser import verbose
 
 ########## adds to the kill list of SALOME one more process ##########
 
@@ -32,7 +32,7 @@ def findFileDict():
     Detect current SALOME session's port number.
     Returns port number.
     """
-    from salome_utils import getPortNumber
+    from salome.kernel.salome_utils import getPortNumber
     port = getPortNumber()
     if verbose(): print("myport = ", port)
     return port
@@ -47,7 +47,7 @@ def addToKillList(command_pid, command, port=None):
     it is detected automatically
     """
     # retrieve current processes dictionary
-    from killSalomeWithPort import getPiDict
+    from salome.kernel.killSalomeWithPort_impl import getPiDict
     if port is None: port=findFileDict()
     filedict = getPiDict(port)
     #filedict = getPiDict(port).encode()
@@ -96,7 +96,7 @@ def killList(port=None):
     it is detected automatically
     """
     # retrieve processes dictionary
-    from killSalomeWithPort import getPiDict
+    from salome.kernel.killSalomeWithPort import getPiDict
     if port is None: port=findFileDict()
 
     # new-style dot-prefixed pidict file
