@@ -48,6 +48,7 @@ class TestCompo(unittest.TestCase):
   @classmethod
   def setUpClass(cls):
     # Prepare the test directory
+    from salome.kernel import LifeCycleCORBA
     temp = tempfile.NamedTemporaryFile()
     cls.test_dir = os.path.join(temp.name, "test_dir")
     name = os.path.basename(temp.name)
@@ -65,7 +66,7 @@ class TestCompo(unittest.TestCase):
 #    salome_runtime.addCatalog(session_catalog)
 
     # Get the list of possible ressources
-    ressource_param = salome.ResourceParameters()
+    ressource_param = LifeCycleCORBA.ResourceParameters()
     ressource_param.can_launch_batch_jobs = True
     rm = salome.lcc.getResourcesManager()
     cls.ressources = rm.GetFittingResources(ressource_param)
@@ -80,9 +81,10 @@ class TestCompo(unittest.TestCase):
       self.fail("IO exception:" + str(ex));
 
   def create_JobParameters(self):
-    job_params = salome.JobParameters()
+    from salome.kernel import LifeCycleCORBA
+    job_params = LifeCycleCORBA.JobParameters()
     job_params.wckey="P11N0:SALOME" #needed by edf clusters
-    job_params.resource_required = salome.ResourceParameters()
+    job_params.resource_required = LifeCycleCORBA.ResourceParameters()
     job_params.resource_required.nb_proc = 1
     return job_params
 
@@ -666,7 +668,7 @@ f.close()
 
 if __name__ == '__main__':
     # create study
-    import salome
+    from salome.kernel import salome
     salome.standalone()
     salome.salome_init()
     unittest.main()

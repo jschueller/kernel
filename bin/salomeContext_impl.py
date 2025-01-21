@@ -541,7 +541,7 @@ class SalomeContext:
     import setenv
     setenv.main(True)
 
-    import runTests
+    from . import runTests
     return runTests.runTests(args, exe="salome test")
   #
 

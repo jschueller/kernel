@@ -35,7 +35,7 @@ def mkdir_p(path):
     else:
       raise
 
-import pylauncher
+from salome.kernel import pylauncher
 def createLauncher():
   launcher = pylauncher.Launcher_cpp()
   launcher.SetResourcesManager(createResourcesManager())
