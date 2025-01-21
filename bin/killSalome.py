@@ -42,7 +42,7 @@ To stop all SALOME sessions, do the following:
 
 # pragma pylint: disable=invalid-name
 
-from killSalome_impl import main, killAllPorts
+from salome.kernel.killSalome_impl import main, killAllPorts
 
 if __name__ == '__main__':
     main()

@@ -49,7 +49,7 @@ for example:
 
 # pragma pylint: disable=invalid-name
 
-from killSalomeWithPort_impl import killMyPort, getPiDict, killUnkilledProcesses, \
+from salome.kernel.killSalomeWithPort_impl import killMyPort, getPiDict, killUnkilledProcesses, \
     killProcessSSL, cleanApplication, main
 
 if __name__ == '__main__':

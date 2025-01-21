@@ -27,7 +27,7 @@ import os
 class SalomeInstance:
 
   def __init__(self):
-    import KernelBasis
+    from salome.kernel import KernelBasis
     KernelBasis.setSSLMode(False)
     self.port = None
   #

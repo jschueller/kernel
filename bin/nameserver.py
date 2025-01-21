@@ -23,9 +23,9 @@
 
 import os, sys, re, socket
 #import commands
-from server import Server
-from salome_utils import getHostName, makeDir
-from launchConfigureParser import verbose
+from salome.kernel.server import Server
+from salome.kernel.salome_utils import getHostName, makeDir
+from salome.kernel.launchConfigureParser import verbose
 
 # -----------------------------------------------------------------------------
 

@@ -491,7 +491,7 @@ def LogManagerLaunchMonitoringDumpFile(self, intervalInMs, outFileName):
     with tempfile.NamedTemporaryFile(prefix="htopmain_",suffix=".py") as f:
       tempPyFile = f.name
     with open(tempPyFile,"w") as f:
-        f.write("""import Engines
+        f.write("""from salome.kernel import Engines
 import os
 import shutil
 import CORBA
@@ -501,7 +501,7 @@ logm = orb.string_to_object("{ior}")
 outFileName = "{outFileName}"
 outFileNameSave = "{outFileNameSave}"
 logm.setFileNamePairOfLogger(outFileName, outFileNameSave )
-import salome
+from salome.kernel import salome
 while(True):
   if os.path.exists( outFileName ):
     shutil.copy(outFileName,outFileNameSave)
@@ -521,7 +521,7 @@ def LogManagerDumpIORInFile(self, iorFileName):
         f.write( orb.object_to_string( logm ) )
 
 def LogManagerLoadFromFile(fileName):
-    from SALOME_ContainerHelper import unserializeLogManager
+    from salome.kernel.SALOME_ContainerHelper import unserializeLogManager
     with open(fileName,"rb") as f:
         data = f.read()
     return unserializeLogManager( data )
@@ -529,14 +529,14 @@ def LogManagerLoadFromFile(fileName):
 def LogManagerLoadFromIORFile( iorFile ):
     global orb
     def LoadAndWrite(logm,tempFileName):
-        import SALOME_PyNode
+        from salome.kernel import SALOME_PyNode
         logm.putStructInFileAtomic( False, tempFileName )
         tempFileAuto = SALOME_PyNode.FileDeleter( tempFileName )
         ret = LogManagerLoadFromFile( tempFileAuto.filename )
         return ret
     with open(iorFile,"r") as f:
         ior = f.read()
-    import Engines
+    from salome.kernel import Engines
     import tempfile
     salome_init_without_session()
     logm = orb.string_to_object( ior )

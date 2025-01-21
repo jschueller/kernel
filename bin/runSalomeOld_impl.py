@@ -27,15 +27,15 @@
 #
 
 import sys, os, string, glob, time, pickle, re
-import orbmodule
+import salome.kernel.orbmodule
 import setenv
-from launchConfigureParser import verbose
-from server import process_id, Server
+from salome.kernel.launchConfigureParser import verbose
+from salome.kernel.server import process_id, Server
 import json
 import subprocess
-from salomeContextUtils import ScriptAndArgsObjectEncoder
+from salome.kernel.salomeContextUtils import ScriptAndArgsObjectEncoder
 import platform
-from runSalomeCommon import setVerbose, InterpServer, CatalogServer, SalomeDSServer, ConnectionManagerServer, RegistryServer, ContainerCPPServer, LoggerServer, CommonSessionServer, SessionServer, LauncherServer
+from salome.kernel.runSalomeCommon import setVerbose, InterpServer, CatalogServer, SalomeDSServer, ConnectionManagerServer, RegistryServer, ContainerCPPServer, LoggerServer, CommonSessionServer, SessionServer, LauncherServer
 # -----------------------------------------------------------------------------
 
 from killSalome import killAllPorts
@@ -415,7 +415,7 @@ def useSalome(args, modules_list, modules_root_dir):
                         salome.salome_init_with_session(path=toopen)
                 if 'pyscript' in args:
                     toimport = args['pyscript']
-        from salomeContextUtils import formatScriptsAndArgs
+        from salome.kernel.salomeContextUtils import formatScriptsAndArgs
         command = formatScriptsAndArgs(toimport, escapeSpaces=True)
         if command:
             proc = subprocess.Popen(command, shell=True)
@@ -466,7 +466,7 @@ def no_main():
 
 def addToPidict(args):
     global process_id
-    from addToKillList import addToKillList
+    from salome.kernel.addToKillList import addToKillList
     for pid, cmd in list(process_id.items()):
         addToKillList(pid, cmd, args['port'])
 
@@ -477,13 +477,13 @@ def main(exeName=None):
 
     # define folder to store omniorb config (initially in virtual application folder)
     try:
-        from salomeContextUtils import setOmniOrbUserPath
+        from salome.kernel.salomeContextUtils import setOmniOrbUserPath
         setOmniOrbUserPath()
     except Exception as e:
         print(e)
         sys.exit(1)
 
-    from salome_utils import getHostName
+    from salome.kernel.salome_utils import getHostName
     keep_env = not os.getenv('SALOME_PLEASE_SETUP_ENVIRONMENT_AS_BEFORE')
     args, modules_list, modules_root_dir = setenv.get_config(exeName=exeName, keepEnvironment=keep_env)
     print("runSalome running on %s" % getHostName())
@@ -498,7 +498,7 @@ def main(exeName=None):
         test = False
         pass
     if test and not 'launcher' in args:
-        from searchFreePort import searchFreePort
+        from salome.kernel.searchFreePort import searchFreePort
         searchFreePort(args, save_config, args.get('useport'))
         pass
     # --

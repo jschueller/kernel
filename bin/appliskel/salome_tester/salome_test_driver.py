@@ -87,6 +87,7 @@ def timeoutHandler(signum, frame):
 #
 
 if __name__ == "__main__":
+  print('salome_test_driver.py  sys.argv:', sys.argv)
   timeout_delay = sys.argv[1]
   args = sys.argv[2:]
 

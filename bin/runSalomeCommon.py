@@ -28,13 +28,13 @@
 
 import sys, os, string, glob, time, pickle, re
 import setenv
-from server import process_id, Server
+from salome.kernel.server import process_id, Server
 import json
 import subprocess
-from salomeContextUtils import ScriptAndArgsObjectEncoder
+from salome.kernel.salomeContextUtils import ScriptAndArgsObjectEncoder
 import platform
 import logging
-from salome_utils import positionVerbosityOfLogger
+from salome.kernel.salome_utils import positionVerbosityOfLogger
 
 logger = logging.getLogger()
 
