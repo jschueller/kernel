@@ -96,7 +96,7 @@ def killList(port=None):
     it is detected automatically
     """
     # retrieve processes dictionary
-    from salome.kernel.killSalomeWithPort import getPiDict
+    from salome.kernel.killSalomeWithPort_impl import getPiDict
     if port is None: port=findFileDict()
 
     # new-style dot-prefixed pidict file
