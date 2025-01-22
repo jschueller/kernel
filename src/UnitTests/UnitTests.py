@@ -26,7 +26,7 @@ import sys, os,signal,string,subprocess
 import subprocess
 import runSalomeOld
 import setenv
-import orbmodule
+from salome.kernel import orbmodule
 import TestKiller
 
 # get SALOME environment :
@@ -78,7 +78,7 @@ ret = subprocess.call(command)
 
 # kill containers created by the Container Manager
 
-import Engines
+from salome.kernel import Engines
 launcher = clt.waitNS("/SalomeLauncher",Engines.SalomeLauncher)
 launcher.Shutdown()
 
