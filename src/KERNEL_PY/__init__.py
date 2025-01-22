@@ -212,6 +212,7 @@ def salome_init_without_session(path=None, embedded=False, iorfakensfile=None):
     cm = KernelLauncher.myContainerManager()
     type(cm).SetOverrideEnvForContainersSimple = ContainerManagerSetOverrideEnvForContainersSimple
     rm = KernelLauncher.myResourcesManager()
+    type(rm).GetResourceDefinition2 = ResourcesManagerGetResourceDefinition
     from ..LifeCycleCORBA import LifeCycleCORBASSL
     lcc = LifeCycleCORBASSL()
     # create a FactoryServer Container servant
@@ -273,6 +274,7 @@ def salome_init_without_session_attached(path=None, embedded=False):
     cm.__class__.__module__ = "salome.kernel.Engines" #43708 for pickling
     naming_service.Register(cm,CM_NAME_IN_NS)
     rm = orb.string_to_object( nsAbroad.Resolve(RM_NAME_IN_NS).decode() )
+    type(rm).GetResourceDefinition2 = ResourcesManagerGetResourceDefinition
     rm.__class__.__module__ = "salome.kernel.Engines" #43708 for pickling
     naming_service.Register(rm,RM_NAME_IN_NS)
     #
@@ -429,6 +431,14 @@ class SessionContextManager:
         salome_init()
     def __exit__(self, type, value, traceback):
         salome_close()
+
+def ResourcesManagerGetResourceDefinition(self, machine):
+    """
+    Implementation pickle ready
+    """
+    ret = self.GetResourceDefinition( machine )
+    ret.__class__.__module__ = "salome.kernel.Engines"
+    return ret
 
 def ContainerManagerSetOverrideEnvForContainersSimple(self,env):
     from .. import Engines

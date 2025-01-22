@@ -279,7 +279,7 @@ def ResourceDefinition_cpp_isEqual(self,other):
   return all( [getattr(self,k) == getattr(other,k) for k in ListOfAttrCommon] )
 
 def RetrieveRMCppSingleton():
-  import KernelLauncher
+  from salome.kernel import KernelLauncher
   return HandleToLocalInstance( KernelLauncher.RetrieveInternalInstanceOfLocalCppResourcesManager() )
 
 def GetPlayGroundInsideASlurmJob():
