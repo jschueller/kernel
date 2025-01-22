@@ -29,12 +29,12 @@
 import sys
 import unittest
 from omniORB import CORBA
-import Utils_Identity
-import Engines
+from salome.kernel import Utils_Identity
+from salome.kernel import Engines
 
 class LifeCycleCORBA_SWIGTest(unittest.TestCase):
     def setUp(self):
-        import LifeCycleCORBA
+        from salome.kernel import LifeCycleCORBA
         self.lcc = LifeCycleCORBA.LifeCycleCORBA()
         pass
 

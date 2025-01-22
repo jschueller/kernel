@@ -313,7 +313,7 @@ def salome_init_with_session(path=None, embedded=False):
     global orb, lcc, naming_service, cm, esm, dsm, modulcat
     global sg
     global myStudy, myStudyName
-    import KernelBasis
+    from salome.kernel import KernelBasis
     KernelBasis.setSSLMode(False)
     try:
         if salome_initial:

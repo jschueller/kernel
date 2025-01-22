@@ -54,12 +54,12 @@ def list_of_catalogs_regarding_environement():
     return list_catalogs
 
 def salome_kernel_init():
-    import Engines
-    import SALOME
-    import SALOME_ModuleCatalog
+    from salome.kernel import Engines
+    from salome.kernel import SALOME
+    from salome.kernel import SALOME_ModuleCatalog
     from omniORB import CORBA
-    from SALOME_NamingServicePy import SALOME_NamingServicePy_i
-    from LifeCycleCORBA import LifeCycleCORBA
+    from salome.kernel.SALOME_NamingServicePy import SALOME_NamingServicePy_i
+    from salome.kernel.LifeCycleCORBA import LifeCycleCORBA
     global orb, lcc, naming_service, cm, esm, dsm, modulcat
     
     if not orb:

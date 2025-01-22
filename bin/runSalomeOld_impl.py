@@ -129,7 +129,7 @@ def startSalome(args, modules_list, modules_root_dir):
     #
     # Initialisation ORB and Naming Service
     #
-
+    from salome.kernel import orbmodule
     clt=orbmodule.client(args)
     addToPidict(args)
 
@@ -466,7 +466,7 @@ def no_main():
 
 def addToPidict(args):
     global process_id
-    from salome.kernel.addToKillList import addToKillList
+    from salome.kernel.addToKillList_impl import addToKillList
     for pid, cmd in list(process_id.items()):
         addToKillList(pid, cmd, args['port'])
 
