@@ -25,7 +25,7 @@ import sys, os,signal,string,subprocess
 import subprocess
 import runSalomeOld
 import setenv
-import orbmodule
+from salome.kernel import orbmodule
 import TestKiller
 
 # get SALOME environment :
