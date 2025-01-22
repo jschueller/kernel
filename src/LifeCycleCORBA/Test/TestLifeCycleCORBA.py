@@ -21,7 +21,7 @@
 # See http://www.salome-platform.org/ or email : webmaster.salome@opencascade.com
 #
 
-import sys, os,signal,string,subprocess,time
+import sys, os,signal,string,subprocess
 import subprocess
 import runSalomeOld
 import setenv
@@ -74,10 +74,8 @@ clt.waitNS("/SalomeLauncher")
 
 # execute Unit Test
 
-p = Path( orbmodule.__file__ )
-# from lib/python3.9/site-packages/salome/kernel/orbmodule.py to bin/salome/test/kernel/LifeCycleCORBA
-exeFile = ( p.parent.parent.parent.parent.parent.parent / "bin" / "salome" / "test" / "kernel" / "LifeCycleCORBA" / "TestLifeCycleCORBA" ).as_posix()
-ret = subprocess.call([ exeFile ])
+command = ['./TestLifeCycleCORBA']
+ret = subprocess.call(command)
 
 # kill containers created by the Container Manager
 
