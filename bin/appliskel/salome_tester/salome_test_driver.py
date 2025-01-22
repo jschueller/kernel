@@ -110,7 +110,7 @@ if __name__ == "__main__":
     test_and_args = args
 
   # Ensure OMNIORB_USER_PATH is set
-  from salomeContextUtils import setOmniOrbUserPath
+  from salome.kernel.salomeContextUtils import setOmniOrbUserPath
   setOmniOrbUserPath()
 
   # Set timeout handler
@@ -125,7 +125,7 @@ if __name__ == "__main__":
     signal.signal(signal.SIGALRM, timeoutHandler)
 
   # Run test in a new SALOME instance
-  from salome_instance import SalomeInstance
+  from salome.kernel.salome_instance_impl import SalomeInstance
   res = 1
   try:
     salome_instance = SalomeInstance.start(shutdown_servers=True)

@@ -97,7 +97,6 @@ def timeoutHandler(signum, frame):
 #
 
 if __name__ == "__main__":
-  print("Python test driver for SALOME")
   timeout_delay = sys.argv[1]
   args = sys.argv[2:]
 

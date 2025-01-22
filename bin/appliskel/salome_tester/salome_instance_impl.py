@@ -27,7 +27,7 @@ import os
 class SalomeInstance:
 
   def __init__(self):
-    from . import KernelBasis
+    from salome.kernel import KernelBasis
     KernelBasis.setSSLMode(False)
     self.port = None
   #
@@ -86,7 +86,7 @@ class SalomeInstance:
     runSalomeOld.runSalome()
 
     if not with_gui:
-      import salome
+      from salome.kernel import salome
       salome.salome_init()
       session_server = salome.naming_service.Resolve('/Kernel/Session')
       if session_server:
