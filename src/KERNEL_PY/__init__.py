@@ -320,6 +320,7 @@ def salome_init_with_session(path=None, embedded=False):
             salome_initial=False
             sg = salome_iapp_init(embedded)
             orb, lcc, naming_service, cm, esm, dsm, modulcat = salome_kernel_init()
+            type(cm).SetOverrideEnvForContainersSimple = ContainerManagerSetOverrideEnvForContainersSimple
             myStudy, myStudyName = salome_study_init(path)
             pass
         pass
@@ -430,6 +431,7 @@ class SessionContextManager:
         salome_close()
 
 def ContainerManagerSetOverrideEnvForContainersSimple(self,env):
+    from .. import Engines
     envEff = [ Engines.KeyValPairString(key=k,val=v) for k,v in env ]
     return self.SetOverrideEnvForContainers( envEff )
 
