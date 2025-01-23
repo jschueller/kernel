@@ -377,6 +377,7 @@ def link_extra_test(options):
     verbose = options.verbose
 
     home_dir = os.path.expanduser(options.prefix)
+    print(f"333333333333333333333 {home_dir}")
     test_dir = os.path.join(home_dir,'bin','salome', 'test')
 
     if options.clear:

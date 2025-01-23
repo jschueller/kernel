@@ -17,7 +17,7 @@
 # See http://www.salome-platform.org/ or email : webmaster.salome@opencascade.com
 #
 
-SET(SALOME_VIRT_PYTHON_PACKAGE ${SALOME_INSTALL_PYTHON}/salome)
+SET(SALOME_VIRT_PYTHON_PACKAGE ${SALOME_KERNEL_INSTALL_PYTHON}/salome)
 
 ADD_SUBDIRECTORY(kernel)
 
@@ -44,6 +44,6 @@ SET(salomepython_PYTHON
     salome_psutil.py
   )
 
-SALOME_INSTALL_SCRIPTS("${salomepython_PYTHON}" ${SALOME_INSTALL_PYTHON} DEF_PERMS)
+SALOME_INSTALL_SCRIPTS("${salomepython_PYTHON}" ${SALOME_KERNEL_INSTALL_PYTHON} DEF_PERMS)
 
 SALOME_INSTALL_SCRIPTS(__init__.py ${SALOME_VIRT_PYTHON_PACKAGE} DEF_PERMS)

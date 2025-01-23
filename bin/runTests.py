@@ -72,7 +72,7 @@ For complete description of available options, pleaser refer to ctest documentat
 #
 
 # tests must be in ${ABSOLUTE_APPLI_PATH}/${__testSubDir}/
-__testSubDir = "bin/salome/test/kernel"
+__testSubDir = "bin/salome/test"
 
 def runTests(args, exe=None):
   args = __configureTests(args, exe)
