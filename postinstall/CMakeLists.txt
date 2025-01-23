@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2024  CEA, EDF, OPEN CASCADE
+# Copyright (C) 2025  CEA, EDF
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -28,3 +28,5 @@ include(${CONFIGURATION_ROOT_DIR}/cmake/ConfigureRPathPostEx.cmake)
 
 # Pass the parent of SALOME_INSTALL_LIBS to process both lib/salome and lib/pythonx.x/site-packages
 configure_rpath_post_install("${SALOME_INSTALL_BINS};${SALOME_INSTALL_LIBS}/..")
+
+patch_omniidl_gen_py_package( ${CMAKE_INSTALL_PREFIX} kernel )
