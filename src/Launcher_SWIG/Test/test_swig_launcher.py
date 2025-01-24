@@ -112,7 +112,7 @@ class TestCompo(unittest.TestCase):
 # -*- coding: utf-8 -*-
 
 # verify import salome
-import salome
+from salome.kernel import salome
 salome.salome_init()
 
 f = open('result.txt', 'w')
@@ -581,7 +581,7 @@ f.close()
 
 import os,sys
 # verify import salome
-import salome
+from salome.kernel import salome
 
 text_result = os.getenv("ENV_TEST_VAR","")
 
