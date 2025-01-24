@@ -100,7 +100,7 @@ ROOT_PYTHONPACKAGE_NAME="salome"
 # be the pieces to be aggregated as a single virtual python package.
 #
 import os, sys
-from ..salome_utils import verbose
+from salome.kernel.salome_utils import verbose
 
 MATCH_ENDING_PATTERN="site-packages" + os.path.sep + "salome"
 

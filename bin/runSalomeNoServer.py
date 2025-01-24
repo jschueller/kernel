@@ -18,7 +18,7 @@
 # See http://www.salome-platform.org/ or email : webmaster.salome@opencascade.com
 #
 
-from runSalomeNoServer_impl import NoSessionServer, main
+from salome.kernel.runSalomeNoServer_impl import NoSessionServer, main
 
 if __name__ == "__main__":
     main()

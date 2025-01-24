@@ -28,11 +28,11 @@ import setenv
 from .server import process_id, Server
 import json
 import subprocess
-from salomeContextUtils import ScriptAndArgsObjectEncoder
+from salome.kernel.salomeContextUtils import ScriptAndArgsObjectEncoder
 import runSalomeNoServer
-from . import runSalomeCommon
+from salome.kernel import runSalomeCommon
 import platform
-from .launchConfigureParser import verbosity_nam, on_demand_nam
+from salome.kernel.launchConfigureParser import verbosity_nam, on_demand_nam
 import logging
 logger = logging.getLogger()
 
@@ -202,8 +202,8 @@ def main(exeName=None):
                     logger.debug("An input Study has been specified {} -> pass it with PATH_TO_STUDY_FILE_TO_INITIATE env var".format(toopen))
             if 'pyscript' in args:
                 toimport = args['pyscript']
-    from salomeContextUtils import formatScriptsAndArgs
-    from addToKillList import addToKillList
+    from salome.kernel.salomeContextUtils import formatScriptsAndArgs
+    from salome.kernel.addToKillList_impl import addToKillList
     command = formatScriptsAndArgs(toimport, escapeSpaces=True)
     if command:
         logger.debug("Launching following shell command : {}".format(str(command)))

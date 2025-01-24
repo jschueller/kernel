@@ -23,7 +23,7 @@
 # \brief Module that provides services to launch SALOME
 #
 
-from runSalome import runSalome
+from salome.kernel.runSalome import runSalome
 
 if __name__ == "__main__":
     runSalome()

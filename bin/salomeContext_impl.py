@@ -416,8 +416,8 @@ class SalomeContext:
     import setenv
     setenv.main(True, exeName="salome withsession")
 
-    import runSalome
-    runSalome.runSalome()
+    from salome.kernel import runSalome_impl
+    runSalome_impl.runSalome()
     return 0
   #
 
