@@ -105,7 +105,7 @@ class TestCompo(unittest.TestCase):
 # -*- coding: utf-8 -*-
 
 # verify import salome
-import salome
+from salome.kernel import salome
 salome.standalone()
 salome.salome_init()
 
@@ -329,7 +329,7 @@ f.close()
     job_params.out_files = ["result.txt"]
 
     # define the interval between two YACS schema dumps (3 seconds)
-    import Engines
+    from salome.kernel import Engines
     job_params.specific_parameters = [Engines.Parameter("EnableDumpYACS", "3")]
 
     launcher = salome.naming_service.Resolve('/SalomeLauncher')
@@ -438,7 +438,7 @@ f.close()
     job_params.out_files = ["result.txt"]
 
     # define the interval between two YACS schema dumps (3 seconds)
-    import Engines
+    from salome.kernel import Engines
     job_params.specific_parameters = [Engines.Parameter("YACSDriverOptions",
                "-imynode.i=5 -imynode.d=3.7 -imynode.b=False -imynode.s=lili")]
     expected_result="i=5,d=3.7,b=False,s=lili"
