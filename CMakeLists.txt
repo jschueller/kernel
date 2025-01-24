@@ -165,7 +165,10 @@ SET(SALOME_INSTALL_AMCONFIG_LOCAL adm_local/unix CACHE PATH
    "Install path: local SALOME config files (obsolete, to be removed)")
 
 SET(_pydir lib/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages)
-SET(SALOME_KERNEL_INSTALL_PYTHON ${_pydir}/salome/kernel CACHE PATH "Install path: SALOME Python stuff")
+# for clients of KERNEL
+SET(SALOME_INSTALL_PYTHON ${_pydir}/salome)
+SET(SALOME_KERNEL_INSTALL_PYTHON ${SALOME_INSTALL_PYTHON}/kernel CACHE PATH "Install path: SALOME Python stuff")
+
 SET(SALOME_INSTALL_PYTHON_SHARED ${SALOME_KERNEL_INSTALL_PYTHON}/shared_modules CACHE PATH
    "Install path: SALOME Python shared modules")
 SET (INSTALL_PYIDL_DIR ${SALOME_KERNEL_INSTALL_PYTHON} CACHE PATH "Install path: SALOME Python IDL")
