@@ -101,6 +101,13 @@ ROOT_PYTHONPACKAGE_NAME="salome"
 #
 import os, sys
 from salome.kernel.salome_utils import verbose
+from salome.kernel import version_and_config
+
+__version__ = version_and_config.version
+
+__config_datetime__ = version_and_config.config_datetime
+
+del version_and_config
 
 MATCH_ENDING_PATTERN="site-packages" + os.path.sep + "salome"
 
@@ -119,9 +126,9 @@ extend_path(ROOT_PYTHONPACKAGE_NAME)
 # ==========================================================================
 #
 
-from ..salome_kernel_utils import *
-from ..salome_study import *
-from ..salome_iapp import *
+from salome.kernel.salome_kernel_utils import *
+from salome.kernel.salome_study import *
+from salome.kernel.salome_iapp import *
 
 orb, lcc, naming_service, cm, sg, esm, dsm, logm, modulcat, rm, lm = None,None,None,None,None,None,None,None,None,None,None
 myStudy, myStudyName = None,None
