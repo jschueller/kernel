@@ -49,7 +49,7 @@ import sys
 from contextlib import suppress
 from glob import glob
 
-from killSalomeWithPort import getPiDict, killMyPort, killUnkilledProcesses
+from salome.kernel.killSalomeWithPort_impl import getPiDict, killMyPort, killUnkilledProcesses
 
 def killAllPorts():
     """

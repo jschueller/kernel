@@ -28,7 +28,7 @@
 
 import sys, os, string, glob, time, pickle, re
 import salome.kernel.orbmodule
-import setenv
+from salome.kernel import setenv_impl
 from salome.kernel.launchConfigureParser import verbose
 from salome.kernel.server import process_id, Server
 import json
@@ -38,7 +38,7 @@ import platform
 from salome.kernel.runSalomeCommon import setVerbose, InterpServer, CatalogServer, SalomeDSServer, ConnectionManagerServer, RegistryServer, ContainerCPPServer, LoggerServer, CommonSessionServer, SessionServer, LauncherServer
 # -----------------------------------------------------------------------------
 
-from killSalome import killAllPorts
+from salome.kernel.killSalome_impl import killAllPorts
 
 def killLocalPort():
     """
@@ -46,7 +46,7 @@ def killLocalPort():
     on the CORBA port given in args of runSalome
     """
 
-    from killSalomeWithPort import killMyPort
+    from salome.kernel.killSalomeWithPort_impl import killMyPort
     my_port=str(args['port'])
     try:
         killMyPort(my_port)
@@ -352,8 +352,8 @@ def useSalome(args, modules_list, modules_root_dir):
 
     # print(process_id)
 
-    from addToKillList import addToKillList
-    from killSalomeWithPort import getPiDict
+    from salome.kernel.addToKillList_impl import addToKillList
+    from salome.kernel.killSalomeWithPort_impl import getPiDict
 
     filedict = getPiDict(args['port'])
     for pid, cmd in list(process_id.items()):
@@ -390,8 +390,8 @@ def useSalome(args, modules_list, modules_root_dir):
                 class __utils__:
                     def __init__(self, port):
                         self.port = port
-                        import killSalomeWithPort
-                        self.killSalomeWithPort = killSalomeWithPort
+                        from salome.kernel import killSalomeWithPort_impl
+                        self.killSalomeWithPort = killSalomeWithPort_impl
                         return
                     def __del__(self):
                         self.killSalomeWithPort.killMyPort(self.port)
@@ -485,7 +485,7 @@ def main(exeName=None):
 
     from salome.kernel.salome_utils import getHostName
     keep_env = not os.getenv('SALOME_PLEASE_SETUP_ENVIRONMENT_AS_BEFORE')
-    args, modules_list, modules_root_dir = setenv.get_config(exeName=exeName, keepEnvironment=keep_env)
+    args, modules_list, modules_root_dir = setenv_impl.get_config(exeName=exeName, keepEnvironment=keep_env)
     print("runSalome running on %s" % getHostName())
 
     kill_salome(args)
@@ -502,8 +502,8 @@ def main(exeName=None):
         searchFreePort(args, save_config, args.get('useport'))
         pass
     # --
-    #setenv.main()
-    setenv.set_env(args, modules_list, modules_root_dir, keepEnvironment=keep_env)
+    #setenv_impl.main()
+    setenv_impl.set_env(args, modules_list, modules_root_dir, keepEnvironment=keep_env)
     clt = useSalome(args, modules_list, modules_root_dir)
     return clt,args
 

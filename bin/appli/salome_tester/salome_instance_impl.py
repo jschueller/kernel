@@ -80,10 +80,10 @@ class SalomeInstance:
       #sys.argv += ["--modules=FIELDS,PARAVIS,GUI"]
       pass
 
-    import setenv
-    setenv.main(True)
-    import runSalomeOld
-    runSalomeOld.runSalome()
+    from salome.kernel import setenv_impl
+    setenv_impl.main(True)
+    from salome.kernel import runSalomeOld_impl
+    runSalomeOld_impl.runSalome()
 
     if not with_gui:
       from salome.kernel import salome

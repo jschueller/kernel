@@ -23,13 +23,13 @@
 
 import sys, signal,string,subprocess
 import subprocess
-import setenv
+from salome.kernel import setenv_impl
 
 # get SALOME environment :
 # here we need KERNEL_ROOT_DIR, PATH, LD_LIBRARY_PATH
 
-args, modules_list, modules_root_dir = setenv.get_config()
-setenv.set_env(args, modules_list, modules_root_dir)
+args, modules_list, modules_root_dir = setenv_impl.get_config()
+setenv_impl.set_env(args, modules_list, modules_root_dir)
 
 # execute Unit Test
 

@@ -27,7 +27,7 @@
 #
 
 import sys, os, string, glob, time, pickle, re
-import setenv
+from salome.kernel import setenv_impl
 from salome.kernel.server import process_id, Server
 import json
 import subprocess
@@ -79,13 +79,13 @@ def get_cata_path(list_modules,modules_root_dir):
         if module in modules_root_dir:
             module_root_dir=modules_root_dir[module]
             module_cata=module+"Catalog.xml"
-            cata_file=os.path.join(module_root_dir, "share",setenv.salome_subdir, "resources",module.lower(), module_cata)
+            cata_file=os.path.join(module_root_dir, "share",setenv_impl.salome_subdir, "resources",module.lower(), module_cata)
 
             if os.path.exists(cata_file):
                 cata_path.append(cata_file)
                 modules_cata[module]=cata_file
             else:
-                cata_file=os.path.join(module_root_dir, "share",setenv.salome_subdir, "resources", module_cata)
+                cata_file=os.path.join(module_root_dir, "share",setenv_impl.salome_subdir, "resources", module_cata)
                 if os.path.exists(cata_file):
                     cata_path.append(cata_file)
                     modules_cata[module]=cata_file

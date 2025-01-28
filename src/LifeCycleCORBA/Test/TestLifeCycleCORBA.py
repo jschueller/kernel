@@ -23,17 +23,17 @@
 
 import sys, os,signal,string,subprocess
 import subprocess
-import runSalomeOld
-import setenv
+from salome.kernel import runSalomeOld_impl
+from salome.kernel import setenv_impl
 from salome.kernel import orbmodule
 from pathlib import Path
-import TestKiller
+from salome.kernel import TestKiller
 from salome.kernel import addToKillList_impl
 
 # get SALOME environment :
 
-args, modules_list, modules_root_dir = setenv.get_config()
-setenv.set_env(args, modules_list, modules_root_dir)
+args, modules_list, modules_root_dir = setenv_impl.get_config()
+setenv_impl.set_env(args, modules_list, modules_root_dir)
 
 # set environment for trace in logger
 # (with file, servers may be killed before the write to the file...)
@@ -48,26 +48,26 @@ clt=orbmodule.client()
 
 # launch CORBA logger server
 
-myServer=runSalomeOld.LoggerServer(args)
+myServer=runSalomeOld_impl.LoggerServer(args)
 myServer.run()
 clt.waitLogger("Logger")
 
 # launch registry server
 
-myServer=runSalomeOld.RegistryServer(args)
+myServer=runSalomeOld_impl.RegistryServer(args)
 myServer.run()
 clt.waitNS("/Registry")
 
 # launch module catalog server
 
-cataServer=runSalomeOld.CatalogServer(args)
+cataServer=runSalomeOld_impl.CatalogServer(args)
 cataServer.setpath(modules_list,modules_root_dir)
 cataServer.run()
 clt.waitNS("/Kernel/ModulCatalog")
 
 # launch launcher server
 
-myCmServer = runSalomeOld.LauncherServer(args)
+myCmServer = runSalomeOld_impl.LauncherServer(args)
 myCmServer.setpath(modules_list,modules_root_dir)
 myCmServer.run()
 clt.waitNS("/SalomeLauncher")
@@ -88,6 +88,6 @@ launcher.Shutdown()
 
 addToKillList_impl.killList()
 
-TestKiller.killProcess(runSalomeOld.process_id)
+TestKiller.killProcess(runSalomeOld_impl.process_id)
 TestKiller.closeSalome()
 exit(ret)

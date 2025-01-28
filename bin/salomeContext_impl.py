@@ -304,16 +304,6 @@ class SalomeContext:
   def _startSalome(self, args):
     import os
     import sys
-    try:
-      from setenv import add_path
-      absoluteAppliPath = os.getenv('ABSOLUTE_APPLI_PATH')
-      path = os.path.realpath(os.path.join(absoluteAppliPath, "bin", "salome"))
-      add_path(path, "PYTHONPATH")
-      path = os.path.realpath(os.path.join(absoluteAppliPath, "bin", "salome", "appli"))
-      add_path(path, "PYTHONPATH")
-
-    except Exception:
-      pass
 
     command, options = self.__parseArguments(args)
     sys.argv = options
