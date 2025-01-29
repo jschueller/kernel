@@ -371,9 +371,9 @@ f.close()
       self.assertTrue(os.path.isfile(dump_file_path))
 
       # Load the schema state from the dump file and verify the state of a node
-      import SALOMERuntime
+      from salome.yacs import SALOMERuntime
       SALOMERuntime.RuntimeSALOME_setRuntime(1)
-      import loader
+      from salome.yacs import loader
       schema = loader.YACSLoader().load(job_script_file)
       stateParser = loader.stateParser()
       sl = loader.stateLoader(stateParser, schema)
