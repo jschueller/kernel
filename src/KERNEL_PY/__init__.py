@@ -278,29 +278,23 @@ def salome_init_without_session_attached(path=None, embedded=False):
     from .. import SALOME
     cm = orb.string_to_object( nsAbroad.Resolve(CM_NAME_IN_NS).decode() )
     type(cm).SetOverrideEnvForContainersSimple = ContainerManagerSetOverrideEnvForContainersSimple
-    cm.__class__.__module__ = "salome.kernel.Engines" #43708 for pickling
     naming_service.Register(cm,CM_NAME_IN_NS)
     rm = orb.string_to_object( nsAbroad.Resolve(RM_NAME_IN_NS).decode() )
     type(rm).GetResourceDefinition2 = ResourcesManagerGetResourceDefinition
-    rm.__class__.__module__ = "salome.kernel.Engines" #43708 for pickling
     naming_service.Register(rm,RM_NAME_IN_NS)
     #
     from ..LifeCycleCORBA import LifeCycleCORBASSL
     lcc = LifeCycleCORBASSL()
     dsm = orb.string_to_object( nsAbroad.Resolve(DSM_NAME_IN_NS).decode() )
-    dsm.__class__.__module__ = "salome.kernel.SALOME" #43708 for pickling
     naming_service.Register(dsm,DSM_NAME_IN_NS)
     #
     esm = orb.string_to_object( nsAbroad.Resolve(ESM_NAME_IN_NS).decode() )
-    esm.__class__.__module__ = "salome.kernel.SALOME" #43708 for pickling
     naming_service.Register(esm,ESM_NAME_IN_NS)
     #
     logm = orb.string_to_object( nsAbroad.Resolve(LOGM_NAME_IN_NS).decode() )
-    logm.__class__.__module__ = "salome.kernel.Engines" #43708 for pickling
     naming_service.Register(logm,LOGM_NAME_IN_NS)
     #
     lm = orb.string_to_object( nsAbroad.Resolve(KernelLauncher.GetLockMasterEntryInNS()).decode() )
-    lm.__class__.__module__ = "salome.kernel.Engines" #43708 for pickling
     naming_service.Register(lm,KernelLauncher.GetLockMasterEntryInNS())
 
 def salome_init_with_session(path=None, embedded=False):

@@ -1280,7 +1280,6 @@ class LogOfCurrentExecutionSession(LogOfCurrentExecutionSessionAbs):
   def __init__(self, handleToCentralizedInst):
     super().__init__()
     self._remote_handle = handleToCentralizedInst
-    self._remote_handle.__class__.__module__ = "salome.kernel.Engines" #43708 for pickling
 
   def addFreestyleAndFlush(self, value):
     self._current_instance.freestyle = value
@@ -1322,7 +1321,6 @@ class PyScriptNode_Abstract_i(Engines__POA.PyScriptNode,Generic,abc.ABC):
     self.code=code
     self.my_container_py = my_container
     self.my_container=my_container._container
-    self.my_container.__class__.__module__ = "salome.kernel.Engines" #43708 for pickling
     linecache.cache[nodeName]=0,None,code.split('\n'),nodeName
     self.ccode=compile(code,nodeName,'exec')
     self.context={}
