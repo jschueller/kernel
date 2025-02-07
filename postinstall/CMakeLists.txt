@@ -29,4 +29,4 @@ include(${CONFIGURATION_ROOT_DIR}/cmake/ConfigureRPathPostEx.cmake)
 # Pass the parent of SALOME_INSTALL_LIBS to process both lib/salome and lib/pythonx.x/site-packages
 configure_rpath_post_install("${SALOME_INSTALL_BINS};${SALOME_INSTALL_LIBS}/..")
 
-patch_omniidl_gen_py_package( ${CMAKE_INSTALL_PREFIX} kernel )
+#patch_omniidl_gen_py_package( ${CMAKE_INSTALL_PREFIX} kernel )
