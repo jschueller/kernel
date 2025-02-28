@@ -123,6 +123,18 @@ def extend_path(pname):
             __path__.append(subdir)
 
 extend_path(ROOT_PYTHONPACKAGE_NAME)
+
+# ==========================================================================
+# the wheel should not require any environment variables to be set
+
+# set KERNEL_ROOT_DIR to the root dir of the salome.kernel module, where we copied the /share directory
+os.environ.setdefault("KERNEL_ROOT_DIR", os.path.dirname(os.path.dirname(__file__)))
+
+# same for PATH, we copied the /bin directory to the root dir of salome.kernel
+os.environ["PATH"] += ":" + os.path.join(os.path.dirname(os.path.dirname(__file__)), "bin", "salome")
+
+# for salomeContext module
+sys.path.append(os.path.join(os.path.dirname(os.path.dirname(__file__)), "bin", "salome"))
 # ==========================================================================
 #
 
