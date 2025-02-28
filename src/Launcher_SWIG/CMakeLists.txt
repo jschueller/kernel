@@ -57,9 +57,9 @@ IF(${MACHINE} STREQUAL WINDOWS)
 ENDIF(${MACHINE} STREQUAL WINDOWS)
 
 IF(WIN32)
-  SWIG_LINK_LIBRARIES(${Launcher_target_name} ${PYTHON_LIBRARIES} ${PLATFORM_LIBS} LauncherWrapHelper_static)
+  SWIG_LINK_LIBRARIES(${Launcher_target_name}  ${PLATFORM_LIBS} LauncherWrapHelper_static)
 ELSE(WIN32)
-  SWIG_LINK_LIBRARIES(${Launcher_target_name} ${PYTHON_LIBRARIES} ${PLATFORM_LIBS} LauncherWrapHelper)
+  SWIG_LINK_LIBRARIES(${Launcher_target_name}  ${PLATFORM_LIBS} LauncherWrapHelper)
 ENDIF(WIN32)
 
 SWIG_CHECK_GENERATION(${Launcher_target_name})
