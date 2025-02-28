@@ -35,7 +35,7 @@ SET(COMMON_LIBS
   SALOMELocalTrace
   SalomeIDLKernel
   SalomeGenericObj
-  ${PYTHON_LIBRARIES}
+  ${PYTHON_LIBRARIES} util
   ${MPI_CXX_LIBRARIES}
 )
 
