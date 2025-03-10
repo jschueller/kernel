@@ -29,8 +29,10 @@ from pathlib import Path
 
 def init(context, root_dir):
     # To launch the tests
-    p = Path( "@SALOME_INSTALL_PYTHON_ABS@" ).parent.parent
-    context.addToPythonPath( f"{p}" )
-    context.addToPath(r"@SALOME_INSTALL_BINS_ABS@")
+    # 
+    p = Path(__file__).parent.parent.parent.absolute()
+    context.addToPythonPath( f'{p.parent.parent / "bin" / "salome"}' )
+    context.addToPath(f"{p}")
+    context.addToLdLibraryPath(f'{p.parent.parent.parent.parent / "salome.kernel.libs"}')
     context.setVariable(r"APPLI", r"@APPLI_ABS@")
     # To prevent the tests failure
