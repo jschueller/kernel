@@ -34,7 +34,7 @@
 def getDftLocOfScripts():
   from pathlib import Path
   p = Path( __file__ )
-  ret = p.parent.parent.parent.parent.parent.parent / "share" / "salome" / "resources" / "kernel" / "ScriptsTemplate"
+  ret = p.parent / "share" / "salome" / "resources" / "kernel" / "ScriptsTemplate"
   return ret.as_posix()
 
 def myContainer():
