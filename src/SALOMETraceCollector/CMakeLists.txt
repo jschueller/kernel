@@ -39,3 +39,7 @@ INSTALL(TARGETS with_loggerTraceCollector EXPORT ${PROJECT_NAME}TargetGroup DEST
 set_target_properties(with_loggerTraceCollector PROPERTIES INSTALL_RPATH "$ORIGIN")
 FILE(GLOB COMMON_HEADERS_HXX "${CMAKE_CURRENT_SOURCE_DIR}/*.hxx")
 INSTALL(FILES ${COMMON_HEADERS_HXX} DESTINATION ${SALOME_INSTALL_HEADERS})
+
+add_executable(dummyexe_loggerTraceCollector dummyexe_loggerTraceCollector.cxx)
+TARGET_LINK_LIBRARIES(dummyexe_loggerTraceCollector with_loggerTraceCollector)
+INSTALL(TARGETS dummyexe_loggerTraceCollector DESTINATION ${SALOME_INSTALL_BINS})
