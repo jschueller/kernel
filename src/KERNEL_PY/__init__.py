@@ -102,6 +102,7 @@ ROOT_PYTHONPACKAGE_NAME="salome"
 import os, sys
 from salome.kernel.salome_utils import verbose
 from salome.kernel import version_and_config
+from pathlib import Path
 
 __version__ = version_and_config.version
 
@@ -128,13 +129,13 @@ extend_path(ROOT_PYTHONPACKAGE_NAME)
 # the wheel should not require any environment variables to be set
 
 # set KERNEL_ROOT_DIR to the root dir of the salome.kernel module, where we copied the /share directory
-os.environ.setdefault("KERNEL_ROOT_DIR", os.path.dirname(os.path.dirname(__file__)))
+os.environ.setdefault("KERNEL_ROOT_DIR", str(Path(__file__).parents[1]))
 
 # same for PATH, we copied the /bin directory to the root dir of salome.kernel
-os.environ["PATH"] += ":" + os.path.join(os.path.dirname(os.path.dirname(__file__)), "bin", "salome")
+os.environ["PATH"] += ":" + str(Path(__file__).parents[1] / "bin" / "salome")
 
 # for salomeContext module
-sys.path.append(os.path.join(os.path.dirname(os.path.dirname(__file__)), "bin", "salome"))
+sys.path.append(str(Path(__file__).parents[1] / "bin" / "salome"))
 # ==========================================================================
 #
 
