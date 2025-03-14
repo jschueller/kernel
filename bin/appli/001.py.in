@@ -35,5 +35,5 @@ def init(context, root_dir):
     context.addToPath(f"{p}")
     context.addToLdLibraryPath(f'{p.parents[2] / "salome.kernel.libs"}')
     context.addToLdLibraryPath(f'{p.parents[2] / "salome.yacs.libs"}')
-    context.setVariable(r"APPLI", r"@APPLI_ABS@")
+    context.setVariable(r"APPLI", f'{p.parents[1] / "bin" / "salome" / "appli" / "salome"}')
     # To prevent the tests failure
