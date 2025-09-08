@@ -26,6 +26,7 @@ Templated script to provide set of environment variables for SALOME:
 """
 
 from pathlib import Path
+import site
 
 def init(context, root_dir):
     # To launch the tests
@@ -37,3 +38,5 @@ def init(context, root_dir):
     context.addToLdLibraryPath(f'{p.parents[2] / "salome.yacs.libs"}')
     context.setVariable(r"APPLI", f'{p.parents[1] / "bin" / "salome" / "appli" / "salome"}')
     # To prevent the tests failure
+    for path in site.getsitepackages():
+        context.addToPythonPath(path)
