@@ -136,6 +136,8 @@ os.environ["PATH"] += ":" + str(Path(__file__).parents[1] / "bin" / "salome")
 
 # for salomeContext module
 sys.path.append(str(Path(__file__).parents[1] / "bin" / "salome"))
+
+os.environ.setdefault("APPLI", str(Path(__file__).parents[2] / "bin" / "salome" / "appli" / "salome"))
 # ==========================================================================
 #
 
